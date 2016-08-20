@@ -40,14 +40,17 @@ public class _if extends Instruction{
             case "if-ge" :
             case "if-gt" :
             case "if-le" :
-                String dataType = "i";
-                if(!firstRegister.getType(globalArguments.dexCodeNumber).equals("I")) {
+                String dataType = firstRegister.getType(globalArguments.dexCodeNumber).toLowerCase();
+                if(dataType.equals("j"))
+                    dataType = "l";
+                if(dataType.equals("b") || dataType.equals("s") || dataType.equals("z") || dataType.equals("c"))
+                    dataType = "i";
+                else if(!dataType.equals("d") || !dataType.equals("l") || !dataType.equals("f"))
                     dataType = "a";
-                }
                 String op = dexCodes[0].substring(dexCodes[0].indexOf("-") + 1, dexCodes[0].length());
                 globalArguments.finalByteCode.add(dataType + "load" + " " + firstRegister.stackNum);
                 globalArguments.finalByteCode.add(dataType + "load" + " " + secondRegister.stackNum);
-                globalArguments.finalByteCode.add(dataType + "f_icmple" + op + " " + dexCodes[3]);
+                globalArguments.finalByteCode.add(dataType + "f_icmp" + op + " " + dexCodes[3]);
                 globalArguments.finalByteCodePC += 3;
                 break;
             case "if-eqz" :

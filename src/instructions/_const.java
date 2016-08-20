@@ -90,6 +90,7 @@ public class _const extends Instruction{
             		default:
             			for(int i=0; i<dexCodes.length;i++){
             				System.err.print(dexCodes[i]+" ");
+            				
             			}
             			break;
             	}
@@ -142,6 +143,8 @@ public class _const extends Instruction{
 		}
 		else if(secondDexCode.get(0).contains("if")){
 			if(secondDexCode.get(0).contains("z")){
+				Register register = globalArguments.registerQueue.getByDexName(secondDexCode.get(1));
+				register.updateType(lineNum, "I");
 	        }
 	        else{
 	            Register firstRegister = globalArguments.registerQueue.getByDexName(secondDexCode.get(1));
@@ -157,7 +160,6 @@ public class _const extends Instruction{
 	            	secondRegister.updateType(lineNum,firstRegister.currentType);
 	            }
 	            else{
-	            	System.err.println("error");
 	            }
 	            
 	        }

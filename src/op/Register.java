@@ -8,6 +8,8 @@ public class Register {
     public int stackNum;
     public String currentType;
     HashMap<Integer, String> typeInCurrentLine = new HashMap<>();
+    //记录寄存器是否是临时变量,不需要保存的
+    public boolean IfTempVar = true;
 
     public Register(String dexName) {
         this.dexName = dexName;
@@ -33,6 +35,10 @@ public class Register {
 
     public String getType(int lineNum) {
         return typeInCurrentLine.get(lineNum);
+    }
+    
+    public void setIfTempVar(){
+    	IfTempVar = false;
     }
 
 }

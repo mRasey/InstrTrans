@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class globalArguments {
     public static RegisterQueue registerQueue = new RegisterQueue();
-    static String smailFilePath = "E:\\MainActivity.smali";
+    static String smailFilePath = "C:\\Users\\Billy\\Desktop\\test\\MainActivity.smali";
     public static ReadFile rf = new ReadFile(smailFilePath);
     public static int LineNumber = 0;   //编号
     

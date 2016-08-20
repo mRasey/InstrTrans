@@ -30,9 +30,6 @@ public class Main {
 		String regex1 = "[p,v]\\d+";
 		String regex2 = ";->";
 		
-		
-//		translation tr = new translation();
-		
 		//每个方法的开始序号
 		int method_begin_number = 0;
 		
@@ -41,13 +38,7 @@ public class Main {
 			if(globalArguments.rf.ifNull()){
 				continue;
 			}
-			instruction = globalArguments.rf.getInstruction();
-			
-//			for(int j=0;j<instruction.size();j++){
-//				System.out.print(instruction.get(j)+" ");
-//			}
-//			System.out.println(" ");
-			
+			instruction = globalArguments.rf.getInstruction();		
 			//方法的开始清空数据
 			if(globalArguments.rf.ifNewMethod()){	
 				globalArguments.clear();
@@ -64,6 +55,18 @@ public class Main {
 					globalArguments.registerQueue.addNewRegister(new Register(instruction.get(1), instruction.get(4), globalArguments.stackNumber++, globalArguments.LineNumber));
 				}
 			}
+			//.local声明的变量为非临时变量
+			else if(instruction.get(0).equals(".local")){
+				Register register = globalArguments.registerQueue.getByDexName(instruction.get(1));
+				if(register == null){
+					globalArguments.registerQueue.addNewRegister(new Register(instruction.get(1), null, globalArguments.stackNumber++));
+					register = globalArguments.registerQueue.getByDexName(instruction.get(1));
+					register.setIfTempVar();
+				}
+				else{
+					register.setIfTempVar();
+				}
+			}
 			//为寄存器分配栈空间
 			else if(globalArguments.rf.ifAnInstruction(instruction.get(0))){
 				i=1;
@@ -78,10 +81,6 @@ public class Main {
 							i++;
 						}
 					}
-					//记录跳转指令信息
-//					if(i<instruction.size() && instruction.get(i).startsWith(":")){
-//						globalArguments.jumpAndTab.put(globalArguments.LineNumber, instruction.get(i));
-//					}
 				}
 			}
 			//方法结束时再统一处理指令
@@ -218,17 +217,17 @@ public class Main {
 
 					}
 					//处理.line
-					else if(instruction.get(0).equals(".line")){
-						int ln = Integer.parseInt(instruction.get(1));
-						//下条是指令
-						if(globalArguments.rf.ifAnInstruction(globalArguments.rf.getInstruction(method_begin_number+1).get(0))){
-							globalArguments.lineToNumber.put(ln, globalArguments.LineNumber+1);
-						}
-						//下条不是指令
-						else{
-							globalArguments.lineToNumber.put(ln, globalArguments.LineNumber+2);
-						}
-					}
+//					else if(instruction.get(0).equals(".line")){
+//						int ln = Integer.parseInt(instruction.get(1));
+//						//下条是指令
+//						if(globalArguments.rf.ifAnInstruction(globalArguments.rf.getInstruction(method_begin_number+1).get(0))){
+//							globalArguments.lineToNumber.put(ln, globalArguments.LineNumber+1);
+//						}
+//						//下条不是指令
+//						else{
+//							globalArguments.lineToNumber.put(ln, globalArguments.LineNumber+2);
+//						}
+//					}
 					method_begin_number++;
 				}
                 
@@ -240,7 +239,11 @@ public class Main {
                     if(globalArguments.rf.ifAnInstruction(instruction.get(0))){
                         new translation(instruction, method_begin_number).translateIns();//翻译指令，把指令编号也传进去
                     }
-                    
+                    //将.line加入到byteCode中
+                    else if(instruction.get(0).equals(".line")){
+                    	globalArguments.finalByteCode.add(instruction.get(0) +" "+ instruction.get(1));
+                		globalArguments.finalByteCodePC++;
+                    }
                     //将标签也导入到byteCode中
                     else if(instruction.get(0).startsWith(":")){
                     	ArrayList<String> nextDexCode = globalArguments.rf.getInstruction(method_begin_number+1);
