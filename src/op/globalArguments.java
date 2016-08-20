@@ -11,6 +11,7 @@ public class globalArguments {
     public static int LineNumber = 0;   //编号
     
     public static output ot = new output();
+    public static translateTable tt = new translateTable();
 
 
     /*		常量池相关变量																	*/
@@ -25,16 +26,16 @@ public class globalArguments {
     public static String methodName = "";
 
 
-    /*		跳转相关变量																	*/
+    	/* 读取翻译后的文件再解决标签问题就不需要再翻译前处理标签了*/														
 
-    //记录跳转指令编号和他跳转的标签
-    public static Map <Integer,String> jumpAndTab = new HashMap<>();
-    //记录标签和他下条指令的编号
-    public static Map <String,Integer> tabAndNextInstr = new HashMap<>();
-    //记录跳转指令编号与他跳转到目的指令的编号
-    public static Map <Integer,Integer> jumpToAim = new HashMap<>();
-    //记录每条dex指令的编号和翻译成class指令后对应的编号
-    public static Map <Integer,Integer> dexToClass = new HashMap<>();
+//    //记录跳转指令编号和他跳转的标签
+//    public static Map <Integer,String> jumpAndTab = new HashMap<>();
+//    //记录标签和他下条指令的编号
+//    public static Map <String,Integer> tabAndNextInstr = new HashMap<>();
+//    //记录跳转指令编号与他跳转到目的指令的编号
+//    public static Map <Integer,Integer> jumpToAim = new HashMap<>();
+//    //记录每条dex指令的编号和翻译成class指令后对应的编号
+//    public static Map <Integer,Integer> dexToClass = new HashMap<>();
     //记录最终写入文件的代码
     public static ArrayList<String> finalByteCode = new ArrayList<>();
     public static int finalByteCodePC = 0;
@@ -65,9 +66,9 @@ public class globalArguments {
 		//清除数组信息
 		arrayData.clear();
 		//清除标签信息
-		jumpAndTab.clear();
-		tabAndNextInstr.clear();
-		jumpToAim.clear();
+//		jumpAndTab.clear();
+//		tabAndNextInstr.clear();
+//		jumpToAim.clear();
 		
     }
 		

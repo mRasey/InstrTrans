@@ -79,9 +79,9 @@ public class Main {
 						}
 					}
 					//记录跳转指令信息
-					if(i<instruction.size() && instruction.get(i).startsWith(":")){
-						globalArguments.jumpAndTab.put(globalArguments.LineNumber, instruction.get(i));
-					}
+//					if(i<instruction.size() && instruction.get(i).startsWith(":")){
+//						globalArguments.jumpAndTab.put(globalArguments.LineNumber, instruction.get(i));
+//					}
 				}
 			}
 			//方法结束时再统一处理指令
@@ -212,9 +212,9 @@ public class Main {
                             }
                             globalArguments.switchData.put(tab, data);
                         }
-						else{
-                            globalArguments.tabAndNextInstr.put(instruction.get(0), globalArguments.LineNumber + 1);
-                        }
+//						else{
+//                            globalArguments.tabAndNextInstr.put(instruction.get(0), globalArguments.LineNumber + 1);
+//                        }
 
 					}
 					//处理.line
@@ -264,8 +264,9 @@ public class Main {
                 }
                 
                 //处理跳转
-                
-                
+                globalArguments.tt.clear();
+                globalArguments.tt.readInf();
+                globalArguments.tt.traTab();
                 //输出
                 globalArguments.ot.print();
                 

@@ -49,7 +49,7 @@ public class _switch extends Instruction {
                     globalArguments.finalByteCode.add(data.hashValue + " " + data.tabName);
                 }
                 globalArguments.finalByteCode.add("default" + " " + defaultTab);
-                globalArguments.finalByteCodePC += switchDataList.size() + 1;
+                globalArguments.finalByteCodePC += switchDataList.size() + 3;
                 break;
 
             case "sparse-switch" :
@@ -66,7 +66,7 @@ public class _switch extends Instruction {
                     globalArguments.finalByteCode.add(data.hashValue + " " + data.tabName);
                 }
                 globalArguments.finalByteCode.add("default" + " " + defaultTab);
-                globalArguments.finalByteCodePC += switchDataList.size() + 1;
+                globalArguments.finalByteCodePC += switchDataList.size() + 3;
                 break;
         }
     }
