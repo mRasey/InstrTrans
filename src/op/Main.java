@@ -174,8 +174,6 @@ public class Main {
 					//处理标签: 和获取数组数据
 					else if(instruction.get(0).startsWith(":")){
 						ArrayList<String> nextDexCode = globalArguments.rf.getInstruction(method_begin_number+1);
-//						System.out.println(instruction.get(0));
-//						System.out.println(nextDexCode.get(0));
 						//处理数组数据
 						if(nextDexCode.get(0).equals(".array-data")){
 							//标签
@@ -240,10 +238,27 @@ public class Main {
                 while(method_begin_number < globalArguments.LineNumber){
                     instruction = globalArguments.rf.getInstruction(method_begin_number);
                     if(globalArguments.rf.ifAnInstruction(instruction.get(0))){
-//                    	System.out.println(instruction.get(0));
-//                    	System.out.println(method_begin_number);
-//                    	System.out.println(globalArguments.rf.getInstruction(method_begin_number+1).get(0));
                         new translation(instruction, method_begin_number).translateIns();//翻译指令，把指令编号也传进去
+                    }
+                    
+                    //将标签也导入到byteCode中
+                    else if(instruction.get(0).startsWith(":")){
+                    	ArrayList<String> nextDexCode = globalArguments.rf.getInstruction(method_begin_number+1);
+                    	//是array表的标签就忽略,是switch表里的标签也忽略
+                    	if(nextDexCode.get(0).equals(".array-data") || nextDexCode.get(0).equals(".packed-switch") || nextDexCode.get(0).equals(".sparse-switch")){
+                    		method_begin_number++;
+                    		nextDexCode = globalArguments.rf.getInstruction(method_begin_number+1);
+                    		while(!nextDexCode.get(0).equals(".end")){
+                    			method_begin_number++;
+                        		nextDexCode = globalArguments.rf.getInstruction(method_begin_number+1);
+                    		}
+                    		method_begin_number++;
+                    	}
+                    	//正常标签加入到byteCode中
+                    	else{
+                    		globalArguments.finalByteCode.add(instruction.get(0));
+                    		globalArguments.finalByteCodePC++;
+                    	}
                     }
                     method_begin_number++;
                 }
@@ -258,8 +273,6 @@ public class Main {
 			
 			globalArguments.LineNumber++;
 		}
-
-        //System.out.println("\n\n\nfinalByteCode.size()  " +  globalArguments.finalByteCode.size());
         
 	}
 }
