@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Instruction {
 
     public void analyze(String[] dexCodes) {
-    	globalArguments.dexToClass.put(globalArguments.dexCodeNumber, globalArguments.finalByteCodePC);
+    	//globalArguments.dexToClass.put(globalArguments.dexCodeNumber, globalArguments.finalByteCodePC);
     }
 
     public boolean ifUpgrade(ArrayList<String> dexCode, int lineNum) {

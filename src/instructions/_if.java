@@ -59,7 +59,7 @@ public class _if extends Instruction{
                 String opz = dexCodes[0].substring(dexCodes[0].indexOf("-") + 1, dexCodes[0].indexOf("-") + 3);
                 globalArguments.finalByteCode.add("iload" + " " + firstRegister.stackNum);
                 globalArguments.finalByteCode.add("if" + opz + " " + dexCodes[2]);
-                globalArguments.finalByteCodePC += 3;
+                globalArguments.finalByteCodePC += 2;
                 break;
         }
     }
