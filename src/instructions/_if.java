@@ -24,15 +24,19 @@ if-testz类型的指令有以下几条：
 “if-lez”：如果vAA小于等于0则跳转。Java语法表示为“if(vAA <= 0)”*/
 public class _if extends Instruction{
 
-
-
     @Override
     public void analyze(String[] dexCodes) {
         super.analyze(dexCodes);
         Register firstRegister = globalArguments.registerQueue.getByDexName(dexCodes[1]);
-        Register secondRegister = null;
-        if(!dexCodes[0].contains("z"))
-            secondRegister = globalArguments.registerQueue.getByDexName(dexCodes[2]);
+
+        String firstDataType = firstRegister.getType(globalArguments.dexCodeNumber).toLowerCase();
+        if(firstDataType.equals("j"))
+            firstDataType = "l";
+        else if(firstDataType.equals("b") || firstDataType.equals("s") || firstDataType.equals("z") || firstDataType.equals("c"))
+            firstDataType = "i";
+        else if(!firstDataType.equals("d") || !firstDataType.equals("f"))
+            firstDataType = "a";
+
         switch (dexCodes[0]) {
             case "if-eq" :
             case "if-ne" :
@@ -40,17 +44,20 @@ public class _if extends Instruction{
             case "if-ge" :
             case "if-gt" :
             case "if-le" :
-                String dataType = firstRegister.getType(globalArguments.dexCodeNumber).toLowerCase();
-                if(dataType.equals("j"))
-                    dataType = "l";
-                if(dataType.equals("b") || dataType.equals("s") || dataType.equals("z") || dataType.equals("c"))
-                    dataType = "i";
-                else if(!dataType.equals("d") || !dataType.equals("l") || !dataType.equals("f"))
-                    dataType = "a";
+                Register secondRegister = globalArguments.registerQueue.getByDexName(dexCodes[2]);
+                String secondDataType = secondRegister.getType(globalArguments.dexCodeNumber).toLowerCase();
+
+                if(secondDataType.equals("j"))
+                    secondDataType = "l";
+                else if(secondDataType.equals("b") || secondDataType.equals("s") || secondDataType.equals("z") || secondDataType.equals("c"))
+                    secondDataType = "i";
+                else if(!(secondDataType.equals("d") || secondDataType.equals("f")))
+                    secondDataType = "a";
+
                 String op = dexCodes[0].substring(dexCodes[0].indexOf("-") + 1, dexCodes[0].length());
-                globalArguments.finalByteCode.add(dataType + "load" + " " + firstRegister.stackNum);
-                globalArguments.finalByteCode.add(dataType + "load" + " " + secondRegister.stackNum);
-                globalArguments.finalByteCode.add(dataType + "f_icmp" + op + " " + dexCodes[3]);
+                globalArguments.finalByteCode.add(firstDataType + "load" + " " + firstRegister.stackNum);
+                globalArguments.finalByteCode.add(secondDataType + "load" + " " + secondRegister.stackNum);
+                globalArguments.finalByteCode.add("if_icmp" + op + " " + dexCodes[3]);
                 globalArguments.finalByteCodePC += 3;
                 break;
             case "if-eqz" :
@@ -60,7 +67,7 @@ public class _if extends Instruction{
             case "if-gtz" :
             case "if-lez" :
                 String opz = dexCodes[0].substring(dexCodes[0].indexOf("-") + 1, dexCodes[0].indexOf("-") + 3);
-                globalArguments.finalByteCode.add("iload" + " " + firstRegister.stackNum);
+                globalArguments.finalByteCode.add(firstDataType + "load" + " " + firstRegister.stackNum);
                 globalArguments.finalByteCode.add("if" + opz + " " + dexCodes[2]);
                 globalArguments.finalByteCodePC += 2;
                 break;
