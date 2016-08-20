@@ -10,6 +10,7 @@ public class _nop extends Instruction {
         switch (dexCodes[0]) {
             case "nop" :
             	globalArguments.finalByteCode.add("nop");
+            	globalArguments.finalByteCodePC++;
                 break;
         }
     }

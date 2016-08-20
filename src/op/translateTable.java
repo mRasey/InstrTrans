@@ -23,11 +23,7 @@ public class translateTable {
 		String [] byteCode;
 		temp = finishedByteCodeNumber;
 		
-		System.out.println(globalArguments.finalByteCodePC);
-		System.out.println(globalArguments.finalByteCode.size());
-		
 		for(;finishedByteCodeNumber<globalArguments.finalByteCodePC;finishedByteCodeNumber++){
-		//for(;finishedByteCodeNumber<globalArguments.finalByteCode.size();finishedByteCodeNumber++){	
 			byteCode = globalArguments.finalByteCode.get(finishedByteCodeNumber).split(" ");
 			if(byteCode[0].startsWith(":")){
 				tabAndNextByteCodePC.put(byteCode[0], finishedByteCodeNumber+1);
@@ -39,7 +35,7 @@ public class translateTable {
 	public void traTab(){
 		String [] byteCode;
 		int length = 0;
-		for(;temp<globalArguments.finalByteCode.size();temp++){
+		for(;temp<globalArguments.finalByteCodePC;temp++){
 			byteCode = globalArguments.finalByteCode.get(temp).split(" ");
 			if(byteCode[0].startsWith(":")){
 				continue;

@@ -263,6 +263,9 @@ public class Main {
                     method_begin_number++;
                 }
                 
+                //指令优化，要放在处理跳转之前
+                
+                
                 //处理跳转
                 globalArguments.tt.clear();
                 globalArguments.tt.readInf();
