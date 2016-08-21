@@ -21,6 +21,10 @@ public class Optimize {
         }
     }
 
+    /**
+     * 初始化分配指令
+     * @return
+     */
     public Optimize dispatchCodes() {
         String code;
         for(int i = 0; i < byteCodes.size(); i++) {
@@ -45,6 +49,10 @@ public class Optimize {
         return this;
     }
 
+    /**
+     * 输出结果
+     * @return
+     */
     public Optimize output() {
         for(int methodIndex = 0; methodIndex < singleMethods.size(); methodIndex++) {
             SingleMethod singleMethod = singleMethods.get(methodIndex);
@@ -58,6 +66,10 @@ public class Optimize {
         return this;
     }
 
+    /**
+     * 处理方法
+     * @return
+     */
     public Optimize deal() {
         for(int i = 0; i < singleMethods.size(); i++) {
             dealSingleMethod(singleMethods.get(i));
@@ -71,13 +83,14 @@ public class Optimize {
      */
     public Optimize dealSingleMethod(SingleMethod singleMethod) {
         for(int i = 0; i < singleMethod.lines.size(); i++) {
-            dealSingleLine(singleMethod.lines.get(i), i);
+            dealSingleLine(singleMethod.lines.get(i), i);//删除多余指令
+            simplifySingleLine(singleMethod.lines.get(i));//简化指令形式
         }
         return this;
     }
 
     /**
-     * 处理单行
+     * 删除多余指令
      * @param singleLine 单独一个方法
      * @param lineNumber 行号
      */
@@ -107,6 +120,32 @@ public class Optimize {
         while(iterator.hasNext()) {
             if(iterator.next().equals(""))
                 iterator.remove();
+        }
+        return this;
+    }
+
+    /**
+     * 简化指令形式，将load 1变成load_1
+     * @param singleLine 单独一行
+     * @return this
+     */
+    public Optimize simplifySingleLine(SingleLine singleLine) {
+        ArrayList<String> byteCodes = singleLine.byteCodes;
+        for(int i = 0; i < byteCodes.size(); i++) {
+            String code = byteCodes.get(i);
+            if(code.split(" ").length == 3 && code.split(" ")[2].length() == 1) {
+                int stackNum = Integer.parseInt(code.split(" ")[2]);
+                String op = code.split(" ")[1];
+                if (0 <= stackNum && stackNum <= 3 && (op.substring(1).equals("load") || op.substring(1).equals("store")))
+                    code = code.substring(0, code.lastIndexOf(" ")) + "_" + stackNum;
+                else if (0 <= stackNum && stackNum <= 5 && op.equals("iconst"))
+                    code = code.substring(0, code.lastIndexOf(" ")) + "_" + stackNum;
+                else if (0 <= stackNum && stackNum <= 2 && op.equals("fconst"))
+                    code = code.substring(0, code.lastIndexOf(" ")) + "_" + stackNum;
+                else if (0 <= stackNum && stackNum <= 1 && op.substring(1).equals("const"))
+                    code = code.substring(0, code.lastIndexOf(" ")) + "_" + stackNum;
+                byteCodes.set(i, code);
+            }
         }
         return this;
     }
