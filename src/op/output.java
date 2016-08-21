@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class output {
-	String byteCodeSavePath = "C:\\Users\\Billy\\Desktop\\test\\result.txt";
+	static String byteCodeSavePath = "C:\\Users\\Billy\\Desktop\\test\\result.txt";
 	
 	int outputTypeCodeNumber = 0;
 	
@@ -20,7 +20,7 @@ public class output {
         for(;outputTypeCodeNumber<globalArguments.finalByteCode.size();outputTypeCodeNumber++) {
         	bw.write(outputTypeCodeNumber+": " + globalArguments.finalByteCode.get(outputTypeCodeNumber) +"\n");
         }
-        bw.write(".end method");
+        bw.write(".end method\n");
         bw.close();
 	}
 	

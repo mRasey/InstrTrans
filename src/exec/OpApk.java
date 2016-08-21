@@ -49,7 +49,7 @@ public class OpApk {
         process.waitFor();
     }
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void op() throws IOException, InterruptedException {
         String apkPath = "C:\\Users\\Billy\\Desktop\\test\\";
         String apkName = "app.apk";
         OpApk opApk = new OpApk();

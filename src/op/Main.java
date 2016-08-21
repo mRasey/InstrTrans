@@ -1,5 +1,6 @@
 package op;
 
+import exec.OpApk;
 import instructions.*;
 
 import java.io.File;
@@ -19,11 +20,10 @@ public class Main {
 	//默认为int
 //	public static Map <String,String> registerType = new HashMap<>();
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, InterruptedException {
 		// TODO Auto-generated method stub
-		
-		
-        
+        new File(output.byteCodeSavePath).delete();//如果原先输出文件存在则删除
+        OpApk.op();//解压缩APK文件获得classes.dex
 
 		ArrayList<String> instruction;
 		

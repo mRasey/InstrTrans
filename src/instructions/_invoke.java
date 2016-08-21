@@ -78,8 +78,10 @@ public class _invoke extends Instruction {
     public ArrayList<String> getRegType(ArrayList<String> dexCode){
         ArrayList<String> regTypes = new ArrayList<>();
         String[] temp = dexCode.get(dexCode.size() - 1).split(";->");
-        regTypes.add(temp[0]);//默认this的类型
         String types = temp[1].substring(temp[1].indexOf("(") + 1, temp[1].indexOf(")") + 1);//括号中参数的类型 example: ILstring;D)
+        if(!dexCode.get(0).contains("static")){
+        	regTypes.add(temp[0]);//默认this的类型
+        }
         while (!types.equals(")")) {
             if (types.startsWith("L")) {
                 regTypes.add(types.substring(0, types.indexOf(";") + 1));
