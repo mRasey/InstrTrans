@@ -2,12 +2,15 @@ package optimize;
 
 import java.util.ArrayList;
 
+import op.globalArguments;
+
 public class SingleLine {
 
     ArrayList<String> byteCodes = new ArrayList<>();
-
-    public SingleLine() {
-
+    int lineNumber;
+    
+    public SingleLine(int n) {
+    	lineNumber = n;
     }
 
     public void addByteCode(String byteCode) {
@@ -16,7 +19,8 @@ public class SingleLine {
 
     public SingleLine print() {
         for(String code : byteCodes) {
-            System.out.println(code);
+        	globalArguments.optimizedByteCode.add(code);
+            globalArguments.optimizedByteCodePC++;
         }
         return this;
     }

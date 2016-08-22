@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class output {
-	static String byteCodeSavePath = "C:\\Users\\Billy\\Desktop\\test\\result.txt";
+	static String byteCodeSavePath = "E:\\result.txt";
 	
 	int outputTypeCodeNumber = 0;
 	
@@ -16,11 +16,9 @@ public class output {
 	public void print() throws IOException{
 		FileWriter fw = new FileWriter(byteCodeFile.getAbsoluteFile(),true);
 		BufferedWriter bw = new BufferedWriter(fw);
-        bw.write(".method "+ globalArguments.methodName +"\n");
-        for(;outputTypeCodeNumber<globalArguments.finalByteCode.size();outputTypeCodeNumber++) {
-        	bw.write(outputTypeCodeNumber+": " + globalArguments.finalByteCode.get(outputTypeCodeNumber) +"\n");
+        for(;outputTypeCodeNumber<globalArguments.traTabByteCodePC;outputTypeCodeNumber++) {
+        	bw.write(outputTypeCodeNumber+": " + globalArguments.traTabByteCode.get(outputTypeCodeNumber) +"\n");
         }
-        bw.write(".end method\n");
         bw.close();
 	}
 	
