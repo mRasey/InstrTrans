@@ -47,7 +47,7 @@ public class _array extends Instruction{
             case "new-array/jumbo" :
             	globalArguments.finalByteCode.add("iload" + " " + secondRegister.stackNum);
             	globalArguments.finalByteCode.add("newarray" + " " + dexCodes[3]);
-            	globalArguments.finalByteCode.add("astore" + firstRegister.stackNum);
+            	globalArguments.finalByteCode.add("astore" + " "+ firstRegister.stackNum);
             	globalArguments.finalByteCodePC += 3;
                 break;
                 

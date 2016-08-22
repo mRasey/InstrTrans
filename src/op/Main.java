@@ -15,15 +15,10 @@ import java.util.ArrayList;
 
 public class Main {
 
-   
-//	public static Map <String,Integer> register = new HashMap<>();
-	//默认为int
-//	public static Map <String,String> registerType = new HashMap<>();
-
 	public static void main(String[] args) throws IOException, InterruptedException {
 		// TODO Auto-generated method stub
         new File(output.byteCodeSavePath).delete();//如果原先输出文件存在则删除
-        OpApk.op();//解压缩APK文件获得classes.dex
+        //OpApk.op();//解压缩APK文件获得classes.dex
 
 		ArrayList<String> instruction;
 		
@@ -44,6 +39,9 @@ public class Main {
 				globalArguments.clear();
 				method_begin_number = globalArguments.LineNumber;
 				globalArguments.methodName = instruction.get(instruction.size()-1);
+				
+				globalArguments.finalByteCode.add(".method"+" "+globalArguments.methodName);
+				globalArguments.finalByteCodePC++;
 			}
 			//记录类名
 			else if(instruction.get(0).equals(".class")){
@@ -211,23 +209,7 @@ public class Main {
                             }
                             globalArguments.switchData.put(tab, data);
                         }
-//						else{
-//                            globalArguments.tabAndNextInstr.put(instruction.get(0), globalArguments.LineNumber + 1);
-//                        }
-
 					}
-					//处理.line
-//					else if(instruction.get(0).equals(".line")){
-//						int ln = Integer.parseInt(instruction.get(1));
-//						//下条是指令
-//						if(globalArguments.rf.ifAnInstruction(globalArguments.rf.getInstruction(method_begin_number+1).get(0))){
-//							globalArguments.lineToNumber.put(ln, globalArguments.LineNumber+1);
-//						}
-//						//下条不是指令
-//						else{
-//							globalArguments.lineToNumber.put(ln, globalArguments.LineNumber+2);
-//						}
-//					}
 					method_begin_number++;
 				}
                 
@@ -263,10 +245,29 @@ public class Main {
                     		globalArguments.finalByteCodePC++;
                     	}
                     }
+                    else if(instruction.get(0).equals(".method")){
+                    	int tempI = method_begin_number;
+                    	ArrayList<String> nextIns = new ArrayList<>();
+                    	nextIns = globalArguments.rf.getInstruction(tempI);
+                    	//下一条不是.line也不是指令
+                    	while(!(nextIns.get(0).equals(".line") || globalArguments.rf.ifAnInstruction(nextIns.get(0)))){
+                    		tempI++;
+                    		nextIns = globalArguments.rf.getInstruction(tempI);
+                    	}
+                    	if(globalArguments.rf.ifAnInstruction(nextIns.get(0))){
+                    		globalArguments.finalByteCode.add(".line -1");
+                    		globalArguments.finalByteCodePC++;
+                    	}
+                    }
+                    
                     method_begin_number++;
                 }
+                globalArguments.finalByteCode.add(".end method");
+				globalArguments.finalByteCodePC++;
+                
                 
                 //指令优化，要放在处理跳转之前
+                globalArguments.op.clear().readInf().dispatchCodes().deal().output();
                 
                 
                 //处理跳转
@@ -280,6 +281,5 @@ public class Main {
 			
 			globalArguments.LineNumber++;
 		}
-        
 	}
 }

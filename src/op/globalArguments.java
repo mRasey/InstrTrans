@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import optimize.Optimize;
+
 public class globalArguments {
     public static RegisterQueue registerQueue = new RegisterQueue();
-    static String smailFilePath = "C:\\Users\\Billy\\Desktop\\test\\MainActivity.smali";
+    static String smailFilePath = "E:\\MainActivity.smali";
     public static ReadFile rf = new ReadFile(smailFilePath);
     public static int LineNumber = 0;   //编号
     
     public static output ot = new output();
     public static translateTable tt = new translateTable();
+    public static Optimize op = new Optimize();
 
 
     /*		常量池相关变量																	*/
@@ -28,17 +31,15 @@ public class globalArguments {
 
     	/* 读取翻译后的文件再解决标签问题就不需要再翻译前处理标签了*/														
 
-//    //记录跳转指令编号和他跳转的标签
-//    public static Map <Integer,String> jumpAndTab = new HashMap<>();
-//    //记录标签和他下条指令的编号
-//    public static Map <String,Integer> tabAndNextInstr = new HashMap<>();
-//    //记录跳转指令编号与他跳转到目的指令的编号
-//    public static Map <Integer,Integer> jumpToAim = new HashMap<>();
-//    //记录每条dex指令的编号和翻译成class指令后对应的编号
-//    public static Map <Integer,Integer> dexToClass = new HashMap<>();
-    //记录最终写入文件的代码
+    //记录翻译得到的代码
     public static ArrayList<String> finalByteCode = new ArrayList<>();
     public static int finalByteCodePC = 0;
+    //优化后的代码
+    public static ArrayList<String> optimizedByteCode = new ArrayList<>();
+    public static int optimizedByteCodePC = 0;
+    //标签转化后的代码
+    public static ArrayList<String> traTabByteCode = new ArrayList<>();
+    public static int traTabByteCodePC = 0;
 
     //linenember -> dex code number
     public static Map <Integer,Integer> lineToNumber = new HashMap<>();
@@ -65,10 +66,6 @@ public class globalArguments {
 		registerQueue.addNewRegister(new Register("p0", "this", globalArguments.stackNumber++));
 		//清除数组信息
 		arrayData.clear();
-		//清除标签信息
-//		jumpAndTab.clear();
-//		tabAndNextInstr.clear();
-//		jumpToAim.clear();
 		
     }
 		

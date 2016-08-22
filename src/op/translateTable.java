@@ -23,8 +23,8 @@ public class translateTable {
 		String [] byteCode;
 		temp = finishedByteCodeNumber;
 		
-		for(;finishedByteCodeNumber<globalArguments.finalByteCodePC;finishedByteCodeNumber++){
-			byteCode = globalArguments.finalByteCode.get(finishedByteCodeNumber).split(" ");
+		for(;finishedByteCodeNumber<globalArguments.optimizedByteCodePC;finishedByteCodeNumber++){
+			byteCode = globalArguments.optimizedByteCode.get(finishedByteCodeNumber).split(" ");
 			if(byteCode[0].startsWith(":")){
 				tabAndNextByteCodePC.put(byteCode[0], finishedByteCodeNumber+1);
 			}
@@ -35,8 +35,11 @@ public class translateTable {
 	public void traTab(){
 		String [] byteCode;
 		int length = 0;
-		for(;temp<globalArguments.finalByteCodePC;temp++){
-			byteCode = globalArguments.finalByteCode.get(temp).split(" ");
+		for(;temp<globalArguments.optimizedByteCodePC;temp++){
+			globalArguments.traTabByteCode.add(globalArguments.optimizedByteCode.get(temp));
+			globalArguments.traTabByteCodePC++;
+			
+			byteCode = globalArguments.optimizedByteCode.get(temp).split(" ");
 			if(byteCode[0].startsWith(":")){
 				continue;
 			}
@@ -50,11 +53,9 @@ public class translateTable {
 						newByteCode+=byteCode[i]+" ";
 					}
 					newByteCode+=byteCode[i];
-					globalArguments.finalByteCode.set(temp, newByteCode);
+					globalArguments.traTabByteCode.set(temp, newByteCode);
 				}
 			}
 		}
 	}
-	
-
 }
