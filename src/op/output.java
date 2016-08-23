@@ -16,6 +16,11 @@ public class output {
 	public void print() throws IOException{
 		FileWriter fw = new FileWriter(byteCodeFile.getAbsoluteFile(),true);
 		BufferedWriter bw = new BufferedWriter(fw);
+		
+		for(int i=1;i<globalArguments.const_id;i++){
+			bw.write("#"+i+" = "+globalArguments.const_id_type.get(i) +" "+globalArguments.const_id_value.get(i)+"\n");
+		}
+		bw.write("\n");
         for(;outputTypeCodeNumber<globalArguments.traTabByteCodePC;outputTypeCodeNumber++) {
         	bw.write(outputTypeCodeNumber+": " + globalArguments.traTabByteCode.get(outputTypeCodeNumber) +"\n");
         }
