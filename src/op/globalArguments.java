@@ -15,6 +15,7 @@ public class globalArguments {
     public static output ot = new output();
     public static translateTable tt = new translateTable();
     public static Optimize op = new Optimize();
+    public static constantPool cp = new constantPool();
 
 
     /*		常量池相关变量																	*/
@@ -57,6 +58,13 @@ public class globalArguments {
     public static HashMap<String, ArrayList<SwitchData>> switchData = new HashMap<>();
     //default编号
     public static int switchDefaultIndex = 0;
+    
+    
+    //常量池
+    public static Map<Integer, String> const_id_type = new HashMap<>();
+	public static Map<Integer, String> const_id_value = new HashMap<>();
+    public static int const_id = 1;
+    
     
     
     public static void clear(){

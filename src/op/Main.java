@@ -274,12 +274,18 @@ public class Main {
                 globalArguments.tt.clear();
                 globalArguments.tt.readInf();
                 globalArguments.tt.traTab();
-                //输出
-                globalArguments.ot.print();
+                
+                
+                
+                
                 
 			}
 			
 			globalArguments.LineNumber++;
 		}
+		//处理常量池
+        globalArguments.cp.strConstPool();
+		//输出
+		globalArguments.ot.print();
 	}
 }
