@@ -109,9 +109,23 @@ public class constantPool {
 			newCode =  byteCodes[0]+" "+"#"+ getKey(globalArguments.const_id_value, "#"+id_1+"."+"#"+id_2);
 		}
 		else{
+<<<<<<< HEAD
+			if(byteCodes[0].equals("invokeinterface")){
+				globalArguments.const_id_type.put(globalArguments.const_id, "InterfaceMethodref");
+				globalArguments.const_id_value.put(globalArguments.const_id, "#"+id_1+"."+"#"+id_2);
+				globalArguments.const_id++;
+			}
+			else{
+				globalArguments.const_id_type.put(globalArguments.const_id, "Methodref");
+				globalArguments.const_id_value.put(globalArguments.const_id, "#"+id_1+"."+"#"+id_2);
+				globalArguments.const_id++;
+			}
+			
+=======
 			globalArguments.const_id_type.put(globalArguments.const_id, "Methodref");
 			globalArguments.const_id_value.put(globalArguments.const_id, "#"+id_1+"."+"#"+id_2);
 			globalArguments.const_id++;
+>>>>>>> origin/master
 			newCode =  byteCodes[0]+" "+"#"+ (globalArguments.const_id-1);
 		}
 		return newCode;
