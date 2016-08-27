@@ -24,4 +24,13 @@ public class u4 {
     public int get() {
         return u4;
     }
+
+    @Override
+    public String toString() {
+        String result = Integer.toHexString(u4);
+        while(result.length() != 8) {
+            result = "0" + result;
+        }
+        return result;
+    }
 }

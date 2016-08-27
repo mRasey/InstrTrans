@@ -21,4 +21,40 @@ public class ClassFile {
     public ClassFile() {
 
     }
+
+    @Override
+    public String toString() {
+        String constant_pool_string = "";
+        for(int i = 0; i < constant_pool_count.get(); i++)
+            constant_pool_string += constant_pool[i].toString();
+        String interfaces_string = "";
+        for(int i = 0; i < interfaces_count.get(); i++)
+            interfaces_string += interfaces[i].toString();
+        String fields_string = "";
+        for(int i = 0; i < fields_count.get(); i++)
+            fields_string += fields[i].toString();
+        String methods_string = "";
+        for(int i = 0; i < method_count.get(); i++) {
+            methods_string += methods[i].toString();
+        }
+        String attributes_string = "";
+        for(int i = 0; i < attributes_count.get(); i++)
+            attributes_string += attributes[i].toString();
+        return magic.toString()
+                + minor_version.toString()
+                + major_version.toString()
+                + constant_pool_count.toString()
+                + constant_pool_string
+                + access_flags.toString()
+                + this_class.toString()
+                + super_class.toString()
+                + interfaces_count.toString()
+                + interfaces_string
+                + fields_count.toString()
+                + fields_string
+                + method_count.toString()
+                + methods_string
+                + attributes_count.toString()
+                + attributes_string;
+    }
 }

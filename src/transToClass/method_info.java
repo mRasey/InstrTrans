@@ -6,4 +6,16 @@ public class method_info {
     u2 descriptor_index = new u2();
     u2 attributes_count = new u2();
     attribute_info[] attributes = new attribute_info[attributes_count.get() - 1];
+
+    @Override
+    public String toString() {
+        String attributes_string = "";
+        for(int i = 0; i < attributes_count.get(); i++)
+            attributes_string += attributes[i].toString();
+        return access_flags.toString()
+                + name_index.toString()
+                + descriptor_index.toString()
+                + attributes_count.toString()
+                + attributes_string;
+    }
 }

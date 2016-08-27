@@ -13,4 +13,12 @@ public class u2 {
     public short get() {
         return u2;
     }
+
+    @Override
+    public String toString() {
+        String result = Integer.toHexString(u2);
+        while(result.length() < 4)
+            result = "0" + result;
+        return result;
+    }
 }
