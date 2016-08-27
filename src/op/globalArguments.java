@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import optimize.Optimize;
+import optimize.replaceLdc;
 
 public class globalArguments {
     public static RegisterQueue registerQueue = new RegisterQueue();
@@ -16,6 +17,7 @@ public class globalArguments {
     public static translateTable tt = new translateTable();
     public static Optimize op = new Optimize();
     public static constantPool cp = new constantPool();
+    public static replaceLdc rl = new replaceLdc();
 
 
     /*		常量池相关变量																	*/

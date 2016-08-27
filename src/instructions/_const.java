@@ -94,6 +94,7 @@ public class _const extends Instruction{
             			}
             			break;
             	}
+            	break;
             	
             case "const-string" :
             case "const-string/jumbo" :
