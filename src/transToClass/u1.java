@@ -12,8 +12,6 @@ public class u1 {
     }
 
     public void set(byte u1) {
-        if(u1 < 0)
-            throw new UnsignedError();
         this.u1 = u1;
     }
 
