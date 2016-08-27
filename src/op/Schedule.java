@@ -285,14 +285,12 @@ public class Schedule {
                 globalArguments.tt.readInf();
                 globalArguments.tt.traTab();
                 
-                
-                
-                
-                
 			}
 			
 			globalArguments.LineNumber++;
 		}
+		//优化ldc指令
+		globalArguments.rl.replace();
 		//处理常量池
         globalArguments.cp.strConstPool();
 		//输出
