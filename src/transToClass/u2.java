@@ -4,9 +4,16 @@ public class u2 {
 
     short u2;
 
-    public void set(short u2) {
-        if(u2 < 0)
-            throw new UnsignedError();
+    public u2(){
+    	
+    }
+    
+    
+    public u2(short temp) {
+    	this.u2 = u2;
+	}
+
+	public void set(short u2) {
         this.u2 = u2;
     }
 
