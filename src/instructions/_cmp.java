@@ -28,14 +28,6 @@ public class _cmp extends Instruction {
         globalArguments.finalByteCode.add(dataType + opType);
         globalArguments.finalByteCode.add("istore" + " " + firstRegister.stackNum);
         globalArguments.finalByteCodePC += 4;
-
-        /*switch (dexCodes[0]) {
-            case "cmpl-float" :
-            case "cmpl-double" :
-            case "cmpg-float" :
-            case "cmpg-double" :
-            case "cmp-long" :
-        }*/
     }
 
     @Override
