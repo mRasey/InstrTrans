@@ -56,6 +56,10 @@ public class Schedule {
 			//记录类名
 			else if(instruction.get(0).equals(".class")){
 				globalArguments.className = instruction.get(instruction.size()-1);
+				globalArguments.classProPerty = instruction.get(instruction.size()-2);
+			}
+			else if(instruction.get(0).equals(".super")){
+				globalArguments.superClassName = instruction.get(instruction.size()-1);
 			}
 			//记录寄存器类型
 			else if(instruction.get(0).equals(".param")){

@@ -12,6 +12,15 @@ public class ConstantPool {
 	public int insNum = 0;
 
 	public void strConstPool() {
+		
+		globalArguments.const_id_type.put(globalArguments.const_id, "Class");
+		globalArguments.const_id_value.put(globalArguments.const_id, globalArguments.className.substring(1, globalArguments.className.length()-1));
+		globalArguments.const_id++;
+		globalArguments.const_id_type.put(globalArguments.const_id, "Class");
+		globalArguments.const_id_value.put(globalArguments.const_id, globalArguments.superClassName.substring(1, globalArguments.className.length()-1));
+		globalArguments.const_id++;
+		
+		
 		String code;
 		String[] byteCodes;
 		for (; insNum < globalArguments.traTabByteCodePC; insNum++) {
