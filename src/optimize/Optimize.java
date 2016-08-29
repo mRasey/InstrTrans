@@ -149,6 +149,7 @@ public class Optimize {
                     code = code.substring(0, code.lastIndexOf(" ")) + "_" + stackNum;
                 else if (0 <= stackNum && stackNum <= 1 && op.substring(1).equals("const"))
                     code = code.substring(0, code.lastIndexOf(" ")) + "_" + stackNum;
+                code = code.substring(code.indexOf(" ") + 1);
                 System.out.println(code);
                 byteCodes.set(i, code);
             }
