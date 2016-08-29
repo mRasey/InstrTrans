@@ -22,15 +22,9 @@ public class globalArguments {
     public static CompleteData cd = new CompleteData();
 
 
-    /*		常量池相关变量																	*/
-    public static int constNumber = 1;
-    //各个小字符串对应的编号
-    //static Map <String,Integer> constants = new HashMap<String,Integer>();
-    //完整字符串对应的编号
-    public static Map <String,Integer> constants = new HashMap<>();
-    public static Map <String,String> constantsType = new HashMap<>();
-
     public static String className = "";
+    public static String superClassName = "";
+    public static String classProPerty = "";
     public static String methodName = "";
 
 
