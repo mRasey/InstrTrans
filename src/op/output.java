@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class output {
+public class Output {
 	static String byteCodeSavePath = "res/result.txt";
 	
 	int outputTypeCodeNumber = 0;

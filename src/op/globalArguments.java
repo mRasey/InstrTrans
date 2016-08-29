@@ -1,12 +1,12 @@
 package op;
 
+import optimize.CompleteData;
+import optimize.Optimize;
+import optimize.ReplaceLdc;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import optimize.Optimize;
-import optimize.completeData;
-import optimize.replaceLdc;
 
 public class globalArguments {
     public static RegisterQueue registerQueue = new RegisterQueue();
@@ -14,12 +14,12 @@ public class globalArguments {
     public static ReadFile rf = new ReadFile(smailFilePath);
     public static int LineNumber = 0;   //编号
     
-    public static output ot = new output();
-    public static translateTable tt = new translateTable();
+    public static Output ot = new Output();
+    public static TranslateTable tt = new TranslateTable();
     public static Optimize op = new Optimize();
-    public static constantPool cp = new constantPool();
-    public static replaceLdc rl = new replaceLdc();
-    public static completeData cd = new completeData();
+    public static ConstantPool cp = new ConstantPool();
+    public static ReplaceLdc rl = new ReplaceLdc();
+    public static CompleteData cd = new CompleteData();
 
 
     /*		常量池相关变量																	*/

@@ -9,7 +9,7 @@ import op.globalArguments;
  * smail里面float的负号  取反加1就是正确的16进制
  * */
 
-public class completeData {
+public class CompleteData {
 
 	public void complete(){
 		int i = 0;

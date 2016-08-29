@@ -6,7 +6,7 @@ import op.globalArguments;
  * 没有考虑float、long、double为负数的情况
  * */
 
-public class replaceLdc {
+public class ReplaceLdc {
 	/*
 	 * ldc "asdas"  这种字符串赋值参数是以双引号开始的
 	 * 字符串的双引号是在提取常量池时去掉的

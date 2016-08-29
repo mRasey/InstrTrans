@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 //每翻译完一个方法的指令调用一次，因为标签名可能会重名
-public class translateTable {
+public class TranslateTable {
 	
 	//记录每条标签和他下条byte指令
 	public  Map <String,Integer> tabAndNextByteCodePC = new HashMap<>();

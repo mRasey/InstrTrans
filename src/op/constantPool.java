@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 //push不放进常量池
-public class constantPool {
+public class ConstantPool {
 
 	// 编号 #n -> 类型
 	// 所有的东西都是先用Utf8存的，然后合并为具体的类型Class,NameAndType,Fieldref,Methodref,InterfaceMethodref,Long,Float,Double,String

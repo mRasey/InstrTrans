@@ -19,14 +19,13 @@ public class Optimize {
     	singleMethod = null;
     	return this;
 	}
+
     public Optimize readInf(){		
-		for(;finishedByteCodeNumber<globalArguments.finalByteCodePC;finishedByteCodeNumber++){
+		for( ; finishedByteCodeNumber<globalArguments.finalByteCodePC; finishedByteCodeNumber++){
 			byteCodes.add(globalArguments.finalByteCode.get(finishedByteCodeNumber));
 		}
 		return this;
 	}
-    
-    
     
     /**
      * 初始化分配指令
@@ -134,9 +133,11 @@ public class Optimize {
      * @return this
      */
     public Optimize simplifySingleLine(SingleLine singleLine) {
+        System.out.println(singleLine.byteCodes.get(0));
         ArrayList<String> byteCodes = singleLine.byteCodes;
         for(int i = 0; i < byteCodes.size(); i++) {
             String code = byteCodes.get(i);
+            code = "assist: " + code;
             if(code.split(" ").length == 3 && code.split(" ")[2].length() == 1) {
                 int stackNum = Integer.parseInt(code.split(" ")[2]);
                 String op = code.split(" ")[1];
@@ -148,9 +149,18 @@ public class Optimize {
                     code = code.substring(0, code.lastIndexOf(" ")) + "_" + stackNum;
                 else if (0 <= stackNum && stackNum <= 1 && op.substring(1).equals("const"))
                     code = code.substring(0, code.lastIndexOf(" ")) + "_" + stackNum;
+                System.out.println(code);
                 byteCodes.set(i, code);
             }
         }
+        return this;
+    }
+
+    /**
+     * 根据指令的大小改变指令之前的编号
+     */
+    public Optimize rebuildSerialNumber(SingleMethod singleMethod) {
+        int index = 0;
         return this;
     }
 }

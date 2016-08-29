@@ -28,7 +28,7 @@ import instructions._throw;
 public class Schedule {
 
 	public void run() throws IOException, InterruptedException{
-        new File(output.byteCodeSavePath).delete();//如果原先输出文件存在则删除
+        new File(Output.byteCodeSavePath).delete();//如果原先输出文件存在则删除
 
 		ArrayList<String> instruction;
 		
@@ -229,7 +229,7 @@ public class Schedule {
                 while(method_begin_number < globalArguments.LineNumber){
                     instruction = globalArguments.rf.getInstruction(method_begin_number);
                     if(globalArguments.rf.ifAnInstruction(instruction.get(0))){
-                        new translation(instruction, method_begin_number).translateIns();//翻译指令，把指令编号也传进去
+                        new Translation(instruction, method_begin_number).translateIns();//翻译指令，把指令编号也传进去
                     }
                     //将.line加入到byteCode中
                     else if(instruction.get(0).equals(".line")){

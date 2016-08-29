@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *每个方法调用指令翻译时都得先用aload_0将this放入操作栈中
  * 
  * */
-public class translation {
+public class Translation {
 	//存放指令的信息
 	ArrayList<String> instruction; 
 	
@@ -18,7 +18,7 @@ public class translation {
 	//java字节码指令编号
 	int classCodeNumber = 0;
 
-    public translation(ArrayList<String> instruction, int dexCodeNumber) {
+    public Translation(ArrayList<String> instruction, int dexCodeNumber) {
         this.instruction = instruction;
         globalArguments.dexCodeNumber = dexCodeNumber;
         dexCodes = instruction.toArray(new String[instruction.size()]);
