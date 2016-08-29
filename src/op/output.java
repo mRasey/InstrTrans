@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class output {
-	static String byteCodeSavePath = "C:\\Users\\Billy\\Desktop\\test\\result.txt";
+	static String byteCodeSavePath = "res/result.txt";
 	
 	int outputTypeCodeNumber = 0;
 	

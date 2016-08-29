@@ -86,7 +86,7 @@ public class ClassFile {
     }
 
     public void readByteCodeFile(){
-    	String byteCodeFilePath = "C:\\Users\\Billy\\Desktop\\test\\result.txt";
+    	String byteCodeFilePath = "res/result.txt";
     	File file = new File(byteCodeFilePath);
     	FileInputStream fis = null;
     	InputStreamReader isr = null;

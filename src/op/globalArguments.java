@@ -10,7 +10,7 @@ import optimize.replaceLdc;
 
 public class globalArguments {
     public static RegisterQueue registerQueue = new RegisterQueue();
-    static String smailFilePath = "C:\\Users\\Billy\\Desktop\\test\\MainActivity.smali";
+    static String smailFilePath = "res/MainActivity.smali";
     public static ReadFile rf = new ReadFile(smailFilePath);
     public static int LineNumber = 0;   //编号
     
