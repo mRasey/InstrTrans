@@ -133,7 +133,7 @@ public class Optimize {
      * @return this
      */
     public Optimize simplifySingleLine(SingleLine singleLine) {
-        System.out.println(singleLine.byteCodes.get(0));
+//        System.out.println(singleLine.byteCodes.get(0));
         ArrayList<String> byteCodes = singleLine.byteCodes;
         for(int i = 0; i < byteCodes.size(); i++) {
             String code = byteCodes.get(i);
