@@ -2,6 +2,10 @@ package optimize;
 
 import op.globalArguments;
 
+/*	
+ * 没有考虑float、long、double为负数的情况
+ * */
+
 public class replaceLdc {
 	/*
 	 * ldc "asdas"  这种字符串赋值参数是以双引号开始的
@@ -12,15 +16,19 @@ public class replaceLdc {
 		String[] byteCode;
 		for(i=0;i<globalArguments.traTabByteCodePC;i++){
 			byteCode = globalArguments.traTabByteCode.get(i).split(" ");
-			System.out.println(globalArguments.traTabByteCode.get(i));
 			if(byteCode[0].equals("ldc")){
 				//不考虑字符串赋值
 				if(!byteCode[1].startsWith("\"")){
+					//不考虑float的情况
 					if(byteCode[1].startsWith("0x")){
-						globalArguments.traTabByteCode.set(i, Hex_data(byteCode[1].substring(2)));
+						if(byteCode[1].charAt(byteCode[1].length()-1) != 'F'){
+							globalArguments.traTabByteCode.set(i, Hex_data(byteCode[1].substring(2)));
+						}
 					}
 					else if(byteCode[1].startsWith("-0x")){
-						globalArguments.traTabByteCode.set(i, neg_Hex_data(byteCode[1].substring(3)));
+						if(byteCode[1].charAt(byteCode[1].length()-1) != 'F'){
+							globalArguments.traTabByteCode.set(i, neg_Hex_data(byteCode[1].substring(3)));
+						}
 					}
 					else{
 						globalArguments.traTabByteCode.set(i, Dec_data(byteCode[1]));
@@ -32,7 +40,7 @@ public class replaceLdc {
 	
 	public String Dec_data(String data){
 		String new_code="";
-		System.out.println(data);
+		//System.out.println(data);
 		int n = Integer.parseInt(data);
 		if(n >= 0 && n <=127){
 			String byte_str = Integer.toHexString(n);
@@ -133,7 +141,7 @@ public class replaceLdc {
 	          
 	        int sum=0;  
 	        int n=0;  
-	        System.out.println(str);
+	        //System.out.println(str);
 	        for(int i=0;i<str.length();i++){  
 	            char c=str.charAt(str.length()-1-i);  
 	            if(c>='a'&&c<='f'||c>='A'&&c<='F'){  

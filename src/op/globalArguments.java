@@ -5,11 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import optimize.Optimize;
+import optimize.completeData;
 import optimize.replaceLdc;
 
 public class globalArguments {
     public static RegisterQueue registerQueue = new RegisterQueue();
-    static String smailFilePath = "E:\\MainActivity.smali";
+    static String smailFilePath = "C:\\Users\\Billy\\Desktop\\test\\MainActivity.smali";
     public static ReadFile rf = new ReadFile(smailFilePath);
     public static int LineNumber = 0;   //编号
     
@@ -18,6 +19,7 @@ public class globalArguments {
     public static Optimize op = new Optimize();
     public static constantPool cp = new constantPool();
     public static replaceLdc rl = new replaceLdc();
+    public static completeData cd = new completeData();
 
 
     /*		常量池相关变量																	*/

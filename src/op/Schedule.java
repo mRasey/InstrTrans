@@ -291,6 +291,7 @@ public class Schedule {
 		}
 		//优化ldc指令
 		globalArguments.rl.replace();
+		globalArguments.cd.complete();
 		//处理常量池
         globalArguments.cp.strConstPool();
 		//输出

@@ -42,6 +42,8 @@ public class constantPool {
 
 	public String _ldc(String[] byteCodes){
 		String newCode = new String();
+		System.out.print(byteCodes[0]+" ");
+		System.out.println(byteCodes[1]);
 		String value = byteCodes[1].replace("\"", "");
 		if(globalArguments.const_id_value.containsValue(value)){
 			newCode = byteCodes[0]+" "+"#"+ getKey(globalArguments.const_id_value, value);

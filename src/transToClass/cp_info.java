@@ -15,32 +15,22 @@ public class cp_info {
     	data = str.split(" ");
     	
     	//填充数据
-    	//Float,Long,Double,Integer翻译的方式都不一样，不过dexCode里是直接翻译好的，我们正好可以直接用。
+    	//0x...
     	if(data[3].startsWith("0x")){
     		int len = data[3].length();
     		//8位
     		if(data[3].charAt(len-1) == 'L'){
     			info+=data[3].substring(2,len-1);
     		}
-//    		//4位
-//    		else if(data[3].charAt(len-1) == 'F'){
-//    			
-//    		}
-//    		//8位
-//    		else if(data[3].charAt(len-1) == 'D'){
-//    			
-//    		}
-//    		//Integer用4位
-//    		else{
-//    			int temp = toInt(data[3].substring(2,len));
-//    			u4 num = new u4( temp);
-//    			info+=num.toString();
-//    		}
+    		else if(data[3].charAt(len-1) == 'F'){
+    			info+=data[3].substring(2,len-1);
+    		}
     		else{
     			info+=data[3].substring(2);
     		}
 			
 		}
+    	//#3:#4
 		else if(data[3].startsWith("#")){
 			char[] c = data[3].toCharArray();
 			int temp = 0;
@@ -56,6 +46,7 @@ public class cp_info {
 				}
 			}
 		}
+    	//字符串数据: asda
 		else{
 			u2 len = new u2((short) data[3].length());
 			info+=len.toString();

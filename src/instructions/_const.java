@@ -48,7 +48,7 @@ public class _const extends Instruction{
             			globalArguments.finalByteCodePC += 2;
             			break;
             		case "F":
-            			globalArguments.finalByteCode.add("ldc"+" "+dexCodes[2]);
+            			globalArguments.finalByteCode.add("ldc"+" "+dexCodes[2]+"F");
             			globalArguments.finalByteCode.add("fstore" + " " + firstRegister.stackNum);
             			globalArguments.finalByteCodePC += 2;
             			break;
@@ -78,11 +78,17 @@ public class _const extends Instruction{
             case "const-wide/high16" :
             	switch(dataType){
             		case "J":
+            			if(dexCodes[2].charAt(dexCodes[2].length()-1) != 'L'){
+            				dexCodes[2]+='L';
+            			}
             			globalArguments.finalByteCode.add("ldc2_w"+" "+dexCodes[2]);
             			globalArguments.finalByteCode.add("lstore" + " " + firstRegister.stackNum);
             			globalArguments.finalByteCodePC += 2;
             			break;
             		case "D":
+            			if(dexCodes[2].charAt(dexCodes[2].length()-1) != 'L'){
+            				dexCodes[2]+='L';
+            			}
             			globalArguments.finalByteCode.add("ldc2_w"+" "+dexCodes[2]);
             			globalArguments.finalByteCode.add("dstore" + " " + firstRegister.stackNum);
             			globalArguments.finalByteCodePC += 2;
