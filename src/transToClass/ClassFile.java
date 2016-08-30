@@ -30,7 +30,6 @@ public class ClassFile {
     attribute_info[] attributes;// 属性表
     
     ArrayList<String> byteCodeData = new ArrayList<>();
-    acc_flags af = new acc_flags();
     
     public ClassFile() {
     	readByteCodeFile();
@@ -40,7 +39,7 @@ public class ClassFile {
     	constant_pool_count.set((short) globalArguments.const_id);
     	constant_pool = new cp_info[constant_pool_count.get() - 1];
     	fill_constant_pool();
-    	access_flags = af.set_access_flags();
+    	access_flags = set_access_flags();
     	this_class.set((short) 1);
     	super_class.set((short) 2);
     	interfaces_count.set((short) globalArguments.inter_count);
@@ -142,5 +141,59 @@ public class ClassFile {
 			fields[i].set_info(i);
 		}
 	}
+	
+	public String set_access_flags(){
+		 String acc_flag = "0020";
+		 char[] bstr = "0000000000100000".toCharArray();
+		 int i = 0;
+		 for(i=0;i<globalArguments.classProPerty.size();i++){
+			 switch(globalArguments.classProPerty.get(i)){
+	    		case "public":
+	    			bstr[15]='1';
+	    			break;
+	    		case "final":
+	    			bstr[11]='1';
+	    			break;
+	    		case "super":
+	    			bstr[10]='1';
+	    			break;
+	    		case "interface":
+	    			bstr[6]='1';
+	    			break;
+	    		case "abstact":
+	    			bstr[5]='1';
+	    			break;
+	    		case "synthetic":
+	    			bstr[3]='1';
+	    			break;
+	    		case "annotation":
+	    			bstr[2]='1';
+	    			break;
+	    		case "enum":
+	    			bstr[1]='1';
+	    			break;
+	    		default:
+	    			System.out.println("error in acc_flags/set_access_flags");
+	    			break;
+	    	}
+		 }
+		 
+		StringBuffer htmp = new StringBuffer(); 
+		String temp = "";
+	    for(i=0;i<16;i++){
+	    	temp+=bstr[i];
+	    }
+	    int iTmp = 0;  
+		for (i = 0; i < temp.length(); i += 4) {
+			iTmp = 0;
+			for (int j = 0; j < 4; j++) {
+				iTmp += Integer.parseInt(temp.substring(i + j, i + j + 1)) << (4 - j - 1);
+			}
+			htmp.append(Integer.toHexString(iTmp));
+		}
+	    acc_flag=htmp.toString();
+		 
+	    return acc_flag;
+	   }
 
 }
