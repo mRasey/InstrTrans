@@ -77,6 +77,9 @@ public class globalArguments {
     public static ArrayList<Integer> method_reg_number = new ArrayList<Integer>();
     public static ArrayList<Integer> methodName_conpool_number = new ArrayList<Integer>();
     public static ArrayList<Integer> methodType_conpool_number = new ArrayList<Integer>();
+
+    public static HashMap<String, String> instrToHex = new HashMap<>();
+    public static HashMap<String, Integer> instrSizes = new HashMap<>();
     
     public static void clear(){
     	//清除寄存器信息
