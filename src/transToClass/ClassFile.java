@@ -46,7 +46,8 @@ public class ClassFile {
     	fill_interfaces();
     	fields_count.set((short) globalArguments.field_count);
     	fill_fields();
-
+    	method_count.set((short) globalArguments.method_count);
+    	fill_methods();
     }
 
     @Override
@@ -85,6 +86,7 @@ public class ClassFile {
                 + attributes_string;
     }
 
+    
     public void readByteCodeFile(){
     	String byteCodeFilePath = "res/result.txt";
     	File file = new File(byteCodeFilePath);
@@ -136,11 +138,21 @@ public class ClassFile {
 	}
 
 	public void fill_fields(){
+		fields = new field_info[globalArguments.field_count];
 		int i = 0;
 		for(i=0;i<globalArguments.field_count;i++){
 			fields[i].set_info(i);
 		}
 	}
+	
+	public void fill_methods(){
+		methods = new method_info[globalArguments.method_count];
+		int i = 0;
+		for(i=0;i<globalArguments.method_count;i++){
+			 methods[i].set_info(i);
+		}
+	}
+	
 	
 	public String set_access_flags(){
 		 String acc_flag = "0020";

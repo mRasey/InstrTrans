@@ -30,12 +30,10 @@ public class Schedule {
 				globalArguments.clear();
 				method_begin_number = globalArguments.LineNumber;
 				globalArguments.methodName = instruction.get(instruction.size()-1);
-				
 				globalArguments.finalByteCode.add(".method"+" "+globalArguments.methodName);
 				globalArguments.finalByteCodePC++;
 				
-				globalArguments.method_name.add(globalArguments.methodName.split("\\(")[0]);
-				globalArguments.method_type.add("("+globalArguments.methodName.split("\\(")[1]);
+				globalArguments.method_info.add(instruction);
 				globalArguments.method_count++;
 				
 			}
