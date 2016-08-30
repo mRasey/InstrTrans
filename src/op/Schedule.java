@@ -34,8 +34,8 @@ public class Schedule {
 				globalArguments.finalByteCode.add(".method"+" "+globalArguments.methodName);
 				globalArguments.finalByteCodePC++;
 				
-				globalArguments.method_name.add(globalArguments.methodName.split("(")[0]);
-				globalArguments.method_type.add("("+globalArguments.methodName.split("(")[1]);
+				globalArguments.method_name.add(globalArguments.methodName.split("\\(")[0]);
+				globalArguments.method_type.add("("+globalArguments.methodName.split("\\(")[1]);
 				globalArguments.method_count++;
 				
 			}

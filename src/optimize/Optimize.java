@@ -184,11 +184,18 @@ public class Optimize {
             ArrayList<String> byteCodes = singleLine.byteCodes;
             for(int i = 0; i < byteCodes.size(); i++) {
                 String byteCode = byteCodes.get(i);
-                int instrSize = instrSizes.get(byteCode.split(" ")[0]);
-                byteCode = lineIndex + ": " + byteCode;
-                lineIndex += instrSize;
-                byteCodes.set(i, byteCode);
-                System.out.println(byteCode);
+                if(globalArguments.rf.ifAnInstruction(byteCode)){
+                	if(byteCode.equals("tableswitch")){
+                		
+                	}
+                	else{
+                		System.out.println(byteCode);
+                        int instrSize = instrSizes.get(byteCode.split(" ")[0]);
+                        byteCode = lineIndex + ": " + byteCode;
+                        lineIndex += instrSize;
+                        byteCodes.set(i, byteCode);
+                	}
+                }
             }
         }
         return this;

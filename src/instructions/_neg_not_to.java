@@ -68,7 +68,7 @@ public class _neg_not_to extends Instruction {
             String newType = dexCodes[0].substring(dexCodes[0].lastIndexOf("-") + 1, dexCodes[0].lastIndexOf("-") + 2);
             globalArguments.finalByteCode.add(oldType + "load" + " " + firstRegister.stackNum);
             globalArguments.finalByteCode.add(oldType + "2" + newType);
-            globalArguments.finalByteCode.add(oldType + "store" + firstRegister.stackNum);
+            globalArguments.finalByteCode.add(oldType + "store" +" "+ firstRegister.stackNum);
             newType = newType.toUpperCase();
             if(newType.equals("L"))
                 newType = "J";

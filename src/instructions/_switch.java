@@ -43,7 +43,7 @@ public class _switch extends Instruction {
                     dataType = "i";
                 else
                     dataType = "a";
-                globalArguments.finalByteCode.add(dataType + "load" + register.stackNum);
+                globalArguments.finalByteCode.add(dataType + "load" +" "+ register.stackNum);
                 globalArguments.finalByteCode.add("tableswitch");
                 for(SwitchData data : switchDataList) {
                     globalArguments.finalByteCode.add(data.hashValue + " " + data.tabName);
@@ -60,7 +60,7 @@ public class _switch extends Instruction {
                 else {
                     dataType = "a";
                 }
-                globalArguments.finalByteCode.add(dataType + "load" + register.stackNum);
+                globalArguments.finalByteCode.add(dataType + "load"+" " + register.stackNum);
                 globalArguments.finalByteCode.add("lookupswitch");
                 for(SwitchData data : switchDataList) {
                     globalArguments.finalByteCode.add(data.hashValue + " " + data.tabName);
