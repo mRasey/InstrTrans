@@ -2,7 +2,6 @@ package op;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -24,7 +23,7 @@ public class Output {
 		bw.write("\n");
 		bw.write("{"+"\n");
         for(;outputTypeCodeNumber<globalArguments.traTabByteCodePC;outputTypeCodeNumber++) {
-        	bw.write(outputTypeCodeNumber+": " + globalArguments.traTabByteCode.get(outputTypeCodeNumber) +"\n");
+        	bw.write(/*outputTypeCodeNumber+": " + */globalArguments.traTabByteCode.get(outputTypeCodeNumber) +"\n");
         }
         bw.write("}"+"\n");
         bw.close();

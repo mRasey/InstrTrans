@@ -1,5 +1,6 @@
 package optimize;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,6 +12,7 @@ public class Optimize {
     ArrayList<String> byteCodes = new ArrayList<>();
     //ArrayList<SingleMethod> singleMethods = new ArrayList<>();
     SingleMethod singleMethod;
+    HashMap<String, Integer> instrSizes = new HashMap<>();
     
     public int finishedByteCodeNumber = 0;
     
@@ -88,6 +90,7 @@ public class Optimize {
             dealSingleLine(singleMethod.lines.get(i), i);//删除多余指令
             simplifySingleLine(singleMethod.lines.get(i));//简化指令形式
         }
+        rebuildSerialNumber(singleMethod);// 分配指令号
         return this;
     }
 
@@ -104,6 +107,7 @@ public class Optimize {
             String code = byteCodes.get(i);
             if(code.split(" ").length > 1){
             	if(code.contains("store")) {
+//                    System.err.println(code);
                     int stackNum = Integer.parseInt(code.split(" ")[1]);
                     stackNumToState.put(stackNum, new SingleRegister(State.store, i));
                 }
@@ -157,11 +161,54 @@ public class Optimize {
         return this;
     }
 
+    public Optimize initInstrSize() throws IOException {
+        File file = new File("res/InstrSize.txt");
+        BufferedReader bfr = new BufferedReader(new FileReader(file));
+        String readIn = bfr.readLine();
+        while(!readIn.startsWith("lookup")) {
+            String instrName = readIn.split(" ")[0];
+            int instrSize = Integer.parseInt(readIn.split(" ")[1]);
+            instrSizes.put(instrName, instrSize);
+            readIn = bfr.readLine();
+        }
+        return this;
+    }
+
     /**
      * 根据指令的大小改变指令之前的编号
      */
     public Optimize rebuildSerialNumber(SingleMethod singleMethod) {
-        int index = 0;
+        int lineIndex = 0;
+        ArrayList<SingleLine> singleLines = singleMethod.lines;
+        for(SingleLine singleLine : singleLines) {
+            ArrayList<String> byteCodes = singleLine.byteCodes;
+            for(int i = 0; i < byteCodes.size(); i++) {
+                String byteCode = byteCodes.get(i);
+                int instrSize = instrSizes.get(byteCode.split(" ")[0]);
+                byteCode = lineIndex + ": " + byteCode;
+                lineIndex += instrSize;
+                byteCodes.set(i, byteCode);
+                System.out.println(byteCode);
+            }
+        }
         return this;
+    }
+
+    public static void main(String[] args) throws IOException {
+        File file = new File("res/out.txt");
+        File outFile = new File("res/out.txt");
+        BufferedReader bfr = new BufferedReader(new FileReader(file));
+        BufferedWriter bfw = new BufferedWriter(new FileWriter(outFile));
+        String readIn = bfr.readLine();
+        while(!readIn.startsWith("lookup")) {
+            int size = Integer.parseInt(readIn.split(" ")[1]) + 1;
+            readIn = readIn.split(" ")[0] + " " + size;
+            System.out.println(readIn);
+            bfw.write(readIn);
+            bfw.newLine();
+            readIn = bfr.readLine();
+        }
+        bfr.close();
+        bfw.close();
     }
 }

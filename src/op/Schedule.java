@@ -1,29 +1,10 @@
 package op;
 
+import instructions.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import instructions._array;
-import instructions._check;
-import instructions._cmp;
-import instructions._const;
-import instructions._goto;
-import instructions._if;
-import instructions._iget;
-import instructions._instance;
-import instructions._invoke;
-import instructions._iput;
-import instructions._monitor;
-import instructions._move;
-import instructions._neg_not_to;
-import instructions._nop;
-import instructions._op;
-import instructions._return;
-import instructions._sget;
-import instructions._sput;
-import instructions._switch;
-import instructions._throw;
 
 public class Schedule {
 
@@ -52,15 +33,32 @@ public class Schedule {
 				
 				globalArguments.finalByteCode.add(".method"+" "+globalArguments.methodName);
 				globalArguments.finalByteCodePC++;
+				
+				globalArguments.method_name.add(globalArguments.methodName.split("(")[0]);
+				globalArguments.method_type.add("("+globalArguments.methodName.split("(")[1]);
+				globalArguments.method_count++;
+				
 			}
 			//记录类名
 			else if(instruction.get(0).equals(".class")){
 				globalArguments.className = instruction.get(instruction.size()-1);
-				globalArguments.classProPerty = instruction.get(instruction.size()-2);
+				for(int cp=1;cp<instruction.size()-1;cp++){
+					globalArguments.classProPerty.add(instruction.get(cp));
+				}
 			}
 			else if(instruction.get(0).equals(".super")){
 				globalArguments.superClassName = instruction.get(instruction.size()-1);
 			}
+			//记录接口信息
+			else if(instruction.get(0).equals(".implements")){
+				globalArguments.inter_name.add(instruction.get(1));
+				globalArguments.inter_count++;
+			}
+			else if(instruction.get(0).equals(".field")){
+				globalArguments.field_info.add(instruction);
+				globalArguments.field_count++;
+			}
+			//记录字段信息
 			//记录寄存器类型
 			else if(instruction.get(0).equals(".param")){
 				if(globalArguments.registerQueue.getByDexName(instruction.get(1)) == null){
@@ -281,7 +279,7 @@ public class Schedule {
                 
                 
                 //指令优化，要放在处理跳转之前
-                globalArguments.op.clear().readInf().dispatchCodes().deal().output();
+                globalArguments.op.clear().readInf().initInstrSize().dispatchCodes().deal().output();
                 
                 
                 //处理跳转
