@@ -7,13 +7,14 @@ import java.util.Iterator;
 
 import op.globalArguments;
 
+import static op.globalArguments.instrSizes;
+
 public class Optimize {
 
     ArrayList<String> byteCodes = new ArrayList<>();
     //ArrayList<SingleMethod> singleMethods = new ArrayList<>();
     SingleMethod singleMethod;
-    HashMap<String, Integer> instrSizes = new HashMap<>();
-    
+
     public int finishedByteCodeNumber = 0;
     
     public Optimize clear(){
