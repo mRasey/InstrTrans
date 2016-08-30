@@ -60,23 +60,39 @@ public class ConstantPool {
 	
 	public void _methodName(){
 		int i = 0;
+		ArrayList<String> inf;
 		for(i=0;i<globalArguments.method_count;i++){
-			String str = globalArguments.method_name.get(i);
-			globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
-			globalArguments.const_id_value.put(globalArguments.const_id, str);
-			globalArguments.methodName_conpool_number.add(globalArguments.const_id);
-			globalArguments.const_id++;
+			inf = globalArguments.method_info.get(i);
+			String name = inf.get(inf.size()-1).split("\\(")[0];
+			
+			if(globalArguments.const_id_value.containsValue(name) && globalArguments.const_id_type.get(getKey(globalArguments.const_id_value, name)).equals("Utf8")){
+				globalArguments.methodName_conpool_number.add(getKey(globalArguments.const_id_value, name));
+			}
+			else{
+				globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
+				globalArguments.const_id_value.put(globalArguments.const_id, name);
+				globalArguments.methodName_conpool_number.add(globalArguments.const_id);
+				globalArguments.const_id++;
+			}
 		}
 	}
 	
 	public void _methodType(){
 		int i = 0;
+		ArrayList<String> inf;
 		for(i=0;i<globalArguments.method_count;i++){
-			String str = globalArguments.method_type.get(i);
-			globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
-			globalArguments.const_id_value.put(globalArguments.const_id, str);
-			globalArguments.methodType_conpool_number.add(globalArguments.const_id);
-			globalArguments.const_id++;
+			inf = globalArguments.method_info.get(i);
+			String type = "(" + inf.get(inf.size()-1).split("\\(")[1];
+			
+			if(globalArguments.const_id_value.containsValue(type) && globalArguments.const_id_type.get(getKey(globalArguments.const_id_value, type)).equals("Utf8")){
+				globalArguments.methodType_conpool_number.add(getKey(globalArguments.const_id_value, type));
+			}
+			else{
+				globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
+				globalArguments.const_id_value.put(globalArguments.const_id, type);
+				globalArguments.methodType_conpool_number.add(globalArguments.const_id);
+				globalArguments.const_id++;
+			}
 		}
 	}
 	
@@ -90,10 +106,18 @@ public class ConstantPool {
 			if(str.endsWith(";")){
 				str = str.substring(0,str.length()-1);
 			}
-			globalArguments.const_id_type.put(globalArguments.const_id, "Class");
-			globalArguments.const_id_value.put(globalArguments.const_id, str);
-			globalArguments.inter_conpool_number.add(globalArguments.const_id);
-			globalArguments.const_id++;
+			
+			if(globalArguments.const_id_value.containsValue(str) && globalArguments.const_id_type.get(getKey(globalArguments.const_id_value, str)).equals("Class")){
+				globalArguments.inter_conpool_number.add(getKey(globalArguments.const_id_value, str));
+			}
+			else{
+				globalArguments.const_id_type.put(globalArguments.const_id, "Class");
+				globalArguments.const_id_value.put(globalArguments.const_id, str);
+				globalArguments.inter_conpool_number.add(globalArguments.const_id);
+				globalArguments.const_id++;
+			}
+			
+			
 		}
 	}
 	
@@ -104,13 +128,19 @@ public class ConstantPool {
 		for(i=0;i<globalArguments.field_count;i++){
 			inf = globalArguments.field_info.get(i);
 			name = inf.get(inf.size()-1).split(":")[0];
-			globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
-			globalArguments.const_id_value.put(globalArguments.const_id, name);
-			globalArguments.fieldName_conpool_number.add(globalArguments.const_id);
-			globalArguments.const_id++;
+			if(globalArguments.const_id_value.containsValue(name) && globalArguments.const_id_type.get(getKey(globalArguments.const_id_value, name)).equals("Utf8")){
+				globalArguments.fieldName_conpool_number.add(getKey(globalArguments.const_id_value, name));
+			}
+			else{
+				globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
+				globalArguments.const_id_value.put(globalArguments.const_id, name);
+				globalArguments.fieldName_conpool_number.add(globalArguments.const_id);
+				globalArguments.const_id++;
+			}
+			
 		}
 	}
-	//字段类型得注意判断是否重复
+	
 	public void _fieldType(){
 		int i = 0;
 		ArrayList<String> inf;
@@ -118,7 +148,7 @@ public class ConstantPool {
 		for(i=0;i<globalArguments.field_count;i++){
 			inf = globalArguments.field_info.get(i);
 			type = inf.get(inf.size()-1).split(":")[1];
-			if(globalArguments.const_id_value.containsValue(type)){
+			if(globalArguments.const_id_value.containsValue(type) && globalArguments.const_id_type.get(getKey(globalArguments.const_id_value, type)).equals("Utf8")){
 				globalArguments.fieldType_conpool_number.add(getKey(globalArguments.const_id_value, type));
 			}
 			else{
