@@ -24,11 +24,8 @@ public class globalArguments {
 
     public static String className = "";
     public static String superClassName = "";
-    public static String classProPerty = "";
-    public static String methodName = "";
-
-
-    	/* 读取翻译后的文件再解决标签问题就不需要再翻译前处理标签了*/														
+    public static ArrayList<String> classProPerty = new ArrayList<>();
+    public static String methodName = "";											
 
     //记录翻译得到的代码
     public static ArrayList<String> finalByteCode = new ArrayList<>();
@@ -45,7 +42,6 @@ public class globalArguments {
 
     //遇到method清零
     public static int stackNumber = 0;
-
     public static int dexCodeNumber = 0; //dex指令编号
 
     /*		数组相关变量																	*/
@@ -64,6 +60,23 @@ public class globalArguments {
     public static int const_id = 1;
     
     
+    //接口信息
+    public static int inter_count = 0;
+    public static ArrayList<String> inter_name = new ArrayList<String>();
+    public static ArrayList<Integer> inter_conpool_number = new ArrayList<Integer>();
+    //字段信息
+    public static int field_count = 0;
+    // .field (访问权限) (static) (修饰关键字) 字段名:字段类型/描述符
+    public static ArrayList<ArrayList<String>> field_info = new ArrayList<ArrayList<String>>(); 
+    public static ArrayList<Integer> fieldName_conpool_number = new ArrayList<Integer>();
+    public static ArrayList<Integer> fieldType_conpool_number = new ArrayList<Integer>();
+    //方法信息
+    public static int method_count = 0;
+    public static ArrayList<String> method_name = new ArrayList<String>();
+    public static ArrayList<String> method_type = new ArrayList<String>(); //参数和返回值
+    public static ArrayList<Integer> method_reg_number = new ArrayList<Integer>();
+    public static ArrayList<Integer> methodName_conpool_number = new ArrayList<Integer>();
+    public static ArrayList<Integer> methodType_conpool_number = new ArrayList<Integer>();
     
     public static void clear(){
     	//清除寄存器信息

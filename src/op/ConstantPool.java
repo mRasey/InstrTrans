@@ -1,5 +1,6 @@
 package op;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -12,14 +13,21 @@ public class ConstantPool {
 	public int insNum = 0;
 
 	public void strConstPool() {
-		
+		//前两个存类名和父类名
 		globalArguments.const_id_type.put(globalArguments.const_id, "Class");
 		globalArguments.const_id_value.put(globalArguments.const_id, globalArguments.className.substring(1, globalArguments.className.length()-1));
 		globalArguments.const_id++;
 		globalArguments.const_id_type.put(globalArguments.const_id, "Class");
 		globalArguments.const_id_value.put(globalArguments.const_id, globalArguments.superClassName.substring(1, globalArguments.className.length()-1));
 		globalArguments.const_id++;
-		
+		//存接口
+		_interface();
+		//存字段名
+		_fieldName();
+		//存字段类型
+		_fieldType();
+		//存方法名
+		_methodName();
 		
 		String code;
 		String[] byteCodes;
@@ -49,6 +57,79 @@ public class ConstantPool {
 		}
 	}
 
+	
+	public void _methodName(){
+		int i = 0;
+		for(i=0;i<globalArguments.method_count;i++){
+			String str = globalArguments.method_name.get(i);
+			globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
+			globalArguments.const_id_value.put(globalArguments.const_id, str);
+			globalArguments.methodName_conpool_number.add(globalArguments.const_id);
+			globalArguments.const_id++;
+		}
+	}
+	
+	public void _methodType(){
+		int i = 0;
+		for(i=0;i<globalArguments.method_count;i++){
+			String str = globalArguments.method_type.get(i);
+			globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
+			globalArguments.const_id_value.put(globalArguments.const_id, str);
+			globalArguments.methodType_conpool_number.add(globalArguments.const_id);
+			globalArguments.const_id++;
+		}
+	}
+	
+	public void _interface(){
+		int i = 0;
+		for(i=0;i<globalArguments.inter_count;i++){
+			String str = globalArguments.inter_name.get(i);
+			if(str.startsWith("L")){
+				str = str.substring(1);
+			}
+			if(str.endsWith(";")){
+				str = str.substring(0,str.length()-1);
+			}
+			globalArguments.const_id_type.put(globalArguments.const_id, "Class");
+			globalArguments.const_id_value.put(globalArguments.const_id, str);
+			globalArguments.inter_conpool_number.add(globalArguments.const_id);
+			globalArguments.const_id++;
+		}
+	}
+	
+	public void _fieldName(){
+		int i = 0;
+		ArrayList<String> inf;
+		String name = "";
+		for(i=0;i<globalArguments.field_count;i++){
+			inf = globalArguments.field_info.get(i);
+			name = inf.get(inf.size()-1).split(":")[0];
+			globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
+			globalArguments.const_id_value.put(globalArguments.const_id, name);
+			globalArguments.fieldName_conpool_number.add(globalArguments.const_id);
+			globalArguments.const_id++;
+		}
+	}
+	//字段类型得注意判断是否重复
+	public void _fieldType(){
+		int i = 0;
+		ArrayList<String> inf;
+		String type = "";
+		for(i=0;i<globalArguments.field_count;i++){
+			inf = globalArguments.field_info.get(i);
+			type = inf.get(inf.size()-1).split(":")[1];
+			if(globalArguments.const_id_value.containsValue(type)){
+				globalArguments.fieldType_conpool_number.add(getKey(globalArguments.const_id_value, type));
+			}
+			else{
+				globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
+				globalArguments.const_id_value.put(globalArguments.const_id, type);
+				globalArguments.fieldType_conpool_number.add(globalArguments.const_id);
+				globalArguments.const_id++;
+			}
+		}
+	}
+	
 	public String _ldc(String[] byteCodes){
 		String newCode = new String();
 		System.out.print(byteCodes[0]+" ");

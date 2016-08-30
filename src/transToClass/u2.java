@@ -2,7 +2,7 @@ package transToClass;
 
 public class u2 {
 
-    short u2;
+    short u2 = -1;
 
     public u2(){
     	
@@ -23,9 +23,15 @@ public class u2 {
 
     @Override
     public String toString() {
-        String result = Integer.toHexString(u2);
-        while(result.length() < 4)
-            result = "0" + result;
-        return result;
+    	if(u2 != -1){
+    		String result = Integer.toHexString(u2);
+            while(result.length() < 4)
+                result = "0" + result;
+            return result;
+    	}
+    	else{
+    		return "";
+    	}
+        
     }
 }

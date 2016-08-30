@@ -16,7 +16,8 @@ public class ClassFile {
     u2 major_version = new u2();// class文件主版本号
     u2 constant_pool_count = new u2();// 常量池计数器
     cp_info[] constant_pool;// 常量池
-    u2 access_flags = new u2();// 访问标志
+    //u2 access_flags = new u2();// 访问标志
+    String access_flags = "0020";
     u2 this_class = new u2();// 类索引
     u2 super_class = new u2();// 父类索引
     u2 interfaces_count = new u2();// 接口计数器
@@ -29,6 +30,7 @@ public class ClassFile {
     attribute_info[] attributes;// 属性表
     
     ArrayList<String> byteCodeData = new ArrayList<>();
+    acc_flags af = new acc_flags();
     
     public ClassFile() {
     	readByteCodeFile();
@@ -38,15 +40,14 @@ public class ClassFile {
     	constant_pool_count.set((short) globalArguments.const_id);
     	constant_pool = new cp_info[constant_pool_count.get() - 1];
     	fill_constant_pool();
-        
-        
-        
-        
-        
-//        interfaces = new u2[interfaces_count.get() - 1];
-//        fields = new field_info[fields_count.get() - 1];
-//        methods = new method_info[method_count.get() - 1];
-//        attributes = new attribute_info[attributes_count.get() - 1];
+    	access_flags = af.set_access_flags();
+    	this_class.set((short) 1);
+    	super_class.set((short) 2);
+    	interfaces_count.set((short) globalArguments.inter_count);
+    	fill_interfaces();
+    	fields_count.set((short) globalArguments.field_count);
+    	fill_fields();
+
     }
 
     @Override
@@ -72,7 +73,7 @@ public class ClassFile {
                 + major_version.toString()
                 + constant_pool_count.toString()
                 + constant_pool_string
-                + access_flags.toString()
+                + access_flags
                 + this_class.toString()
                 + super_class.toString()
                 + interfaces_count.toString()
@@ -125,5 +126,21 @@ public class ClassFile {
     		j++;
     	}
     }
+
+	public void fill_interfaces() {
+		interfaces = new u2[globalArguments.inter_count];
+		int i = 0, temp = 0;
+		for(i=0;i<globalArguments.inter_count;i++){
+			temp = globalArguments.inter_conpool_number.get(i);
+			interfaces[i].set((short)temp);
+		}
+	}
+
+	public void fill_fields(){
+		int i = 0;
+		for(i=0;i<globalArguments.field_count;i++){
+			fields[i].set_info(i);
+		}
+	}
 
 }

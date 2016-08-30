@@ -1,7 +1,7 @@
 package transToClass;
 
 public class u1 {
-    private byte u1;
+    private byte u1 = -1;
 
     public u1() {
 
@@ -21,9 +21,15 @@ public class u1 {
 
     @Override
     public String toString() {
-        String result = Integer.toHexString(u1);
-        while(result.length() < 2)
-            result = "0" + result;
-        return result;
+    	if(this.u1 != -1){
+    		String result = Integer.toHexString(u1);
+            while(result.length() < 2)
+                result = "0" + result;
+            return result;
+    	}
+    	else{
+    		return "";
+    	}
+        
     }
 }
