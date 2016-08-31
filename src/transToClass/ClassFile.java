@@ -43,10 +43,13 @@ public class ClassFile {
     	this_class.set((short) 1);
     	super_class.set((short) 2);
     	interfaces_count.set((short) globalArguments.inter_count);
+    	interfaces = new u2[interfaces_count.get()];
     	fill_interfaces();
     	fields_count.set((short) globalArguments.field_count);
+    	fields = new field_info[fields_count.get()];
     	fill_fields();
     	method_count.set((short) globalArguments.method_count);
+    	methods = new method_info[method_count.get()];
     	fill_methods();
     }
 
@@ -129,26 +132,26 @@ public class ClassFile {
     }
 
 	public void fill_interfaces() {
-		interfaces = new u2[globalArguments.inter_count];
 		int i = 0, temp = 0;
 		for(i=0;i<globalArguments.inter_count;i++){
+			interfaces[i] = new u2();
 			temp = globalArguments.inter_conpool_number.get(i);
 			interfaces[i].set((short)temp);
 		}
 	}
 
 	public void fill_fields(){
-		fields = new field_info[globalArguments.field_count];
 		int i = 0;
 		for(i=0;i<globalArguments.field_count;i++){
+			fields[i] = new field_info();
 			fields[i].set_info(i);
 		}
 	}
 	
 	public void fill_methods(){
-		methods = new method_info[globalArguments.method_count];
 		int i = 0;
 		for(i=0;i<globalArguments.method_count;i++){
+			methods[i] = new method_info();
 			 methods[i].set_info(i);
 		}
 	}
@@ -159,6 +162,7 @@ public class ClassFile {
 		 char[] bstr = "0000000000100000".toCharArray();
 		 int i = 0;
 		 for(i=0;i<globalArguments.classProPerty.size();i++){
+			 //System.out.println(globalArguments.classProPerty.get(i));
 			 switch(globalArguments.classProPerty.get(i)){
 	    		case "public":
 	    			bstr[15]='1';
@@ -185,7 +189,7 @@ public class ClassFile {
 	    			bstr[1]='1';
 	    			break;
 	    		default:
-	    			System.out.println("error in acc_flags/set_access_flags");
+	    			System.out.println("error in set_access_flags");
 	    			break;
 	    	}
 		 }

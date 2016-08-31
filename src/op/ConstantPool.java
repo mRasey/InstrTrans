@@ -11,7 +11,9 @@ public class ConstantPool {
 	// 编号 #n -> 类型
 	// 所有的东西都是先用Utf8存的，然后合并为具体的类型Class,NameAndType,Fieldref,Methodref,InterfaceMethodref,Long,Float,Double,String
 	public int insNum = 0;
-
+	String regex = "\\d+:";
+	String number = "";
+	
 	public void strConstPool() {
 		//前两个存类名和父类名
 		globalArguments.const_id_type.put(globalArguments.const_id, "Class");
@@ -19,6 +21,9 @@ public class ConstantPool {
 		globalArguments.const_id++;
 		globalArguments.const_id_type.put(globalArguments.const_id, "Class");
 		globalArguments.const_id_value.put(globalArguments.const_id, globalArguments.superClassName.substring(1, globalArguments.className.length()-1));
+		globalArguments.const_id++;
+		globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
+		globalArguments.const_id_value.put(globalArguments.const_id, "Code");
 		globalArguments.const_id++;
 		//存接口
 		_interface();
@@ -28,29 +33,33 @@ public class ConstantPool {
 		_fieldType();
 		//存方法名
 		_methodName();
+		//存方法参数与返回值类型
+		_methodType();
+		
 		
 		String code;
 		String[] byteCodes;
 		for (; insNum < globalArguments.traTabByteCodePC; insNum++) {
 			code = globalArguments.traTabByteCode.get(insNum);
 			byteCodes = code.split(" ");
-			if (globalArguments.rf.ifAnInstruction(byteCodes[0])) {
-				if (byteCodes[0].contains("invoke")) {
+			number = byteCodes[0];
+			if (byteCodes[0].matches(regex) && globalArguments.rf.ifAnInstruction(byteCodes[1])) {
+				if (byteCodes[1].contains("invoke")) {
 					globalArguments.traTabByteCode.set(insNum, _invoke(byteCodes));
 				}
-				else if (byteCodes[0].contains("field")) {
+				else if (byteCodes[1].contains("field")) {
 					globalArguments.traTabByteCode.set(insNum, _field(byteCodes));
 				}
-				else if (byteCodes[0].contains("ldc")) {
+				else if (byteCodes[1].contains("ldc")) {
 					globalArguments.traTabByteCode.set(insNum, _ldc(byteCodes));
 				}
-				else if (byteCodes[0].equals("new")) {
+				else if (byteCodes[1].equals("new")) {
 					globalArguments.traTabByteCode.set(insNum, _new(byteCodes));
 				}
-				else if(byteCodes[0].equals("putstatic") || byteCodes[0].equals("getstatic")){
+				else if(byteCodes[1].equals("putstatic") || byteCodes[1].equals("getstatic")){
 					globalArguments.traTabByteCode.set(insNum, _pgstatic(byteCodes));
 				}
-				else if(byteCodes[0].equals("anewarray")){
+				else if(byteCodes[1].equals("anewarray")){
 					globalArguments.traTabByteCode.set(insNum, _anewarray(byteCodes));
 				}
 			}
@@ -161,31 +170,29 @@ public class ConstantPool {
 	}
 	
 	public String _ldc(String[] byteCodes){
-		String newCode = new String();
-		System.out.print(byteCodes[0]+" ");
-		System.out.println(byteCodes[1]);
-		String value = byteCodes[1].replace("\"", "");
+		String newCode = "";
+		String value = byteCodes[2].replace("\"", "");
 		if(globalArguments.const_id_value.containsValue(value)){
-			newCode = byteCodes[0]+" "+"#"+ getKey(globalArguments.const_id_value, value);
+			newCode = byteCodes[0]+" "+byteCodes[1]+" "+"#"+ getKey(globalArguments.const_id_value, value);
 		}
 		else{
 			globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
 			globalArguments.const_id_value.put(globalArguments.const_id, value);
 			globalArguments.const_id++;
 			
-			newCode =  byteCodes[0]+" "+"#"+ (globalArguments.const_id-1);
+			newCode =  byteCodes[0]+" "+byteCodes[1]+" "+"#"+ (globalArguments.const_id-1);
 		}
 		return newCode;
 	}
 	public String _invoke(String[] byteCodes){
 		int id_1=0,id_2=0,id_3=0,id_4=0;
-		String _Methodref = byteCodes[1];
+		String _Methodref = byteCodes[2];
 		String _Class = _Methodref.split("\\.")[0];
 		String _NameAndType = _Methodref.split("\\.")[1];
 		String _name = _NameAndType.split(":")[0];
 		String _type = _NameAndType.split(":")[1];
 		
-		String newCode = new String();
+		String newCode = "";
 		
 		if(globalArguments.const_id_value.containsValue( _Class)){
 			id_1 = getKey(globalArguments.const_id_value, _Class);
@@ -228,10 +235,10 @@ public class ConstantPool {
 		}
 		
 		if(globalArguments.const_id_value.containsValue("#"+id_1+"."+"#"+id_2)){
-			newCode =  byteCodes[0]+" "+"#"+ getKey(globalArguments.const_id_value, "#"+id_1+"."+"#"+id_2);
+			newCode =  byteCodes[0]+" "+byteCodes[1]+" "+"#"+ getKey(globalArguments.const_id_value, "#"+id_1+"."+"#"+id_2);
 		}
 		else{
-			if(byteCodes[0].equals("invokeinterface")){
+			if(byteCodes[1].equals("invokeinterface")){
 				globalArguments.const_id_type.put(globalArguments.const_id, "InterfaceMethodref");
 				globalArguments.const_id_value.put(globalArguments.const_id, "#"+id_1+"."+"#"+id_2);
 				globalArguments.const_id++;
@@ -242,19 +249,19 @@ public class ConstantPool {
 				globalArguments.const_id++;
 			}
 			
-			newCode =  byteCodes[0]+" "+"#"+ (globalArguments.const_id-1);
+			newCode =  byteCodes[0]+" "+byteCodes[1]+" "+"#"+ (globalArguments.const_id-1);
 		}
 		return newCode;
 	}
 	
 	public String _field(String[] byteCodes){
 		int id_1=0,id_2=0,id_3=0,id_4=0;
-		String _Fieldref = byteCodes[1];
+		String _Fieldref = byteCodes[2];
 		String _Class = _Fieldref.split(";->")[0];
 		String _NameAndType = _Fieldref.split(";->")[1];
 		String _name = _NameAndType.split(":")[0];
 		String _type = _NameAndType.split(":")[1];
-		String newCode = new String();
+		String newCode = "";
 		
 		
 		if(globalArguments.const_id_value.containsValue( _Class)){
@@ -298,29 +305,29 @@ public class ConstantPool {
 		}
 		
 		if(globalArguments.const_id_value.containsValue("#"+id_1+"."+"#"+id_2)){
-			newCode =  byteCodes[0]+" "+"#"+ getKey(globalArguments.const_id_value, "#"+id_1+"."+"#"+id_2);
+			newCode =  byteCodes[0]+" "+byteCodes[1]+" "+"#"+ getKey(globalArguments.const_id_value, "#"+id_1+"."+"#"+id_2);
 		}
 		else{
 			globalArguments.const_id_type.put(globalArguments.const_id, "Fieldref");
 			globalArguments.const_id_value.put(globalArguments.const_id, "#"+id_1+"."+"#"+id_2);
 			globalArguments.const_id++;
-			newCode =  byteCodes[0]+" "+"#"+ (globalArguments.const_id-1);
+			newCode =  byteCodes[0]+" "+byteCodes[1]+" "+"#"+ (globalArguments.const_id-1);
 		}
 		return newCode;
 	}
 	
 	public String _new(String[] byteCodes){
-		String _Class = byteCodes[1];
-		String newCode = new String();
+		String _Class = byteCodes[2];
+		String newCode = "";
 		
 		if(globalArguments.const_id_value.containsValue(_Class)){
-			newCode =  byteCodes[0]+" "+"#"+ getKey(globalArguments.const_id_value, _Class);
+			newCode =  byteCodes[0]+" "+byteCodes[1]+" "+"#"+ getKey(globalArguments.const_id_value, _Class);
 		}
 		else{
 			globalArguments.const_id_type.put(globalArguments.const_id, "Class");
 			globalArguments.const_id_value.put(globalArguments.const_id, _Class);
 			globalArguments.const_id++;
-			newCode =  byteCodes[0]+" "+"#"+ (globalArguments.const_id-1);
+			newCode =  byteCodes[0]+" "+byteCodes[1]+" "+"#"+ (globalArguments.const_id-1);
 		}
 		
 		

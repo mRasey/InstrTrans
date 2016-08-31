@@ -26,6 +26,7 @@ public class Optimize {
     public Optimize readInf(){		
 		for( ; finishedByteCodeNumber<globalArguments.finalByteCodePC; finishedByteCodeNumber++){
 			byteCodes.add(globalArguments.finalByteCode.get(finishedByteCodeNumber));
+			//System.out.println(globalArguments.finalByteCode.get(finishedByteCodeNumber));
 		}
 		return this;
 	}
@@ -210,12 +211,14 @@ public class Optimize {
                             lineIndex = lineIndex + 8 + (codes.size() - 1) * 8;// lookupswitch
                     }
                 	else{
-                		System.out.println(byteCode);
+                		
                         int instrSize = instrSizes.get(byteCode.split(" ")[0]);
                         byteCode = lineIndex + ": " + byteCode;
                         lineIndex += instrSize;
                         byteCodes.set(i, byteCode);
+                       
                 	}
+                	//System.err.println(byteCode);
                 }
             }
         }

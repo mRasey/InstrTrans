@@ -25,8 +25,14 @@ public class TranslateTable {
 		
 		for(;finishedByteCodeNumber<globalArguments.optimizedByteCodePC;finishedByteCodeNumber++){
 			byteCode = globalArguments.optimizedByteCode.get(finishedByteCodeNumber).split(" ");
+			
 			if(byteCode[0].startsWith(":")){
-				tabAndNextByteCodePC.put(byteCode[0], finishedByteCodeNumber+1);
+				int i = 1;
+				while(globalArguments.optimizedByteCode.get(finishedByteCodeNumber+i).startsWith(":")){
+					i++;
+				}
+				String number = globalArguments.optimizedByteCode.get(finishedByteCodeNumber+i).split(" ")[0].replace(":", "");
+				tabAndNextByteCodePC.put(byteCode[0],Integer.parseInt(number));
 			}
 		}
 	}
@@ -35,12 +41,14 @@ public class TranslateTable {
 	public void traTab(){
 		String [] byteCode;
 		int length = 0;
+		String regex = "\\d+:";
+		
 		for(;temp<globalArguments.optimizedByteCodePC;temp++){
 			globalArguments.traTabByteCode.add(globalArguments.optimizedByteCode.get(temp));
 			globalArguments.traTabByteCodePC++;
 			
 			byteCode = globalArguments.optimizedByteCode.get(temp).split(" ");
-			if(byteCode[0].startsWith(":")){
+			if(byteCode[0].startsWith(":")){ //tableswitch下面的标签先不处理
 				continue;
 			}
 			else{

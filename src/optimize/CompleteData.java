@@ -10,29 +10,34 @@ import op.globalArguments;
  * */
 
 public class CompleteData {
+	
+	String number = "";
+	String regex = "\\d+:";
+	
 
 	public void complete(){
 		int i = 0;
 		String[] byteCode;
 		for(i=0;i<globalArguments.traTabByteCodePC;i++){
 			byteCode = globalArguments.traTabByteCode.get(i).split(" ");
-			if(byteCode[0].equals("bipush")){
-				globalArguments.traTabByteCode.set(i, bipush_comp(byteCode[1]));
+			number = byteCode[0];
+			if(byteCode[0].matches(regex) && byteCode[1].equals("bipush")){
+				globalArguments.traTabByteCode.set(i, bipush_comp(byteCode[2]));
 			}
-			else if(byteCode[0].equals("sipush")){
-				globalArguments.traTabByteCode.set(i, sipush_comp(byteCode[1]));
+			else if(byteCode[0].matches(regex) && byteCode[1].equals("sipush")){
+				globalArguments.traTabByteCode.set(i, sipush_comp(byteCode[2]));
 			}
-			else if(byteCode[0].equals("ldc2_w")){
+			else if(byteCode[0].matches(regex) && byteCode[1].equals("ldc2_w")){
 				//不考虑字符串赋值
-				if(!byteCode[1].startsWith("\"")){
+				if(!byteCode[2].startsWith("\"")){
 					//去掉末尾的L
-					globalArguments.traTabByteCode.set(i, ldc2_w_comp(byteCode[1].replace("L", "")));
+					globalArguments.traTabByteCode.set(i, ldc2_w_comp(byteCode[2].replace("L", "")));
 				}	
 			}
-			else if(byteCode[0].equals("ldc")){
+			else if(byteCode[0].matches(regex) && byteCode[1].equals("ldc")){
 				//不考虑字符串赋值
-				if(!byteCode[1].startsWith("\"")){
-					globalArguments.traTabByteCode.set(i, ldc_comp(byteCode[1]));
+				if(!byteCode[2].startsWith("\"")){
+					globalArguments.traTabByteCode.set(i, ldc_comp(byteCode[2]));
 				}	
 			}
 		}
@@ -40,7 +45,7 @@ public class CompleteData {
 	
 	
 	public String bipush_comp(String data){
-		String new_code = "bipush" + " ";
+		String new_code = number+" "+"bipush" + " ";
 		if(data.startsWith("0x")){
 			if(data.length() == 4){
 				new_code+=data;
@@ -73,7 +78,7 @@ public class CompleteData {
 	}
 	
 	public String sipush_comp(String data){
-		String new_code = "sipush" + " ";
+		String new_code = number+" "+"sipush" + " ";
 		if(data.startsWith("0x")){
 			if(data.length() == 6){
 				new_code+=data;
@@ -107,7 +112,7 @@ public class CompleteData {
 	}
 	
 	public String ldc2_w_comp(String data){
-		String new_code = "ldc2_w" + " ";
+		String new_code = number+" "+"ldc2_w" + " ";
 		if(data.startsWith("-0x")){
 			while(data.length() < 19){
 				data = "-0x0" + data.substring(3);
@@ -124,7 +129,7 @@ public class CompleteData {
 	}
 	
 	public String ldc_comp(String data){
-		String new_code = "ldc" + " ";
+		String new_code = number+" "+"ldc" + " ";
 		//float只处理负数的情况，float位数应该正好
 		if(data.charAt(data.length()-1) == 'F' && data.startsWith("-0x")){
 			//不传进去末尾的F和前面和前面的-0x

@@ -18,7 +18,8 @@ public class Schedule {
 		
 		//每个方法的开始序号
 		int method_begin_number = 0;
-		
+		int local_reg_number = 0;
+		int ttt = 0;
 		int i = 0;
 		while(globalArguments.rf.readLine()){
 			if(globalArguments.rf.ifNull()){
@@ -28,6 +29,7 @@ public class Schedule {
 			//方法的开始清空数据
 			if(globalArguments.rf.ifNewMethod()){	
 				globalArguments.clear();
+				local_reg_number = 0;
 				method_begin_number = globalArguments.LineNumber;
 				globalArguments.methodName = instruction.get(instruction.size()-1);
 				globalArguments.finalByteCode.add(".method"+" "+globalArguments.methodName);
@@ -65,6 +67,7 @@ public class Schedule {
 			}
 			//.local声明的变量为非临时变量
 			else if(instruction.get(0).equals(".local")){
+				local_reg_number++;
 				Register register = globalArguments.registerQueue.getByDexName(instruction.get(1));
 				if(register == null){
 					globalArguments.registerQueue.addNewRegister(new Register(instruction.get(1), null, globalArguments.stackNumber++));
@@ -93,7 +96,10 @@ public class Schedule {
 			}
 			//方法结束时再统一处理指令
 			else if(instruction.get(0).equals(".end") && instruction.get(1).equals("method")){
-                int temp = method_begin_number;
+				//保存方法的局部变量个数
+				globalArguments.method_localreg_number.add(local_reg_number);
+                
+				int temp = method_begin_number;
                 //获取寄存器类型
                 while(method_begin_number < globalArguments.LineNumber){
                     instruction = globalArguments.rf.getInstruction(method_begin_number);
@@ -279,6 +285,9 @@ public class Schedule {
                 //指令优化，要放在处理跳转之前
                 globalArguments.op.clear().readInf().initInstrSize().dispatchCodes().deal().output();
                 
+//                for(;ttt<globalArguments.optimizedByteCodePC;ttt++){
+//                	System.out.println(globalArguments.optimizedByteCode.get(ttt));
+//                }
                 
                 //处理跳转
                 globalArguments.tt.clear();
@@ -292,8 +301,12 @@ public class Schedule {
 		//优化ldc指令
 		globalArguments.rl.replace();
 		globalArguments.cd.complete();
+		
 		//处理常量池
         globalArguments.cp.strConstPool();
+//        for(;ttt<globalArguments.traTabByteCodePC;ttt++){
+//        	System.out.println(globalArguments.traTabByteCode.get(ttt));
+//        }
 		//输出
 		globalArguments.ot.print();
 	}
