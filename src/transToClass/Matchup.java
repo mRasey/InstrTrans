@@ -137,7 +137,7 @@ public class Matchup {
      * 将int型转换成N位16进制
      * @return
      */
-    public String getHexN(int i, int n) {
+    public static String getHexN(int i, int n) {
         String result = Integer.toHexString(i);
         while(result.length() < n)
             result = "0" + result;
