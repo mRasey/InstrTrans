@@ -7,8 +7,8 @@ public class method_info {
 	String access_flags = "0000";
     u2 name_index = new u2();
     u2 descriptor_index = new u2();
-    u2 attributes_count = new u2();
-    attribute_info[] attributes = new attribute_info[attributes_count.get() - 1];
+    u2 attributes_count = new u2((short) 1);
+    attribute_info[] attributes = new attribute_info[1];
 
     int id = 0;
     
@@ -43,6 +43,7 @@ public class method_info {
 		char[] bstr = "0000000000000000".toCharArray();
 		int i = 0;
 		for (i = 1; i < globalArguments.method_info.get(id).size()-1; i++) {
+			//System.out.println(globalArguments.method_info.get(id).get(i));
 			switch (globalArguments.method_info.get(id).get(i)) {
 			case "public":
 				bstr[15] = '1';
@@ -81,7 +82,7 @@ public class method_info {
 				bstr[3] = '1';
 				break;
 			default:
-				System.out.println("error in acc_flags/set_access_flags");
+				System.out.println("error in method/set_access_flags");
 				break;
 			}
 		}

@@ -137,7 +137,7 @@ public class _array extends Instruction{
                 String dataType2 = firstRegister.getType(globalArguments.dexCodeNumber).toLowerCase();
                 if(dataType2.equals("j"))
                     dataType2 = "l";
-                else if(dataType2.equals("l"))
+                else if(dataType2.startsWith("l"))
                     dataType2 = "a";
                 
                 if(dexCodes[0].contains("get")) {

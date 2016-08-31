@@ -11,27 +11,32 @@ public class ReplaceLdc {
 	 * ldc "asdas"  这种字符串赋值参数是以双引号开始的
 	 * 字符串的双引号是在提取常量池时去掉的
 	 * */
+	String number = "";  //记录每条指令前的标号
+	String regex = "\\d+:";
+	
+	
 	public void replace(){
 		int i = 0;
 		String[] byteCode;
 		for(i=0;i<globalArguments.traTabByteCodePC;i++){
 			byteCode = globalArguments.traTabByteCode.get(i).split(" ");
-			if(byteCode[0].equals("ldc")){
+			number = byteCode[0];
+			if(byteCode[0].matches(regex) && byteCode[1].equals("ldc")){
 				//不考虑字符串赋值
-				if(!byteCode[1].startsWith("\"")){
+				if(!byteCode[2].startsWith("\"")){
 					//不考虑float的情况
-					if(byteCode[1].startsWith("0x")){
-						if(byteCode[1].charAt(byteCode[1].length()-1) != 'F'){
-							globalArguments.traTabByteCode.set(i, Hex_data(byteCode[1].substring(2)));
+					if(byteCode[2].startsWith("0x")){
+						if(byteCode[2].charAt(byteCode[2].length()-1) != 'F'){
+							globalArguments.traTabByteCode.set(i, Hex_data(byteCode[2].substring(2)));
 						}
 					}
-					else if(byteCode[1].startsWith("-0x")){
-						if(byteCode[1].charAt(byteCode[1].length()-1) != 'F'){
-							globalArguments.traTabByteCode.set(i, neg_Hex_data(byteCode[1].substring(3)));
+					else if(byteCode[2].startsWith("-0x")){
+						if(byteCode[2].charAt(byteCode[2].length()-1) != 'F'){
+							globalArguments.traTabByteCode.set(i, neg_Hex_data(byteCode[2].substring(3)));
 						}
 					}
 					else{
-						globalArguments.traTabByteCode.set(i, Dec_data(byteCode[1]));
+						globalArguments.traTabByteCode.set(i, Dec_data(byteCode[2]));
 					}
 				}
 			}
@@ -39,7 +44,7 @@ public class ReplaceLdc {
 	}
 	
 	public String Dec_data(String data){
-		String new_code="";
+		String new_code=number+" ";
 		//System.out.println(data);
 		int n = Integer.parseInt(data);
 		if(n >= 0 && n <=127){
@@ -82,7 +87,7 @@ public class ReplaceLdc {
 	//正的18进制，先转换为10进制判断用什么指令，补全后在代替原来的指令
 	//补全后数据:byte 2位  short 4位  int 8位
 	public String Hex_data(String data){
-		String new_code="";
+		String new_code=number+" ";
 		int n = toUnsignInt(data);
 		if (n >= 0 && n <= 127) {
 			String byte_str = Integer.toHexString(n);
@@ -113,7 +118,7 @@ public class ReplaceLdc {
 	
 	
 	public String neg_Hex_data(String data){
-		String new_code="";
+		String new_code=number+" ";
 		int n = toUnsignInt(data);
 		if (n >= 0 && n <= 128) {
 			String byte_str = byte_to_Hex(-n);
@@ -125,7 +130,7 @@ public class ReplaceLdc {
 		} 
 		else if (n > 32768) {
 			String int_str = int_to_Hex(-n);
-			new_code = "ldc" + " " + "0x" + int_str;
+			new_code += "ldc" + " " + "0x" + int_str;
 		} 
 		else {
 			System.err.println("error in replaceLdc/neg_Hex_data");
