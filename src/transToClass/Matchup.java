@@ -31,7 +31,7 @@ public class Matchup {
      * @return boolean
      */
     public boolean isInstr(String code) {
-        if('a' < code.charAt(0) && code.charAt(0) < 'z')
+        if('a' <= code.charAt(0) && code.charAt(0) < 'z')
             return true;
         return false;
     }
