@@ -50,8 +50,8 @@ public class OpApk {
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        String apkPath = "G:\\实验室任务\\test_apk\\";
-        String apkName = "test.apk";
+        String apkPath = "res\\";
+        String apkName = "app.apk";
         OpApk opApk = new OpApk();
         opApk.unzipDex(apkPath, apkName);//解压dex文件
         opApk.getSmali(apkPath);//获得smali文件

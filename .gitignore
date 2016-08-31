@@ -50,4 +50,7 @@ Temporary Items
 /.settings/
 /res/MainActivity.smali
 /res/result.txt
+/res/app.apk
+/res/classout
+/res/test.txt
 /bin/

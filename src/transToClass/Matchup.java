@@ -1,17 +1,19 @@
 package transToClass;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import optimize.Optimize;
 
-import static op.globalArguments.instrSizes;
-import static op.globalArguments.instrToHex;
-import static op.globalArguments.inter_name;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import static op.globalArguments.*;
 
 public class Matchup {
-    String result = "";
+    private ArrayList<String> codes = new ArrayList<>();
 
-    public Matchup(ArrayList<String> codes) throws IOException {
+    public Matchup() throws IOException {
         File file = new File("res/Infos.txt");
         BufferedReader bfr = new BufferedReader(new FileReader(file));
         String readIn = bfr.readLine();
@@ -20,9 +22,23 @@ public class Matchup {
             instrToHex.put(strings[0], strings[1]);
             readIn = bfr.readLine();
         }
-        for(String string : instrToHex.keySet()) {
-            System.out.println(string + " " + instrToHex.get(string));
+        bfr.close();
+//        for(String string : instrToHex.keySet())
+//            System.out.println(string + " " + instrToHex.get(string));
+
+        file = new File("res/test.txt");
+        bfr = new BufferedReader(new FileReader(file));
+        readIn = "";
+        while(!readIn.equals("{")) {
+            readIn = bfr.readLine();
         }
+        readIn = bfr.readLine();
+        do {
+            codes.add(readIn);
+            readIn = bfr.readLine();
+        }while(!readIn.equals("}"));
+        for(String s : codes)
+            System.out.println(s);
     }
 
     /**
@@ -40,31 +56,97 @@ public class Matchup {
      * 将字节码翻译成16进制码
      * @return
      */
-    public String doTrans(ArrayList<String> codes) {
-        for(int i = 0; i < codes.size(); i++) {
-            String code = codes.get(i);
-            if(isInstr(code)) {
-                String instrName = code.split(" ")[0];
+    public String singleMethodDoTrans(ArrayList<String> singleMethodCodes) {
+        String result = "";
+        for(int i = 1; i < singleMethodCodes.size(); i++) {
+            String code = singleMethodCodes.get(i);
+            if(isInstr(code.substring(code.indexOf(" ") + 1))) {
+                String instrName = code.split(" ")[1];
+//                System.err.println(instrName);
                 int instrSize = instrSizes.get(instrName);
                 if (instrName.contains("switch")) {
                     if(instrName.equals("tableswitch")) {
                         result += instrToHex.get(instrName);
+                        ArrayList<String> tabs = new ArrayList<>();
+                        String tab = "";
+                        do {
+                            tab = singleMethodCodes.get(++i);
+                            tabs.add(tab);
+                        }while (!tab.startsWith("default"));
+                        String defaultHex = getHexN(Integer.parseInt(tabs.get(tabs.size() - 1).split(" ")[1]), 8);
+                        String startHex = getHexN(Integer.parseInt(tabs.get(0).split(" ")[0]), 8);
+                        String endHex = getHexN(Integer.parseInt(tabs.get(tabs.size() - 2).split(" ")[0]), 8);
+                        result = result + defaultHex + startHex + endHex;
+                        for(int index = 0; i < tabs.size() - 2; index++) {
+                            result += getHexN(Integer.parseInt(tabs.get(index).split(" ")[1]), 8);
+                        }
                     }
                     else if(instrName.equals("lookupswitch")) {
                         result += instrToHex.get(instrName);
+                        ArrayList<String> tabs = new ArrayList<>();
+                        String tab = "";
+                        do {
+                            tab = singleMethodCodes.get(++i);
+                            tabs.add(tab);
+                        }while(!tab.startsWith("default"));
+                        String defaultHex = getHexN(Integer.parseInt(tabs.get(tabs.size() - 1).split(" ")[1]), 8);
+                        String sumHex = getHexN(tabs.size() - 1, 8);
+                        result = result + defaultHex + sumHex;
+                        for(int index = 0; index < tabs.size() - 1; index++) {
+                            result = result
+                                    + getHexN(Integer.parseInt(tabs.get(i).split(" ")[0]), 8)
+                                    + getHexN(Integer.parseInt(tabs.get(i).split(" ")[1]), 8);
+                        }
                     }
-                } else if (instrSize == 1)
+                }
+                else if (instrSize == 1)
                     result += instrToHex.get(instrName);
                 else {
-                    result += instrToHex.get(instrName);
-                    result += code.split(" ")[1].substring(2);// 去掉0x
+                    if(code.contains("#"))
+                        result = result + instrToHex.get(instrName)
+                                + getHexN(Integer.parseInt(code.split(" ")[2].substring(1)), (instrSize - 1) * 2);
+                    else
+                        result = result + getHexN(Integer.parseInt(code.split(" ")[2]), (instrSize - 1) * 2);
                 }
             }
         }
         return result;
     }
 
+    /**
+     * 翻译整个方法区
+     * @return 最终16进制码
+     */
+    public Matchup buildTransCode() {
+        ArrayList<String> singleMethodCodes = new ArrayList<>();
+        for(String code : codes) {
+            if(code.startsWith(".end")) {
+                method_codes.add(singleMethodDoTrans(singleMethodCodes));
+                singleMethodCodes.clear();
+            }
+            else if(code.startsWith(".line") || code.startsWith(":"))
+                continue;
+            else {
+                singleMethodCodes.add(code);
+            }
+        }
+        return this;
+    }
+
+    /**
+     * 将int型转换成N位16进制
+     * @return
+     */
+    public String getHexN(int i, int n) {
+        String result = Integer.toHexString(i);
+        while(result.length() < n)
+            result = "0" + result;
+        return result;
+    }
+
     public static void main(String[] args) throws IOException {
-//        new Matchup();
+        new Optimize().initInstrSize();
+        new Matchup().buildTransCode();
+        System.out.println(method_codes.get(0));
     }
 }

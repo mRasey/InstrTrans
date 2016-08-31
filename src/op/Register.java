@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class Register {
 
-    String dexName;
+    public String dexName;
     public int stackNum;
     public String currentType;
     HashMap<Integer, String> typeInCurrentLine = new HashMap<>();

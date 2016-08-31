@@ -62,24 +62,25 @@ public class globalArguments {
     
     //接口信息
     public static int inter_count = 0;
-    public static ArrayList<String> inter_name = new ArrayList<String>();
-    public static ArrayList<Integer> inter_conpool_number = new ArrayList<Integer>();
+    public static ArrayList<String> inter_name = new ArrayList<>();
+    public static ArrayList<Integer> inter_conpool_number = new ArrayList<>();
     //字段信息
     public static int field_count = 0;
     // .field (访问权限) (static) (修饰关键字) 字段名:字段类型/描述符
-    public static ArrayList<ArrayList<String>> field_info = new ArrayList<ArrayList<String>>(); 
-    public static ArrayList<Integer> fieldName_conpool_number = new ArrayList<Integer>();
-    public static ArrayList<Integer> fieldType_conpool_number = new ArrayList<Integer>();
+    public static ArrayList<ArrayList<String>> field_info = new ArrayList<>();
+    public static ArrayList<Integer> fieldName_conpool_number = new ArrayList<>();
+    public static ArrayList<Integer> fieldType_conpool_number = new ArrayList<>();
     //方法信息
     public static int method_count = 0;
-    public static ArrayList<ArrayList<String>> method_info = new ArrayList<ArrayList<String>>();
-    public static ArrayList<Integer> method_localreg_number = new ArrayList<Integer>();
-    public static ArrayList<Integer> methodName_conpool_number = new ArrayList<Integer>();
-    public static ArrayList<Integer> methodType_conpool_number = new ArrayList<Integer>();
+    public static ArrayList<ArrayList<String>> method_info = new ArrayList<>();
+    public static ArrayList<Integer> method_localreg_number = new ArrayList<>();
+    public static ArrayList<Integer> methodName_conpool_number = new ArrayList<>();
+    public static ArrayList<Integer> methodType_conpool_number = new ArrayList<>();
+    public static ArrayList<String> method_codes = new ArrayList<>();
 
     public static HashMap<String, String> instrToHex = new HashMap<>();
     public static HashMap<String, Integer> instrSizes = new HashMap<>();
-    
+
     public static void clear(){
     	//清除寄存器信息
     	stackNumber = 0;

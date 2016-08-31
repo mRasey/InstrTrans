@@ -33,7 +33,7 @@ public class _const extends Instruction{
     	
         String dataType = "";
         dataType = firstRegister.getType(dexCodeNumber);
-        
+       
         switch (dexCodes[0]){
         	//char 应该放在哪里？？？
             case "const/4" :
@@ -121,7 +121,6 @@ public class _const extends Instruction{
 
 	@Override
 	public boolean ifUpgrade(ArrayList<String> firstDexCode, ArrayList<String> secondDexCode, ArrayList<String> thirdDexCode, int lineNum) {
-		
 		if(thirdDexCode.get(0).equals(".local")) {
 			Register register = globalArguments.registerQueue.getByDexName(firstDexCode.get(1));
 			register.updateType(lineNum,
@@ -146,7 +145,25 @@ public class _const extends Instruction{
 			}
 		}
 		else if(secondDexCode.get(0).contains("invoke")){
-			new _invoke().ifUpgrade(secondDexCode,lineNum);
+			int i = 0, t = 0;
+			for(i=1;i<secondDexCode.size()-1;i++){
+				if(secondDexCode.get(i).equals(firstDexCode.get(1))){
+					t = 1;
+				}
+			}
+			if(t == 0){
+				Register register = globalArguments.registerQueue.getByDexName(firstDexCode.get(1));
+				if(register.currentType == null){
+					register.updateType(lineNum, "I");
+				}
+				else{
+					register.updateType(lineNum, register.currentType);
+					System.out.println(register.dexName +":" +register.currentType +" "+lineNum);
+				}
+			}
+			else{
+				new _invoke().ifUpgrade(secondDexCode,lineNum);
+			}
 		}
 		else if(secondDexCode.get(0).contains("if")){
 			if(secondDexCode.get(0).contains("z")){
@@ -226,6 +243,7 @@ public class _const extends Instruction{
 			}
 			else{
 				register.updateType(lineNum, register.currentType);
+				System.out.println(register.dexName +":" +register.currentType +" "+lineNum);
 			}
 			
 		}
