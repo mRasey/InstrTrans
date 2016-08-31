@@ -162,11 +162,16 @@ public class Optimize {
         return this;
     }
 
+    /**
+     * 读入初始化文件
+     * @return this
+     * @throws IOException
+     */
     public Optimize initInstrSize() throws IOException {
         File file = new File("res/InstrSize.txt");
         BufferedReader bfr = new BufferedReader(new FileReader(file));
         String readIn = bfr.readLine();
-        while(!readIn.startsWith("lookup")) {
+        while(!readIn.startsWith("wide")) {
             String instrName = readIn.split(" ")[0];
             int instrSize = Integer.parseInt(readIn.split(" ")[1]);
             instrSizes.put(instrName, instrSize);
@@ -185,10 +190,25 @@ public class Optimize {
             ArrayList<String> byteCodes = singleLine.byteCodes;
             for(int i = 0; i < byteCodes.size(); i++) {
                 String byteCode = byteCodes.get(i);
-                if(globalArguments.rf.ifAnInstruction(byteCode)){
-                	if(byteCode.equals("tableswitch")){
-                		
-                	}
+                if(globalArguments.rf.ifAnInstruction(byteCode)) {
+                	if(byteCode.contains("switch")) {
+                	    String tempFlag = byteCode;// 记录下switch的类型
+                        // 为tableswitch申请偏移值
+                	    int instrSize = instrSizes.get(byteCode.split(" ")[0]);
+                        byteCode = lineIndex + ": " + byteCode;
+                        lineIndex += instrSize;
+                        byteCodes.set(i, byteCode);
+                        // 计算除去偏移表之后的偏移值
+                		ArrayList<String> codes = new ArrayList<>();
+                        do {
+                            byteCode = byteCodes.get(++i);
+                            codes.add(byteCode);
+                        }while(!byteCode.startsWith("default"));
+                        if(tempFlag.equals("tableswitch"))
+                            lineIndex = lineIndex + 12 + (codes.size() - 1) * 4;// tableswitch
+                        else
+                            lineIndex = lineIndex + 8 + (codes.size() - 1) * 8;// lookupswitch
+                    }
                 	else{
                 		System.out.println(byteCode);
                         int instrSize = instrSizes.get(byteCode.split(" ")[0]);
@@ -202,21 +222,63 @@ public class Optimize {
         return this;
     }
 
-    public static void main(String[] args) throws IOException {
-        File file = new File("res/out.txt");
-        File outFile = new File("res/out.txt");
-        BufferedReader bfr = new BufferedReader(new FileReader(file));
-        BufferedWriter bfw = new BufferedWriter(new FileWriter(outFile));
-        String readIn = bfr.readLine();
-        while(!readIn.startsWith("lookup")) {
-            int size = Integer.parseInt(readIn.split(" ")[1]) + 1;
-            readIn = readIn.split(" ")[0] + " " + size;
-            System.out.println(readIn);
-            bfw.write(readIn);
-            bfw.newLine();
-            readIn = bfr.readLine();
+
+    /**
+     * 单元测试使用
+     * @return
+     */
+    public Optimize test() {
+        ArrayList<String> byteCodes = new ArrayList<>();
+        byteCodes.add("lookupswitch");
+        byteCodes.add("2 :tab2");
+        byteCodes.add("3 :tab3");
+        byteCodes.add("default :default_tab");
+        byteCodes.add("aload 233");
+        int lineIndex = 0;
+        for (int i = 0; i < byteCodes.size(); i++) {
+            String byteCode = byteCodes.get(i);
+            System.err.println(byteCode);
+            if (globalArguments.rf.ifAnInstruction(byteCode)) {
+                if (byteCode.contains("switch")) {
+                    String tempFlag = byteCode;// 记录下switch的类型
+                    // 为tableswitch申请偏移值
+                    int instrSize = instrSizes.get(byteCode.split(" ")[0]);
+                    byteCode = lineIndex + ": " + byteCode;
+                    lineIndex += instrSize;
+                    byteCodes.set(i, byteCode);
+                    // 计算除去偏移表之后的偏移值
+                    ArrayList<String> codes = new ArrayList<>();
+                    do {
+                        byteCode = byteCodes.get(++i);
+                        codes.add(byteCode);
+                    } while (!byteCode.startsWith("default"));
+                    if (tempFlag.equals("tableswitch"))
+                        lineIndex = lineIndex + 12 + (codes.size() - 1) * 4;// tableswitch
+                    else
+                        lineIndex = lineIndex + 8 + (codes.size() - 1) * 8;// lookupswitch
+                } else {
+                    System.err.println(byteCode);
+                    int instrSize = instrSizes.get(byteCode.split(" ")[0]);
+                    byteCode = lineIndex + ": " + byteCode;
+                    lineIndex += instrSize;
+                    byteCodes.set(i, byteCode);
+                }
+            }
+            else
+                System.err.println("not a instr");
         }
-        bfr.close();
-        bfw.close();
+
+        for(String string : byteCodes)
+            System.out.println(string);
+        return this;
+    }
+
+    /**
+     * 测试使用
+     * @param args
+     * @throws IOException
+     */
+    public static void main(String[] args) throws IOException {
+        new Optimize().initInstrSize().test();
     }
 }

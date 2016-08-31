@@ -200,6 +200,6 @@ saload 1
 sastore 1
 sipush 3
 swap 1
-lookupswitch 5+
-tableswitch 5+
+lookupswitch 1
+tableswitch 1
 wide 4/6

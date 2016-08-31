@@ -6,9 +6,9 @@ import java.util.HashMap;
 
 import static op.globalArguments.instrSizes;
 import static op.globalArguments.instrToHex;
+import static op.globalArguments.inter_name;
 
 public class Matchup {
-    ArrayList<String> codes = new ArrayList<>();
     String result = "";
 
     public Matchup(ArrayList<String> codes) throws IOException {
@@ -23,23 +23,42 @@ public class Matchup {
         for(String string : instrToHex.keySet()) {
             System.out.println(string + " " + instrToHex.get(string));
         }
-        this.codes = codes;
     }
 
-    public String doTrans() {
+    /**
+     * 判断字符串是否是指令
+     * @param code 字符串
+     * @return boolean
+     */
+    public boolean isInstr(String code) {
+        if('a' < code.charAt(0) && code.charAt(0) < 'z')
+            return true;
+        return false;
+    }
+
+    /**
+     * 将字节码翻译成16进制码
+     * @return
+     */
+    public String doTrans(ArrayList<String> codes) {
         for(int i = 0; i < codes.size(); i++) {
             String code = codes.get(i);
-            String instrName = code.split(" ")[0];
-            int instrSize = instrSizes.get(instrName);
-            if(instrName.contains("switch")) {
-                result += instrToHex.get(instrName);
-
-            }
-            else if(instrSize == 1)
-                result += instrToHex.get(instrName);
-            else {
-                result += instrToHex.get(instrName);
-                result += code.split(" ")[1].substring(2);// 去掉0x
+            if(isInstr(code)) {
+                String instrName = code.split(" ")[0];
+                int instrSize = instrSizes.get(instrName);
+                if (instrName.contains("switch")) {
+                    if(instrName.equals("tableswitch")) {
+                        result += instrToHex.get(instrName);
+                    }
+                    else if(instrName.equals("lookupswitch")) {
+                        result += instrToHex.get(instrName);
+                    }
+                } else if (instrSize == 1)
+                    result += instrToHex.get(instrName);
+                else {
+                    result += instrToHex.get(instrName);
+                    result += code.split(" ")[1].substring(2);// 去掉0x
+                }
             }
         }
         return result;
