@@ -39,12 +39,7 @@ public class method_info {
     	attributes_count.set((short) 1);
         //code 属性
         String codes = method_codes.get(method_id);
-        u1[] u1s = new u1[codes.length()];
-        //给u1数组赋值
-        for(int i = 0; i < codes.length(); i = i + 2) {
-            u1s[i] = new u1(Byte.parseByte(codes.charAt(i) + codes.charAt(i + 1) + ""));
-        }
-    	attributes[0] = new attribute_info(new u2((short) 3), new u4(codes.length() / 2), u1s);// code属性
+    	attributes[0] = new attribute_info(new u2((short) 3), new u4(codes.length() / 2), codes);// code属性
     }
     
     public String set_flag(){

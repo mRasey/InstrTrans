@@ -31,7 +31,7 @@ public class ClassFile {
     
     ArrayList<String> byteCodeData = new ArrayList<>();
     
-    public ClassFile() {
+    public ClassFile() throws IOException {
     	readByteCodeFile();
     	magic.set(-889275714);
     	minor_version.set((short) 0);
@@ -148,7 +148,8 @@ public class ClassFile {
 		}
 	}
 	
-	public void fill_methods(){
+	public void fill_methods() throws IOException{
+		new Matchup().buildTransCode();
 		int i = 0;
 		for(i=0;i<globalArguments.method_count;i++){
 			methods[i] = new method_info();

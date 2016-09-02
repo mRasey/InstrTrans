@@ -23,10 +23,8 @@ public class Matchup {
             readIn = bfr.readLine();
         }
         bfr.close();
-//        for(String string : instrToHex.keySet())
-//            System.out.println(string + " " + instrToHex.get(string));
 
-        file = new File("res/test.txt");
+        file = new File("res/result.txt");
         bfr = new BufferedReader(new FileReader(file));
         readIn = "";
         while(!readIn.equals("{")) {
@@ -105,8 +103,52 @@ public class Matchup {
                     if(code.contains("#"))
                         result = result + instrToHex.get(instrName)
                                 + getHexN(Integer.parseInt(code.split(" ")[2].substring(1)), (instrSize - 1) * 2);
-                    else
-                        result = result + getHexN(Integer.parseInt(code.split(" ")[2]), (instrSize - 1) * 2);
+                    else{
+                    	String ins = code.split(" ")[1];
+                    	String temp = code.split(" ")[2];
+                    	if(ins.equals("newarray")){
+                    		char type = temp.charAt(1);
+                    		switch(type){
+                    		case 'Z':
+                    			result = result +"04";
+                    			break;
+                    		case 'B':
+                    			result = result +"08";
+                    			break;
+                    		case 'S':
+                    			result = result +"09";
+                    			break;
+                    		case 'C':
+                    			result = result +"05";
+                    			break;
+                    		case 'J':
+                    			result = result +"0b";
+                    			break;
+                    		case 'F':
+                    			result = result +"06";
+                    			break;
+                    		case 'D':
+                    			result = result +"07";
+                    			break;
+                    		case 'I':
+                    			result = result +"0a";
+                    			break;
+                    		default:
+                    			System.err.println("error in Matchup/singleMethodDoTrans");
+                    			break;
+                    		}
+                    	}
+                    	else{
+                    		if(temp.startsWith("0x")){
+                        		result = result + temp.substring(2);
+                        	}
+                        	else{
+                        		System.err.println(code);
+                        		result = result + getHexN(Integer.parseInt(code.split(" ")[2]), (instrSize - 1) * 2);
+                        	}
+                    	}
+                    	
+                    }
                 }
             }
         }
