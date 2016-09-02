@@ -46,7 +46,12 @@ public class _array extends Instruction{
             case "new-array" :
             case "new-array/jumbo" :
             	globalArguments.finalByteCode.add("iload" + " " + secondRegister.stackNum);
-            	globalArguments.finalByteCode.add("newarray" + " " + dexCodes[3]);
+            	if( dexCodes[3].charAt(dexCodes[3].indexOf("[")+1) == 'L' || dexCodes[3].charAt(dexCodes[3].indexOf("[")+1) == '['){
+            		globalArguments.finalByteCode.add("anewarray" + " " + dexCodes[3]);
+            	}
+            	else{
+            		globalArguments.finalByteCode.add("newarray" + " " + dexCodes[3]);
+            	}
             	globalArguments.finalByteCode.add("astore" + " "+ firstRegister.stackNum);
             	globalArguments.finalByteCodePC += 3;
                 break;
@@ -57,7 +62,13 @@ public class _array extends Instruction{
             	//创建新数组
             	String arrayType = dexCodes[dexCodes.length-1];
             	globalArguments.finalByteCode.add("ldc" + " " + (dexCodes.length-2));
-            	globalArguments.finalByteCode.add("newarray" + " " + arrayType);
+            	if( dexCodes[3].charAt(dexCodes[3].indexOf("[")+1) == 'L' || dexCodes[3].charAt(dexCodes[3].indexOf("[")+1) == '['){
+            		globalArguments.finalByteCode.add("anewarray" + " " + arrayType);
+            	}
+            	else{
+            		globalArguments.finalByteCode.add("newarray" + " " + arrayType);
+            	}
+            	//globalArguments.finalByteCode.add("newarray" + " " + arrayType);
             	globalArguments.finalByteCodePC += 2;
             	
             	//取出数据类型

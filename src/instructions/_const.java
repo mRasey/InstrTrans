@@ -33,7 +33,7 @@ public class _const extends Instruction{
     	
         String dataType = "";
         dataType = firstRegister.getType(dexCodeNumber);
-       
+        //System.err.println(dexCodes[0]+" "+dexCodes[1]+" "+dexCodes[2]);
         switch (dexCodes[0]){
         	//char 应该放在哪里？？？
             case "const/4" :
@@ -193,6 +193,10 @@ public class _const extends Instruction{
 			 Register secondRegister = globalArguments.registerQueue.getByDexName(secondDexCode.get(2));
 	         firstRegister.updateType(lineNum, secondRegister.currentType.substring(secondRegister.currentType.indexOf("[") + 1));
 	         secondRegister.updateType(lineNum, secondRegister.currentType);
+	         if(secondDexCode.get(3).equals(firstDexCode.get(1))){
+					Register register = globalArguments.registerQueue.getByDexName(firstDexCode.get(1));
+					register.updateType(lineNum, "I");
+			}
 		}
 		else if(secondDexCode.get(0).contains("return")){
 			if(secondDexCode.size() > 1){
@@ -236,14 +240,21 @@ public class _const extends Instruction{
 	        	}
 	        }
 		}
+		else if(secondDexCode.get(0).equals("new-array") || secondDexCode.get(0).equals("array-length")){
+			if(secondDexCode.get(2).equals(firstDexCode.get(1))){
+				Register register = globalArguments.registerQueue.getByDexName(firstDexCode.get(1));
+				register.updateType(lineNum, "I");
+			}
+		}
 		else {
 			Register register = globalArguments.registerQueue.getByDexName(firstDexCode.get(1));
 			if(register.currentType == null){
 				register.updateType(lineNum, "I");
+				//System.err.println(register.dexName +":" +register.currentType +" "+lineNum);
 			}
 			else{
 				register.updateType(lineNum, register.currentType);
-				System.out.println(register.dexName +":" +register.currentType +" "+lineNum);
+				//System.out.println(register.dexName +":" +register.currentType +" "+lineNum);
 			}
 			
 		}

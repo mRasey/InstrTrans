@@ -10,6 +10,7 @@ public class ConstantPool {
 
 	// 编号 #n -> 类型
 	// 所有的东西都是先用Utf8存的，然后合并为具体的类型Class,NameAndType,Fieldref,Methodref,InterfaceMethodref,Long,Float,Double,String
+	// NameandType 的不去掉L
 	public int insNum = 0;
 	String regex = "\\d+:";
 	String number = "";
@@ -61,6 +62,9 @@ public class ConstantPool {
 				}
 				else if(byteCodes[1].equals("anewarray")){
 					globalArguments.traTabByteCode.set(insNum, _anewarray(byteCodes));
+				}
+				else if(byteCodes[1].equals("instanceof")){
+					globalArguments.traTabByteCode.set(insNum, _instanceof(byteCodes));
 				}
 			}
 		}
@@ -188,6 +192,10 @@ public class ConstantPool {
 		int id_1=0,id_2=0,id_3=0,id_4=0;
 		String _Methodref = byteCodes[2];
 		String _Class = _Methodref.split("\\.")[0];
+		if(_Class.charAt(0) == 'L'){
+			_Class = _Class.substring(1);
+		}
+		_Class.replace(";", "");
 		String _NameAndType = _Methodref.split("\\.")[1];
 		String _name = _NameAndType.split(":")[0];
 		String _type = _NameAndType.split(":")[1];
@@ -258,6 +266,10 @@ public class ConstantPool {
 		int id_1=0,id_2=0,id_3=0,id_4=0;
 		String _Fieldref = byteCodes[2];
 		String _Class = _Fieldref.split(";->")[0];
+		if(_Class.charAt(0) == 'L'){
+			_Class = _Class.substring(1);
+		}
+		_Class.replace(";", "");
 		String _NameAndType = _Fieldref.split(";->")[1];
 		String _name = _NameAndType.split(":")[0];
 		String _type = _NameAndType.split(":")[1];
@@ -318,6 +330,10 @@ public class ConstantPool {
 	
 	public String _new(String[] byteCodes){
 		String _Class = byteCodes[2];
+		if(_Class.charAt(0) == 'L'){
+			_Class = _Class.substring(1);
+		}
+		_Class.replace(";", "");
 		String newCode = "";
 		
 		if(globalArguments.const_id_value.containsValue(_Class)){
@@ -334,12 +350,39 @@ public class ConstantPool {
 		return newCode;
 	}
 	
+	public String _instanceof(String[] byteCodes){
+		return _new(byteCodes);
+	}
+	
+	
 	public String _pgstatic(String[] byteCodes){
 		return _field(byteCodes);
 	}
 	
 	public String _anewarray(String[] byteCodes){
-		return _new(byteCodes);
+		String _Class = byteCodes[2];
+		if(_Class.charAt(1) == 'L'){
+			_Class = _Class.substring(2);
+			_Class.replace(";", "");
+		}
+		else if(_Class.charAt(1) == '['){
+			_Class = _Class.substring(1);
+		}
+		
+		String newCode = "";
+		
+		if(globalArguments.const_id_value.containsValue(_Class)){
+			newCode =  byteCodes[0]+" "+byteCodes[1]+" "+"#"+ getKey(globalArguments.const_id_value, _Class);
+		}
+		else{
+			globalArguments.const_id_type.put(globalArguments.const_id, "Class");
+			globalArguments.const_id_value.put(globalArguments.const_id, _Class);
+			globalArguments.const_id++;
+			newCode =  byteCodes[0]+" "+byteCodes[1]+" "+"#"+ (globalArguments.const_id-1);
+		}
+		
+		
+		return newCode;
 	}
 	
 	public int getKey(Map<Integer,String> id_type, String value){
@@ -351,5 +394,6 @@ public class ConstantPool {
 		}
 		return -1;
 	}
+	
 	
 }
