@@ -89,6 +89,38 @@ public class ClassFile {
                 + attributes_string;
     }
 
+    public void print(){
+    	System.out.println("magic "+ magic.toString());
+    	System.out.println("version: "+ minor_version.toString()+major_version.toString());
+    	System.out.println("constant_pool_count: "+ constant_pool_count.toString());
+    	System.out.println("constant_pool:");
+    	for(int i = 0; i < constant_pool_count.get()-1; i++)
+    		System.out.println(constant_pool[i].toString());
+    	System.out.println("access_flags: "+access_flags);
+    	System.out.println("this_class: "+this_class.toString());
+    	System.out.println("super_class: "+super_class.toString());
+    	
+    	System.out.println("interfaces_count: "+ interfaces_count.toString());
+    	System.out.println("interfaces:");
+    	for(int i = 0; i < interfaces_count.get(); i++)
+    		System.out.println(interfaces[i].toString());
+    	
+    	System.out.println("fields_count: "+ fields_count.toString());
+    	System.out.println("fields:");
+    	for(int i = 0; i < fields_count.get(); i++)
+    		System.out.println(fields[i].toString());
+    	
+    	System.out.println("method_count: "+ method_count.toString());
+    	System.out.println("method:");
+    	for(int i = 0; i < method_count.get(); i++)
+    		System.out.println(methods[i].toString());
+    	
+    	System.out.println("attributes_count: "+ attributes_count.toString());
+    	System.out.println("attributes:");
+    	for(int i = 0; i < attributes_count.get(); i++)
+    		System.out.println(attributes[i].toString());
+    	
+    }
     
     public void readByteCodeFile(){
     	String byteCodeFilePath = "res/result.txt";
