@@ -30,7 +30,8 @@ public class Main {
 		globalArguments.obcf.print();
 		//转化成classwenj
 		ClassFile cf = new ClassFile();
-		globalArguments.ocf.print(cf.toString().toCharArray());
+		cf.print();
+		globalArguments.ocf.print(cf.toString());
 		
 	}
 }
