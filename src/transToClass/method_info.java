@@ -47,7 +47,6 @@ public class method_info {
 		char[] bstr = "0000000000000000".toCharArray();
 		int i = 0;
 		for (i = 1; i < globalArguments.method_info.get(id).size()-1; i++) {
-			//System.out.println(globalArguments.method_info.get(id).get(i));
 			switch (globalArguments.method_info.get(id).get(i)) {
 			case "public":
 				bstr[15] = '1';
@@ -86,7 +85,7 @@ public class method_info {
 				bstr[3] = '1';
 				break;
 			default:
-				System.out.println("error in method/set_access_flags");
+				System.err.println("error in method/set_access_flags");
 				break;
 			}
 		}

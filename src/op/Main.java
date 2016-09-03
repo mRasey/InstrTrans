@@ -15,26 +15,22 @@ import java.io.IOException;
 public class Main {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
+		new File(OutputByteCodeFile.byteCodeSavePath).delete();//如果原先输出文件存在则删除
+		new File(OutputClassFile.ClassFileSavePath).delete();
+		
 		Schedule sch = new Schedule();
 		sch.run();
-		
+		//优化ldc指令
+		globalArguments.rl.replace();
+		//处理数据
+		globalArguments.cd.complete();
+		//处理常量池
+		globalArguments.cp.strConstPool();
+		//输出byte code
+		globalArguments.obcf.print();
+		//转化成classwenj
 		ClassFile cf = new ClassFile();
-		char[] code = cf.toString().toCharArray();
-		File f = new File("res/MainActivity.class");
-		FileWriter fw = new FileWriter(f.getAbsoluteFile(),true);
-		BufferedWriter bw = new BufferedWriter(fw);
-		int mark = 0;
-		for(int i=0;i<code.length;i++){
-			bw.write(code[i++]);
-			bw.write(code[i++]);
-			bw.write(code[i++]);
-			bw.write(code[i]);
-			bw.write(" ");
-			mark++;
-			if(mark == 8){
-				bw.write("\n");
-			}
-		}
-		bw.close();
+		globalArguments.ocf.print(cf.toString().toCharArray());
+		
 	}
 }
