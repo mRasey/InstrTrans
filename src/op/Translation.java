@@ -78,8 +78,8 @@ public class Translation {
         else if(dexCodes[0].contains("throw"))
             new _throw().analyze(dexCodes);
         else {
-        	System.out.println(dexCodes[0]);
-            System.out.println("error instruction");
+            System.err.println("error in Translation");
+            System.err.println(dexCodes[0]);
         }
 	}
 	

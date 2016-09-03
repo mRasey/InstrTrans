@@ -26,7 +26,6 @@ public class Optimize {
     public Optimize readInf(){		
 		for( ; finishedByteCodeNumber<globalArguments.finalByteCodePC; finishedByteCodeNumber++){
 			byteCodes.add(globalArguments.finalByteCode.get(finishedByteCodeNumber));
-			//System.out.println(globalArguments.finalByteCode.get(finishedByteCodeNumber));
 		}
 		return this;
 	}
@@ -109,7 +108,6 @@ public class Optimize {
             String code = byteCodes.get(i);
             if(code.split(" ").length > 1){
             	if(code.contains("store")) {
-//                    System.err.println(code);
                     int stackNum = Integer.parseInt(code.split(" ")[1]);
                     stackNumToState.put(stackNum, new SingleRegister(State.store, i));
                 }
@@ -139,7 +137,6 @@ public class Optimize {
      * @return this
      */
     public Optimize simplifySingleLine(SingleLine singleLine) {
-//        System.out.println(singleLine.byteCodes.get(0));
         ArrayList<String> byteCodes = singleLine.byteCodes;
         for(int i = 0; i < byteCodes.size(); i++) {
             String code = byteCodes.get(i);
@@ -156,7 +153,6 @@ public class Optimize {
                 else if (0 <= stackNum && stackNum <= 1 && op.substring(1).equals("const"))
                     code = code.substring(0, code.lastIndexOf(" ")) + "_" + stackNum;
                 code = code.substring(code.indexOf(" ") + 1);
-//                System.out.println(code);
                 byteCodes.set(i, code);
             }
         }
@@ -218,7 +214,6 @@ public class Optimize {
                         byteCodes.set(i, byteCode);
                        
                 	}
-                	//System.err.println(byteCode);
                 }
             }
         }
@@ -240,7 +235,6 @@ public class Optimize {
         int lineIndex = 0;
         for (int i = 0; i < byteCodes.size(); i++) {
             String byteCode = byteCodes.get(i);
-            System.err.println(byteCode);
             if (globalArguments.rf.ifAnInstruction(byteCode)) {
                 if (byteCode.contains("switch")) {
                     String tempFlag = byteCode;// 记录下switch的类型
@@ -260,7 +254,6 @@ public class Optimize {
                     else
                         lineIndex = lineIndex + 8 + (codes.size() - 1) * 8;// lookupswitch
                 } else {
-                    System.err.println(byteCode);
                     int instrSize = instrSizes.get(byteCode.split(" ")[0]);
                     byteCode = lineIndex + ": " + byteCode;
                     lineIndex += instrSize;
@@ -271,8 +264,8 @@ public class Optimize {
                 System.err.println("not a instr");
         }
 
-        for(String string : byteCodes)
-            System.out.println(string);
+//        for(String string : byteCodes)
+//            System.out.println(string);
         return this;
     }
 

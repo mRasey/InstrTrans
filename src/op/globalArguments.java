@@ -14,7 +14,8 @@ public class globalArguments {
     public static ReadFile rf = new ReadFile(smailFilePath);
     public static int LineNumber = 0;   //编号
     
-    public static Output ot = new Output();
+    public static OutputByteCodeFile obcf = new OutputByteCodeFile();
+    public static OutputClassFile ocf = new OutputClassFile();
     public static TranslateTable tt = new TranslateTable();
     public static Optimize op = new Optimize();
     public static ConstantPool cp = new ConstantPool();

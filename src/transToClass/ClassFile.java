@@ -163,7 +163,6 @@ public class ClassFile {
 		 char[] bstr = "0000000000100000".toCharArray();
 		 int i = 0;
 		 for(i=0;i<globalArguments.classProPerty.size();i++){
-			 //System.out.println(globalArguments.classProPerty.get(i));
 			 switch(globalArguments.classProPerty.get(i)){
 	    		case "public":
 	    			bstr[15]='1';
@@ -190,7 +189,7 @@ public class ClassFile {
 	    			bstr[1]='1';
 	    			break;
 	    		default:
-	    			System.out.println("error in set_access_flags");
+	    			System.err.println("error in set_access_flags");
 	    			break;
 	    	}
 		 }

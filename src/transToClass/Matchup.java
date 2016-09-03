@@ -35,8 +35,8 @@ public class Matchup {
             codes.add(readIn);
             readIn = bfr.readLine();
         }while(!readIn.equals("}"));
-        for(String s : codes)
-            System.out.println(s);
+//        for(String s : codes)
+//            System.out.println(s);
     }
 
     /**
@@ -60,7 +60,6 @@ public class Matchup {
             String code = singleMethodCodes.get(i);
             if(isInstr(code.substring(code.indexOf(" ") + 1))) {
                 String instrName = code.split(" ")[1];
-//                System.err.println(instrName);
                 int instrSize = instrSizes.get(instrName);
                 if (instrName.contains("switch")) {
                     if(instrName.equals("tableswitch")) {
@@ -143,7 +142,6 @@ public class Matchup {
                         		result = result + temp.substring(2);
                         	}
                         	else{
-                        		System.err.println(code);
                         		result = result + getHexN(Integer.parseInt(code.split(" ")[2]), (instrSize - 1) * 2);
                         	}
                     	}
@@ -189,6 +187,6 @@ public class Matchup {
     public static void main(String[] args) throws IOException {
         new Optimize().initInstrSize();
         new Matchup().buildTransCode();
-        System.out.println(method_codes.get(0));
+        //System.out.println(method_codes.get(0));
     }
 }
