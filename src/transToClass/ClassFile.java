@@ -1,9 +1,11 @@
 package transToClass;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -89,37 +91,78 @@ public class ClassFile {
                 + attributes_string;
     }
 
-    public void print(){
-    	System.out.println("magic "+ magic.toString());
-    	System.out.println("version: "+ minor_version.toString()+major_version.toString());
-    	System.out.println("constant_pool_count: "+ constant_pool_count.toString());
-    	System.out.println("constant_pool:");
-    	for(int i = 0; i < constant_pool_count.get()-1; i++)
-    		System.out.println(constant_pool[i].toString());
-    	System.out.println("access_flags: "+access_flags);
-    	System.out.println("this_class: "+this_class.toString());
-    	System.out.println("super_class: "+super_class.toString());
+    public void print() throws IOException{
     	
-    	System.out.println("interfaces_count: "+ interfaces_count.toString());
-    	System.out.println("interfaces:");
-    	for(int i = 0; i < interfaces_count.get(); i++)
-    		System.out.println(interfaces[i].toString());
+    	File byteCodeFile = new File("res/check.txt");
+		FileWriter fw = new FileWriter(byteCodeFile.getAbsoluteFile(),true);
+		BufferedWriter bw = new BufferedWriter(fw);
     	
-    	System.out.println("fields_count: "+ fields_count.toString());
-    	System.out.println("fields:");
-    	for(int i = 0; i < fields_count.get(); i++)
-    		System.out.println(fields[i].toString());
+    	int i=0,j=0;
+    	bw.write("magic "+ magic.toString()+"\n");
+    	bw.write("version: "+ minor_version.toString()+major_version.toString()+"\n");
+    	bw.write("constant_pool_count: "+ constant_pool_count.toString()+"\n");
+    	bw.write("constant_pool:"+"\n");
+    	while(!byteCodeData.get(j).equals("Constant pool:")){
+    		j++;
+    	}
+    	j++;
+    	for(i = 0; i < constant_pool_count.get()-1; i++){
+    		bw.write(byteCodeData.get(j++)+"\n");
+    		bw.write(constant_pool[i].toString()+"\n");
+    	}
+    		
+    	bw.write("access_flags: "+access_flags+"\n");
+    	bw.write("this_class: "+this_class.toString()+"\n");
+    	bw.write("super_class: "+super_class.toString()+"\n");
     	
-    	System.out.println("method_count: "+ method_count.toString());
-    	System.out.println("method:");
-    	for(int i = 0; i < method_count.get(); i++)
-    		System.out.println(methods[i].toString());
     	
-    	System.out.println("attributes_count: "+ attributes_count.toString());
-    	System.out.println("attributes:");
-    	for(int i = 0; i < attributes_count.get(); i++)
-    		System.out.println(attributes[i].toString());
     	
+    	bw.write("interfaces_count: "+ interfaces_count.toString()+"\n");
+    	bw.write("interfaces:"+"\n");
+    	for(i = 0; i < interfaces_count.get(); i++){
+    		bw.write(globalArguments.inter_name.get(i)+"\n");
+    		bw.write("inter_conpool_number:"+globalArguments.inter_conpool_number.get(i)+"\n");
+    		bw.write(interfaces[i].toString()+"\n");
+    	}
+    		
+    	
+    	bw.write("fields_count: "+ fields_count.toString()+"\n");
+    	bw.write("fields:"+"\n");
+    	for(i = 0; i < fields_count.get(); i++){
+    		bw.write(globalArguments.field_info.get(i)+"\n");
+    		bw.write("fieldName_conpool_number:"+globalArguments.fieldName_conpool_number.get(i)+"\n");
+    		bw.write("fieldType_conpool_number:"+globalArguments.fieldType_conpool_number.get(i)+"\n");
+    		String temp = fields[i].toString();
+    		for(j=0;j<temp.length();j+=4){
+    			bw.write(temp.substring(j,j+4)+" ");
+    		}
+    		bw.write("\n");
+    	}
+    		
+    	
+    	bw.write("method_count: "+ method_count.toString()+"\n");
+    	bw.write("method:"+"\n");
+    	for(i = 0; i < method_count.get(); i++){
+    		bw.write(globalArguments.method_info.get(i)+"\n");
+    		bw.write("methodName_conpool_number:"+globalArguments.methodName_conpool_number.get(i)+"\n");
+    		bw.write("methodType_conpool_number:"+globalArguments.methodType_conpool_number.get(i)+"\n");
+    		String temp = methods[i].toString();
+    		for(j=0;j<16;j+=4){
+    			bw.write(temp.substring(j,j+4)+" ");
+    		}
+    		for(;j<temp.length();j+=2){
+    			bw.write(temp.substring(j,j+2)+" ");
+    		}
+    		bw.write("\n");
+    	}
+    		
+    	
+    	bw.write("attributes_count: "+ attributes_count.toString()+"\n");
+    	bw.write("attributes:"+"\n");
+    	for(i = 0; i < attributes_count.get(); i++)
+    		bw.write(attributes[i].toString()+"\n");
+    	
+    	bw.close();
     }
     
     public void readByteCodeFile(){
