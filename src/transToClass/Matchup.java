@@ -139,10 +139,10 @@ public class Matchup {
                     	}
                     	else{
                     		if(temp.startsWith("0x")){
-                        		result = result + temp.substring(2);
+                        		result = result + instrToHex.get(instrName) + temp.substring(2);
                         	}
                         	else{
-                        		result = result + getHexN(Integer.parseInt(code.split(" ")[2]), (instrSize - 1) * 2);
+                        		result = result + instrToHex.get(instrName) + getHexN(Integer.parseInt(code.split(" ")[2]), (instrSize - 1) * 2);
                         	}
                     	}
                     	
