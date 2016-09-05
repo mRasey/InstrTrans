@@ -16,12 +16,13 @@ public class ConstantPool {
 	String number = "";
 	
 	public void strConstPool() {
+		
 		//前两个存类名和父类名
 		globalArguments.const_id_type.put(globalArguments.const_id, "Class");
 		globalArguments.const_id_value.put(globalArguments.const_id, globalArguments.className.substring(1, globalArguments.className.length()-1));
 		globalArguments.const_id++;
 		globalArguments.const_id_type.put(globalArguments.const_id, "Class");
-		globalArguments.const_id_value.put(globalArguments.const_id, globalArguments.superClassName.substring(1, globalArguments.className.length()-1));
+		globalArguments.const_id_value.put(globalArguments.const_id, globalArguments.superClassName.substring(1, globalArguments.superClassName.length()-1));
 		globalArguments.const_id++;
 		globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
 		globalArguments.const_id_value.put(globalArguments.const_id, "Code");
@@ -192,6 +193,7 @@ public class ConstantPool {
 		int id_1=0,id_2=0,id_3=0,id_4=0;
 		String _Methodref = byteCodes[2];
 		String _Class = _Methodref.split("\\.")[0];
+		//System.out.println(_Class);
 		if(_Class.charAt(0) == 'L'){
 			_Class = _Class.substring(1);
 		}
@@ -204,6 +206,7 @@ public class ConstantPool {
 		
 		if(globalArguments.const_id_value.containsValue( _Class)){
 			id_1 = getKey(globalArguments.const_id_value, _Class);
+			//System.out.println(id_1);
 		}
 		else{
 			id_1 = globalArguments.const_id;

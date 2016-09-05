@@ -41,17 +41,19 @@ public class _invoke extends Instruction {
     	}
     	
     	//翻译成invoke指令
+    	String classname = dexCodes[dexCodes.length-1].split("->")[0];
+    	String methodname = dexCodes[dexCodes.length-1].split("->")[1];
     	if(dexCodes[0].contains("virtual")){
-    		globalArguments.finalByteCode.add("invokevirtual"+" "+globalArguments.className.replace(";", ".")+globalArguments.methodName.replace("(", ":("));
+    		globalArguments.finalByteCode.add("invokevirtual"+" "+classname.replace(";", ".")+methodname.replace("(", ":("));
     	}
     	else if(dexCodes[0].contains("static")){
-    		globalArguments.finalByteCode.add("invokestatic"+" "+globalArguments.className.replace(";", ".")+globalArguments.methodName.replace("(", ":("));
+    		globalArguments.finalByteCode.add("invokestatic"+" "+classname.replace(";", ".")+methodname.replace("(", ":("));
     	}
     	else if(dexCodes[0].contains("interface")){
-    		globalArguments.finalByteCode.add("invokeinterface"+" "+globalArguments.className.replace(";", ".")+globalArguments.methodName.replace("(", ":("));
+    		globalArguments.finalByteCode.add("invokeinterface"+" "+classname.replace(";", ".")+methodname.replace("(", ":("));
     	}
     	else{
-    		globalArguments.finalByteCode.add("invokespecial"+" "+globalArguments.className.replace(";", ".")+globalArguments.methodName.replace("(", ":("));
+    		globalArguments.finalByteCode.add("invokespecial"+" "+classname.replace(";", ".")+methodname.replace("(", ":("));
     	}
     	globalArguments.finalByteCodePC++;
     }
