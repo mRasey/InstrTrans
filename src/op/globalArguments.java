@@ -75,7 +75,6 @@ public class globalArguments {
     //方法信息
     public static int method_count = 0;
     public static ArrayList<ArrayList<String>> method_info = new ArrayList<>();
-    public static ArrayList<Integer> method_localreg_number = new ArrayList<>();
     public static ArrayList<Integer> methodName_conpool_number = new ArrayList<>();
     public static ArrayList<Integer> methodType_conpool_number = new ArrayList<>();
     public static ArrayList<String> method_codes = new ArrayList<>();

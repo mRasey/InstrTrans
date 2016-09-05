@@ -101,7 +101,14 @@ public class Schedule {
 		}
 	}
 	public void dealLocal(){
-		local_reg_number++;
+		//记录方法里的局部变量个数
+		String datatype = instruction.get(2).split(":")[1];
+		if(datatype.equals("D") || datatype.equals("J")){
+			local_reg_number+=2;
+		}
+		else{
+			local_reg_number++;
+		}
 		Register register = globalArguments.registerQueue.getByDexName(instruction.get(1));
 		if(register == null){
 			globalArguments.registerQueue.addNewRegister(new Register(instruction.get(1), null, globalArguments.stackNumber++));
@@ -131,7 +138,8 @@ public class Schedule {
 	
 	public void endMethod() throws IOException{
 		//保存方法的局部变量个数
-		globalArguments.method_localreg_number.add(local_reg_number);
+		set_max_locals();
+		
 		int temp = method_begin_number;
         //获取寄存器类型
         while(method_begin_number < globalArguments.LineNumber){
@@ -325,5 +333,34 @@ public class Schedule {
             }
             globalArguments.switchData.put(tab, data);
         }
+	}
+
+	public void set_max_locals(){
+		String types =  globalArguments.methodName.substring(globalArguments.methodName.indexOf("(")+1,globalArguments.methodName.indexOf(")")+1);
+		int i = 0,argNumber = 1;
+		while (!types.equals(")")) {
+			if (types.startsWith("L")) {
+				argNumber++;
+				types = types.substring(types.indexOf(";"));
+			} else if (types.startsWith("[")) {
+				String tempType = "";
+				do {
+					tempType += "[";
+					types = types.substring(1);
+				} while (types.startsWith("["));
+				if ((types.charAt(0) + "").equals("L")) {
+					argNumber++;
+					types = types.substring(types.indexOf(";"));
+				} else {
+					argNumber++;
+				}
+			} else {
+				argNumber++;
+			}
+			types = types.substring(1);
+		}
+		
+		
+		globalArguments.method_max_locals.add(local_reg_number+argNumber);
 	}
 }

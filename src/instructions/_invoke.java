@@ -96,7 +96,7 @@ public class _invoke extends Instruction {
                 }while (types.startsWith("["));
                 if((types.charAt(0) + "").equals("L")) {
                     regTypes.add(tempType + types.substring(0, types.indexOf(";") + 1));
-                    types += ";";
+                    types = types.substring(types.indexOf(";"));
                 }
                 else {
                     regTypes.add(tempType + types.charAt(0));

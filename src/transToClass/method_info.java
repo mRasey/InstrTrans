@@ -39,7 +39,7 @@ public class method_info {
     	attributes_count.set((short) 1);
         //code 属性
         String codes = method_codes.get(method_id);
-    	attributes[0] = new attribute_info(3, 0,0,codes.length()/2, codes,0);// code属性
+    	attributes[0] = new attribute_info(3, 0,globalArguments.method_max_locals.get(method_id),codes.length()/2, codes,0);// code属性
     }
     
     public String set_flag(){
