@@ -10,7 +10,8 @@ import java.util.Map;
 
 public class globalArguments {
     public static RegisterQueue registerQueue = new RegisterQueue();
-    static String smailFilePath = "res/MainActivity.smali";
+    //static String smailFilePath = "res/MainActivity.smali";
+    static String smailFilePath = "res/testJ.smali";
     public static ReadFile rf = new ReadFile(smailFilePath);
     public static int LineNumber = 0;   //编号
     
@@ -78,6 +79,8 @@ public class globalArguments {
     public static ArrayList<Integer> methodName_conpool_number = new ArrayList<>();
     public static ArrayList<Integer> methodType_conpool_number = new ArrayList<>();
     public static ArrayList<String> method_codes = new ArrayList<>();
+    public static ArrayList<Integer> method_max_stack = new ArrayList<>();
+    public static ArrayList<Integer> method_max_locals = new ArrayList<>();
 
     public static HashMap<String, String> instrToHex = new HashMap<>();
     public static HashMap<String, Integer> instrSizes = new HashMap<>();
