@@ -91,8 +91,8 @@ public class Matchup {
                         result = result + defaultHex + sumHex;
                         for(int index = 0; index < tabs.size() - 1; index++) {
                             result = result
-                                    + getHexN(Integer.parseInt(tabs.get(i).split(" ")[0]), 8)
-                                    + getHexN(Integer.parseInt(tabs.get(i).split(" ")[1]), 8);
+                                    + getHexN(Integer.parseInt(tabs.get(index).split(" ")[0]), 8)
+                                    + getHexN(Integer.parseInt(tabs.get(index).split(" ")[1]), 8);
                         }
                     }
                 }

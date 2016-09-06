@@ -291,7 +291,11 @@ public class Optimize {
                             maxStack = maxStack - regTypes.size() + 1;
                     }
                     else {
-                        maxStack += instrStackSize.get(byteCode.split(" ")[0]);
+                        try {
+                            maxStack += instrStackSize.get(byteCode.split(" ")[0]);
+                        }catch (Exception e) {
+                            System.err.println(byteCode.split(" ")[0]);
+                        }
                     }
                 }
             }
