@@ -10,8 +10,8 @@ import java.util.Map;
 
 public class globalArguments {
     public static RegisterQueue registerQueue = new RegisterQueue();
-    //static String smailFilePath = "res/MainActivity.smali";
-    static String smailFilePath = "res/testJ.smali";
+    static String smailFilePath = "res/MainActivity.smali";
+    //static String smailFilePath = "res/testJ.smali";
     public static ReadFile rf = new ReadFile(smailFilePath);
     public static int LineNumber = 0;   //编号
     
