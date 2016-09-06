@@ -264,7 +264,7 @@ public class Schedule {
         
         
         //指令优化，要放在处理跳转之前
-        globalArguments.op.clear().readInf().initInstrSize().dispatchCodes().deal().output();
+        globalArguments.op.clear().readInf().initStackSize().initInstrSize().dispatchCodes().deal().output();
         //处理跳转
         globalArguments.tt.clear();
         globalArguments.tt.readInf();
