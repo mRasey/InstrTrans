@@ -109,7 +109,11 @@ public class Schedule {
 		else{
 			local_reg_number++;
 		}
-		Register register = globalArguments.registerQueue.getByDexName(instruction.get(1));
+		
+		int order = globalArguments.LineNumber; //当前.local的标号
+		ArrayList<String> lastIns;
+		//分配栈
+		Register register = globalArguments.registerQueue.getByDexName(instruction.get(1)); //.local指定的寄存器
 		if(register == null){
 			globalArguments.registerQueue.addNewRegister(new Register(instruction.get(1), null, globalArguments.stackNumber++));
 			register = globalArguments.registerQueue.getByDexName(instruction.get(1));
@@ -118,6 +122,24 @@ public class Schedule {
 		else{
 			register.setIfTempVar();
 		}
+		//记录寄存器类型
+		order--;
+		do{
+			lastIns = globalArguments.rf.getInstruction(order);
+			if(lastIns.get(0).equals(".line")){
+				order--;
+				continue;
+			}
+			else if(lastIns.get(0).contains("const") && lastIns.get(1).equals(register.dexName)){
+				register.updateType(order, datatype);
+				break;
+			}
+			else{
+				break;
+			}
+		}while(order >=0);
+		
+		
 	}
 	
 	public void addNewReg(){
@@ -265,7 +287,8 @@ public class Schedule {
         
         //指令优化，要放在处理跳转之前
         globalArguments.op.clear().readInf().initStackSize().initInstrSize().dispatchCodes().deal().output();
-        //处理跳转
+        //globalArguments.op.clear().readInf().initInstrSize().dispatchCodes().deal().output();
+		//处理跳转
         globalArguments.tt.clear();
         globalArguments.tt.readInf();
         globalArguments.tt.traTab();

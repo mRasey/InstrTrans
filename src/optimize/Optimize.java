@@ -260,7 +260,7 @@ public class Optimize {
                         //解析调用函数的调用参数
                         String parameters = byteCode.split(" ")[1];
                         String types = parameters.substring(parameters.lastIndexOf(":") + 1);
-                        while (!types.equals(")")) {
+                        while (!types.startsWith(")")) {
                             if (types.startsWith("L")) {
                                 regTypes.add(types.substring(0, types.indexOf(";") + 1));
                                 types = types.substring(types.indexOf(";"));
