@@ -1,11 +1,14 @@
 package optimize;
 
-import java.io.*;
+import op.globalArguments;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-
-import op.globalArguments;
 
 import static op.globalArguments.instrSizes;
 
@@ -13,9 +16,29 @@ public class Optimize {
 
     ArrayList<String> byteCodes = new ArrayList<>();
     //ArrayList<SingleMethod> singleMethods = new ArrayList<>();
+    HashMap<String, Integer> instrStackSize = new HashMap<>();
     SingleMethod singleMethod;
 
     public int finishedByteCodeNumber = 0;
+
+    public Optimize() {
+
+    }
+
+    /**
+     * 读入每个指令占用操作栈空间大小
+     * @return
+     */
+    public Optimize initStackSize() throws IOException {
+        File file = new File("res/stackSize.txt");
+        BufferedReader bfr = new BufferedReader(new FileReader(file));
+        String readIn = bfr.readLine();
+        while(readIn != null) {
+            instrStackSize.put(readIn.split(" ")[0], Integer.parseInt(readIn.split(" ")[1]));
+            readIn = bfr.readLine();
+        }
+        return this;
+    }
     
     public Optimize clear(){
     	byteCodes.clear();
@@ -91,6 +114,7 @@ public class Optimize {
             dealSingleLine(singleMethod.lines.get(i), i);//删除多余指令
             simplifySingleLine(singleMethod.lines.get(i));//简化指令形式
         }
+        globalArguments.method_max_stack.add(getMaxStack(singleMethod));//获得方法的操作栈大小
         rebuildSerialNumber(singleMethod);// 分配指令号
         return this;
     }
@@ -207,7 +231,6 @@ public class Optimize {
                             lineIndex = lineIndex + 8 + (codes.size() - 1) * 8;// lookupswitch
                     }
                 	else{
-                		
                         int instrSize = instrSizes.get(byteCode.split(" ")[0]);
                         byteCode = lineIndex + ": " + byteCode;
                         lineIndex += instrSize;
@@ -220,6 +243,61 @@ public class Optimize {
         return this;
     }
 
+    /**
+     * 获得每一个方法所需的操作栈大小
+     * @param singleMethod 单独一个方法
+     * @return 栈大小
+     */
+    public int getMaxStack(SingleMethod singleMethod) {
+        int maxStack = 0;
+        ArrayList<String> regTypes = new ArrayList<>();
+        ArrayList<SingleLine> singleLines = singleMethod.lines;
+        for(SingleLine singleLine : singleLines) {
+            ArrayList<String> byteCodes = singleLine.byteCodes;
+            for(String byteCode : byteCodes) {
+                if(globalArguments.rf.ifAnInstruction(byteCode)) {
+                    if(byteCode.contains("invoke")) {
+                        //解析调用函数的调用参数
+                        String parameters = byteCode.split(" ")[1];
+                        String types = parameters.substring(parameters.lastIndexOf(":") + 1);
+                        while (!types.equals(")")) {
+                            if (types.startsWith("L")) {
+                                regTypes.add(types.substring(0, types.indexOf(";") + 1));
+                                types = types.substring(types.indexOf(";"));
+                            } else if (types.startsWith("[")) {
+                                String tempType = "";
+                                do {
+                                    tempType += "[";
+                                    types = types.substring(1);
+                                }while (types.startsWith("["));
+                                if((types.charAt(0) + "").equals("L")) {
+                                    regTypes.add(tempType + types.substring(0, types.indexOf(";") + 1));
+                                    types = types.substring(types.indexOf(";"));
+                                }
+                                else {
+                                    regTypes.add(tempType + types.charAt(0));
+                                }
+                            } else {
+                                regTypes.add(types.charAt(0) + "");
+                            }
+                            types = types.substring(1);
+                        }
+                        if(types.charAt(types.length() - 1) == 'V')
+                            maxStack -= regTypes.size();
+                        else if(types.charAt(types.length() - 1) == 'D'
+                                || types.charAt(types.length() - 1) == 'J')
+                            maxStack = maxStack - regTypes.size() + 2;
+                        else
+                            maxStack = maxStack - regTypes.size() + 1;
+                    }
+                    else {
+                        maxStack += instrStackSize.get(byteCode.split(" ")[0]);
+                    }
+                }
+            }
+        }
+        return maxStack;
+    }
 
     /**
      * 单元测试使用
