@@ -19,20 +19,19 @@ public class ReadResultTXT {
         while(readIn != null) {
             if(readIn.startsWith(".method")) {
                 readIn = bfr.readLine();
+                HashMap<Integer, Integer> lineNumberTable = new HashMap<>();
                 while(readIn != null && !readIn.contains(".end method")) {
-                    int lineNumber;
                     if(readIn.contains(".line")) {
-                        HashMap<Integer, Integer> lineNumberTable = new HashMap<>();
-                        lineNumber = Integer.parseInt(readIn.split(" ")[1]);// 获取line号
+                        int lineNumber = Integer.parseInt(readIn.split(" ")[1]);// 获取line号
                         do {
                             readIn = bfr.readLine();
                         } while (readIn.startsWith(".local"));// 跳过之前的.local
                         int byteCodeNumber = Integer.parseInt(readIn.split(" ")[0].substring(0, readIn.split(" ")[0].lastIndexOf(":")));
                         lineNumberTable.put(lineNumber, byteCodeNumber);
-                        globalArguments.lineNumberTables.add(lineNumberTable);
                     }
                     readIn = bfr.readLine();
                 }
+                globalArguments.lineNumberTables.add(lineNumberTable);
             }
             else {
                 readIn = bfr.readLine();
