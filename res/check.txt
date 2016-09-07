@@ -1,93 +1,545 @@
 magic cafebabe
 version: 00000032
-constant_pool_count: 0024
+constant_pool_count: 00b6
 constant_pool:
-#1 = Class com/billy/dexcode/MainActivity
-07001e636f6d2f62696c6c792f646578636f64652f4d61696e4163746976697479
-#2 = Class android/support/v7/app/AppCompatActivity
-070028616e64726f69642f737570706f72742f76372f6170702f417070436f6d7061744163746976697479
+#1 = Class com/example/test/MainActivity
+07001d636f6d2f6578616d706c652f746573742f4d61696e4163746976697479
+#2 = Class android/support/v7/app/ActionBarActivity
+070028616e64726f69642f737570706f72742f76372f6170702f416374696f6e4261724163746976697479
 #3 = Utf8 Code
 010004436f6465
-#4 = Utf8 <init>
+#4 = Utf8 sgb
+010003736762
+#5 = Utf8 sgc
+010003736763
+#6 = Utf8 sgd
+010003736764
+#7 = Utf8 sgf
+010003736766
+#8 = Utf8 sgi
+010003736769
+#9 = Utf8 sgl
+01000373676c
+#10 = Utf8 sgs
+010003736773
+#11 = Utf8 sgstr
+0100057367737472
+#12 = Utf8 sgtc
+01000473677463
+#13 = Utf8 gb
+0100026762
+#14 = Utf8 gc
+0100026763
+#15 = Utf8 gd
+0100026764
+#16 = Utf8 gf
+0100026766
+#17 = Utf8 gi
+0100026769
+#18 = Utf8 gl
+010002676c
+#19 = Utf8 gs
+0100026773
+#20 = Utf8 gstr
+01000467737472
+#21 = Utf8 gtc
+010003677463
+#22 = Utf8 B
+01000142
+#23 = Utf8 C
+01000143
+#24 = Utf8 D
+01000144
+#25 = Utf8 F
+01000146
+#26 = Utf8 I
+01000149
+#27 = Utf8 J
+0100014a
+#28 = Utf8 S
+01000153
+#29 = Utf8 Ljava/lang/String;
+0100124c6a6176612f6c616e672f537472696e673b
+#30 = Utf8 Lcom/example/test/testClass;
+01001c4c636f6d2f6578616d706c652f746573742f74657374436c6173733b
+#31 = Utf8 <clinit>
+0100083c636c696e69743e
+#32 = Utf8 <init>
 0100063c696e69743e
-#5 = Utf8 onCreate
+#33 = Utf8 onCreate
 0100086f6e437265617465
-#6 = Utf8 ()V
+#34 = Utf8 onCreateOptionsMenu
+0100136f6e4372656174654f7074696f6e734d656e75
+#35 = Utf8 onOptionsItemSelected
+0100156f6e4f7074696f6e734974656d53656c6563746564
+#36 = Utf8 testArray
+010009746573744172726179
+#37 = Utf8 testCmp
+01000774657374436d70
+#38 = Utf8 testConst
+01000974657374436f6e7374
+#39 = Utf8 testIf
+010006746573744966
+#40 = Utf8 testIget
+0100087465737449676574
+#41 = Utf8 testInstance
+01000c74657374496e7374616e6365
+#42 = Utf8 testInvoke
+01000a74657374496e766f6b65
+#43 = Utf8 testIput
+0100087465737449707574
+#44 = Utf8 testMethod1
+01000b746573744d6574686f6431
+#45 = Utf8 testMove
+010008746573744d6f7665
+#46 = Utf8 testMove_result
+01000f746573744d6f76655f726573756c74
+#47 = Utf8 testMove_result_obj
+010013746573744d6f76655f726573756c745f6f626a
+#48 = Utf8 testMove_result_wide
+010014746573744d6f76655f726573756c745f77696465
+#49 = Utf8 testNeg
+010007746573744e6567
+#50 = Utf8 testOp
+010006746573744f70
+#51 = Utf8 testSget
+0100087465737453676574
+#52 = Utf8 testSput
+0100087465737453707574
+#53 = Utf8 testSwitch
+01000a74657374537769746368
+#54 = Utf8 test_byte_short_int
+010013746573745f627974655f73686f72745f696e74
+#55 = Utf8 ()V
 010003282956
-#7 = Utf8 (Landroid/os/Bundle;)V
+#56 = Utf8 (Landroid/os/Bundle;)V
 010016284c616e64726f69642f6f732f42756e646c653b2956
-#8 = NameAndType #4:#6
-0c0004002e
-#9 = Methodref #2.#8
-0a0002001c
-#10 = NameAndType #5:#7
-0c00050039
-#11 = Methodref #2.#10
-0a000200d2
-#12 = Utf8 setContentView
-01000e736574436f6e74656e7456696577
-#13 = Utf8 (I)V
-01000428492956
-#14 = NameAndType #12:#13
-0c000c04bd
-#15 = Methodref #1.#14
-0a00010072
-#16 = Utf8 hello
-01000568656c6c6f
-#17 = Class java/lang/String
-0700106a6176612f6c616e672f537472696e67
-#18 = Utf8 hashCode
-01000868617368436f6465
-#19 = Utf8 ()I
+#57 = Utf8 (Landroid/view/Menu;)Z
+010016284c616e64726f69642f766965772f4d656e753b295a
+#58 = Utf8 (Landroid/view/MenuItem;)Z
+01001a284c616e64726f69642f766965772f4d656e754974656d3b295a
+#59 = Utf8 ()I
 010003282949
-#20 = NameAndType #18:#19
-0c0012071b
-#21 = Methodref #17.#20
-0a001106b8
-#22 = Utf8 equals
-010006657175616c73
-#23 = Utf8 (Ljava/lang/Object;)Z
-010015284c6a6176612f6c616e672f4f626a6563743b295a
-#24 = NameAndType #22:#23
-0c001608af
-#25 = Methodref #17.#24
-0a001106bc
-#26 = Utf8 world
-010005776f726c64
-#27 = Class java/lang/System
+#60 = Utf8 ()Lcom/example/test/testClass;
+01001e28294c636f6d2f6578616d706c652f746573742f74657374436c6173733b
+#61 = Utf8 ()D
+010003282944
+#62 = NameAndType #8:#26
+0c0008033a
+#63 = Fieldref #1.#62
+09000100a2
+#64 = Utf8 0x0000000000000002L
+010000000000000002
+#65 = NameAndType #9:#27
+0c0009039f
+#66 = Fieldref #1.#65
+09000100a5
+#67 = Utf8 0x40400000F
+0140400000
+#68 = NameAndType #7:#25
+0c000702d5
+#69 = Fieldref #1.#68
+09000100a8
+#70 = Utf8 0x4000cccccccccccdL
+014000cccccccccccd
+#71 = NameAndType #6:#24
+0c00060270
+#72 = Fieldref #1.#71
+09000100ab
+#73 = NameAndType #4:#22
+0c000401a6
+#74 = Fieldref #1.#73
+09000100ad
+#75 = NameAndType #10:#28
+0c000a0404
+#76 = Fieldref #1.#75
+09000100af
+#77 = NameAndType #5:#23
+0c0005020b
+#78 = Fieldref #1.#77
+09000100b1
+#79 = Utf8 sad
+010003736164
+#80 = NameAndType #11:#29
+0c000b0469
+#81 = Fieldref #1.#80
+09000100b4
+#82 = Class com/example/test/testClass;
+07001b636f6d2f6578616d706c652f746573742f74657374436c6173733b
+#83 = Class com/example/test/testClass
+07001a636f6d2f6578616d706c652f746573742f74657374436c617373
+#84 = NameAndType #32:#55
+0c00200cb7
+#85 = Methodref #83.#84
+0a005320c0
+#86 = NameAndType #12:#30
+0c000c04ce
+#87 = Fieldref #1.#86
+09000100ba
+#88 = Methodref #2.#84
+0a0002011c
+#89 = NameAndType #17:#26
+0c001106be
+#90 = Fieldref #1.#89
+09000100bd
+#91 = NameAndType #18:#27
+0c00120723
+#92 = Fieldref #1.#91
+09000100bf
+#93 = NameAndType #16:#25
+0c00100659
+#94 = Fieldref #1.#93
+09000100c1
+#95 = NameAndType #15:#24
+0c000f05f4
+#96 = Fieldref #1.#95
+09000100c3
+#97 = NameAndType #13:#22
+0c000d052a
+#98 = Fieldref #1.#97
+09000100c5
+#99 = NameAndType #19:#28
+0c00130788
+#100 = Fieldref #1.#99
+09000100c7
+#101 = NameAndType #14:#23
+0c000e058f
+#102 = Fieldref #1.#101
+090001044d
+#103 = NameAndType #20:#29
+0c001407ed
+#104 = Fieldref #1.#103
+090001044f
+#105 = NameAndType #21:#30
+0c00150852
+#106 = Fieldref #1.#105
+0900010451
+#107 = NameAndType #33:#56
+0c00210d1c
+#108 = Methodref #2.#107
+0a0002083b
+#109 = Utf8 setContentView
+01000e736574436f6e74656e7456696577
+#110 = Utf8 (I)V
+01000428492956
+#111 = NameAndType #109:#110
+0c006dffffaa36
+#112 = Methodref #1.#111
+0a00010457
+#113 = Utf8 getMenuInflater
+01000f6765744d656e75496e666c61746572
+#114 = Utf8 ()Landroid/view/MenuInflater;
+01001d28294c616e64726f69642f766965772f4d656e75496e666c617465723b
+#115 = NameAndType #113:#114
+0c0071ffffb9da
+#116 = Methodref #1.#115
+0a0001045b
+#117 = Class android/view/MenuInflater
+070019616e64726f69642f766965772f4d656e75496e666c61746572
+#118 = Utf8 inflate
+010007696e666c617465
+#119 = Utf8 (ILandroid/view/Menu;)V
+01001728494c616e64726f69642f766965772f4d656e753b2956
+#120 = NameAndType #118:#119
+0c0076ffffcd67
+#121 = Methodref #117.#120
+0a0075ffffc980
+#122 = Class android/view/MenuItem
+070015616e64726f69642f766965772f4d656e754974656d
+#123 = Utf8 getItemId
+0100096765744974656d4964
+#124 = NameAndType #123:#59
+0c007b3047
+#125 = InterfaceMethodref #122.#124
+0b007affffdd0c
+#126 = NameAndType #35:#58
+0c00230de6
+#127 = Methodref #2.#126
+0a0002084e
+#128 = Utf8 0x0000000000000001L
+010000000000000001
+#129 = Utf8 0x4002666666666666L
+014002666666666666
+#130 = Class java/lang/String;
+0700116a6176612f6c616e672f537472696e673b
+#131 = Utf8 sada
+01000473616461
+#132 = Utf8 a
+01000161
+#133 = Utf8 b
+01000162
+#134 = Utf8 c
+01000163
+#135 = Class [I
+0700025b49
+#136 = Class [Ljava/lang/String;
+0700135b4c6a6176612f6c616e672f537472696e673b
+#137 = Utf8 0x3f800000F
+013f800000
+#138 = Utf8 0x40000000F
+0140000000
+#139 = Utf8 0x3ff0000000000000L
+013ff0000000000000
+#140 = Utf8 0x4000000000000000L
+014000000000000000
+#141 = Class java/lang/System
 0700106a6176612f6c616e672f53797374656d
-#28 = Utf8 out
+#142 = Utf8 out
 0100036f7574
-#29 = Utf8 Ljava/io/PrintStream;
+#143 = Utf8 Ljava/io/PrintStream;
 0100154c6a6176612f696f2f5072696e7453747265616d3b
-#30 = NameAndType #28:#29
-0c001c0b0d
-#31 = Fieldref #27.#30
-09001b0aaa
-#32 = Class java/io/PrintStream
+#144 = NameAndType #142:#143
+0c008e2b3f
+#145 = Fieldref #141.#144
+09008d2758
+#146 = Class v0
+0700027630
+#147 = Class java/io/PrintStream
 0700136a6176612f696f2f5072696e7453747265616d
-#33 = Utf8 println
-0100077072696e746c6e
-#34 = NameAndType #33:#13
-0c00210cf1
-#35 = Methodref #32.#34
-0a00200ca2
+#148 = Utf8 print
+0100057072696e74
+#149 = Utf8 (Z)V
+010004285a2956
+#150 = NameAndType #148:#149
+0c009442b5
+#151 = Methodref #147.#150
+0a00933ece
+#152 = NameAndType #44:#59
+0c002c116b
+#153 = Methodref #1.#152
+0a00010480
+#154 = Utf8 0x0000000000000003L
+010000000000000003
+#155 = Utf8 0x40800000F
+0140800000
+#156 = Utf8 asda
+01000461736461
+#157 = Utf8 0x41300000F
+0141300000
+#158 = Utf8 0x41400000F
+0141400000
+#159 = Utf8 0x400199999999999aL
+01400199999999999a
+#160 = NameAndType #46:#59
+0c002e1233
+#161 = Methodref #1.#160
+0a00010488
+#162 = NameAndType #48:#61
+0c003012fd
+#163 = Methodref #1.#162
+0a0001048a
+#164 = NameAndType #47:#60
+0c002f1298
+#165 = Methodref #1.#164
+0a0001048c
+#166 = Utf8 0x3ff199999999999aL
+013ff199999999999a
+#167 = Utf8 0x0000000000000015L
+010000000000000015
+#168 = Utf8 0xffffffffffffffffL
+01ffffffffffffffff
+#169 = Utf8 1
+01000131
+#170 = Utf8 (Ljava/lang/String;)V
+010015284c6a6176612f6c616e672f537472696e673b2956
+#171 = NameAndType #148:#170
+0c009442ca
+#172 = Methodref #147.#171
+0a00933ee3
+#173 = Utf8 2
+01000132
+#174 = Utf8 3
+01000133
+#175 = Utf8 0xffff7f18
+01ffff7f18
+#176 = Utf8 0xfffe1f04
+01fffe1f04
+#177 = Utf8 0x43550000F
+0143550000
+#178 = Utf8 0xc1a80000F
+01c1a80000
+#179 = Utf8 0xc000cccccccccccdL
+01c000cccccccccccd
+#180 = Utf8 0xffffffffffff827dL
+01ffffffffffff827d
+#181 = Utf8 0x00000000000079ffL
+0100000000000079ff
 access_flags: 0021
 this_class: 0001
 super_class: 0002
 interfaces_count: 0000
 interfaces:
-fields_count: 0000
+fields_count: 0012
 fields:
-method_count: 0002
+[.field, static, sgb:B]
+fieldName_conpool_number:4
+fieldType_conpool_number:22
+0008 0004 0016 0000 
+[.field, static, sgc:C]
+fieldName_conpool_number:5
+fieldType_conpool_number:23
+0008 0005 0017 0000 
+[.field, static, sgd:D]
+fieldName_conpool_number:6
+fieldType_conpool_number:24
+0008 0006 0018 0000 
+[.field, static, sgf:F]
+fieldName_conpool_number:7
+fieldType_conpool_number:25
+0008 0007 0019 0000 
+[.field, static, sgi:I]
+fieldName_conpool_number:8
+fieldType_conpool_number:26
+0008 0008 001a 0000 
+[.field, static, sgl:J]
+fieldName_conpool_number:9
+fieldType_conpool_number:27
+0008 0009 001b 0000 
+[.field, static, sgs:S]
+fieldName_conpool_number:10
+fieldType_conpool_number:28
+0008 000a 001c 0000 
+[.field, static, sgstr:Ljava/lang/String;]
+fieldName_conpool_number:11
+fieldType_conpool_number:29
+0008 000b 001d 0000 
+[.field, static, sgtc:Lcom/example/test/testClass;]
+fieldName_conpool_number:12
+fieldType_conpool_number:30
+0008 000c 001e 0000 
+[.field, gb:B]
+fieldName_conpool_number:13
+fieldType_conpool_number:22
+0000 000d 0016 0000 
+[.field, gc:C]
+fieldName_conpool_number:14
+fieldType_conpool_number:23
+0000 000e 0017 0000 
+[.field, gd:D]
+fieldName_conpool_number:15
+fieldType_conpool_number:24
+0000 000f 0018 0000 
+[.field, gf:F]
+fieldName_conpool_number:16
+fieldType_conpool_number:25
+0000 0010 0019 0000 
+[.field, gi:I]
+fieldName_conpool_number:17
+fieldType_conpool_number:26
+0000 0011 001a 0000 
+[.field, gl:J]
+fieldName_conpool_number:18
+fieldType_conpool_number:27
+0000 0012 001b 0000 
+[.field, gs:S]
+fieldName_conpool_number:19
+fieldType_conpool_number:28
+0000 0013 001c 0000 
+[.field, gstr:Ljava/lang/String;]
+fieldName_conpool_number:20
+fieldType_conpool_number:29
+0000 0014 001d 0000 
+[.field, gtc:Lcom/example/test/testClass;]
+fieldName_conpool_number:21
+fieldType_conpool_number:30
+0000 0015 001e 0000 
+method_count: 0018
 method:
+[.method, static, constructor, <clinit>()V]
+methodName_conpool_number:31
+methodType_conpool_number:55
+0008 001f 0037 0001 00 03 00 00 00 40 00 02 00 01 00 00 00 36 10 01 b5 00 3f 14 00 40 b5 00 42 12 43 b5 00 45 14 00 46 b5 00 48 10 04 b5 00 4a 11 00 05 b5 00 4c 10 61 b5 00 4e 12 4f b5 00 51 bb 00 52 b7 00 55 2b b5 00 57 b1 00 00 
 [.method, public, constructor, <init>()V]
-methodName_conpool_number:4
-methodType_conpool_number:6
-0001 0004 0006 0001 00 03 00 00 00 0f 00 00 00 01 00 00 00 05 2a b7 00 09 b1 00 00 
+methodName_conpool_number:32
+methodType_conpool_number:55
+0001 0020 0037 0001 00 03 00 00 00 4d 00 0a 00 01 00 00 00 43 2a b7 00 58 10 01 2a b5 00 5a 14 00 40 2a b5 00 5c 12 43 2a b5 00 5e 14 00 46 2a b5 00 60 10 04 2a b5 00 62 11 00 05 2a b5 00 64 10 61 2a b5 00 66 12 4f 2a b5 00 68 bb 00 52 b7 00 55 2a 2b b5 00 6a b1 00 00 
 [.method, protected, onCreate(Landroid/os/Bundle;)V]
-methodName_conpool_number:5
-methodType_conpool_number:7
-0004 0005 0007 0001 00 03 00 00 00 91 ff ff ff dc 00 03 00 00 00 87 10 01 3d 2a 2b b7 00 0b 2a b6 00 0f 12 10 3a 04 10 ff 19 04 b6 00 15 ab 00 00 00 32 00 00 00 02 05 e9 18 d2 00 00 00 48 06 c1 1b 92 00 00 00 5d aa 00 00 00 47 00 00 00 00 00 00 00 01 b1 12 10 19 04 b6 00 19 99 00 32 10 00 3e a7 00 32 c8 00 00 00 32 12 1a 19 04 b6 00 19 99 00 32 1c 3e a7 00 32 c8 00 00 00 32 b4 00 1f 1c b6 00 23 a7 00 47 c8 00 00 00 47 b4 00 1f 10 02 b6 00 23 a7 00 47 c8 00 00 00 47 00 00 00 
+methodName_conpool_number:33
+methodType_conpool_number:56
+0004 0021 0038 0001 00 03 00 00 00 14 ff ff ff fe 00 02 00 00 00 0a 2a 2b b7 00 6c 2a b6 00 70 b1 00 00 
+[.method, public, onCreateOptionsMenu(Landroid/view/Menu;)Z]
+methodName_conpool_number:34
+methodType_conpool_number:57
+0001 0022 0039 0001 00 03 00 00 00 15 00 02 00 00 00 0b 2a b6 00 74 2b b6 00 79 10 01 ac 00 00 
+[.method, public, onOptionsItemSelected(Landroid/view/MenuItem;)Z]
+methodName_conpool_number:35
+methodType_conpool_number:58
+0001 0023 003a 0001 00 03 00 00 00 28 00 03 00 00 00 1e 2b b9 00 00 00 7d 3d 2c a0 00 12 10 01 3e 2d ac 2a 2b b7 00 7f 3e a7 00 10 c8 00 00 00 10 00 00 
+[.method, public, testArray()V]
+methodName_conpool_number:36
+methodType_conpool_number:55
+0001 0024 0037 0001 00 03 00 00 00 c1 00 3b 00 0f 00 00 00 b7 10 05 0a 10 00 10 01 4f 2c 10 01 10 02 4f 2c 10 02 10 03 4f 2c 10 03 10 04 4f 2c 10 04 10 05 4f 10 05 06 10 00 51 2d 10 01 51 2d 10 02 51 2d 10 03 51 2d 10 04 51 10 01 08 10 00 10 01 54 10 01 09 10 00 11 00 01 56 10 01 05 10 00 10 63 55 10 01 04 10 00 10 01 4f 10 01 0b 10 00 14 00 80 50 2c be 36 0a 10 03 2c 2e 36 0b 10 03 07 3a 0c 10 01 14 00 81 19 0c 52 10 03 bd 00 82 3a 0d 10 01 12 83 19 0d 53 10 03 bd 00 82 10 00 12 84 53 10 01 12 85 19 0e 53 10 02 12 86 19 0e 53 10 03 bd 00 87 3a 0f 10 01 19 0f 2e 10 00 10 02 4f 10 03 bd 00 88 3a 11 b1 00 00 00 
+[.method, public, testCmp()V]
+methodName_conpool_number:37
+methodType_conpool_number:55
+0001 0025 0037 0001 00 03 00 00 00 d8 00 00 00 0c 00 00 00 ce 10 01 3c 10 00 3d 10 ff 3e 12 89 38 04 12 8a 38 05 14 00 8b 39 06 14 00 8c 39 07 14 00 80 37 08 14 00 40 37 09 10 00 36 0a 17 04 17 05 95 9e 00 56 1b 36 0a 17 04 17 05 96 9c 00 74 1b 36 0a 18 06 18 07 97 9e 00 92 1b 36 0a 18 06 18 07 98 9c 00 b0 1b 36 0a b1 17 04 17 05 95 9a 00 69 1c 36 0a a7 00 34 c8 00 00 00 34 1d 36 0a a7 00 34 c8 00 00 00 34 17 04 17 05 95 9a 00 87 1c 36 0a a7 00 3f c8 00 00 00 3f 1d 36 0a a7 00 3f c8 00 00 00 3f 18 06 18 07 97 9a 00 a5 1c 36 0a a7 00 4a c8 00 00 00 4a 1d 36 0a a7 00 4a c8 00 00 00 4a 18 06 18 07 97 9a 00 c3 1c 36 0a a7 00 55 c8 00 00 00 55 1d 36 0a a7 00 55 c8 00 00 00 55 00 00 
+[.method, public, testConst()V]
+methodName_conpool_number:38
+methodType_conpool_number:55
+0001 0026 0037 0001 00 03 00 00 00 31 00 00 00 0c 00 00 00 27 10 01 3c 14 00 40 41 12 43 46 14 00 46 39 04 10 04 36 05 11 00 05 36 06 10 61 36 07 12 4f 3a 08 bb 00 52 b7 00 55 b1 00 00 
+[.method, public, testIf()V]
+methodName_conpool_number:39
+methodType_conpool_number:55
+0001 0027 0037 0001 00 03 00 00 00 86 00 00 00 04 00 00 00 7c 10 01 3c 10 02 3d 10 00 3e 2b 2c a0 00 13 1d 10 01 60 3e 2b 2c 9f 00 1d 1d 10 01 60 3e 2b 2c a2 00 27 1d 10 01 60 3e 2b 2c a3 00 31 1d 10 01 60 3e 2b 2c a4 00 3b 1d 10 01 60 3e 2b 2c a1 00 45 1d 10 01 60 3e 2b 9a 00 4e 1d 10 01 60 3e 2b 99 00 57 1d 10 01 60 3e 2b 9c 00 60 1d 10 01 60 3e 2b 9d 00 69 1d 10 01 60 3e 2b 9e 00 72 1d 10 01 60 3e 2b 9b 00 7b 1d 10 01 60 3e b1 00 00 
+[.method, public, testIget()V]
+methodName_conpool_number:40
+methodType_conpool_number:55
+0001 0028 0037 0001 00 03 00 00 00 3e 00 07 00 0c 00 00 00 34 2a b4 00 5a 3c 2a b4 00 5c 41 2a b4 00 5e 46 2a b4 00 60 39 04 2a b4 00 62 36 05 2a b4 00 64 36 06 2a b4 00 66 36 07 2a b4 00 68 3a 08 2a b4 00 6a 3a 09 b1 00 00 
+[.method, public, testInstance()V]
+methodName_conpool_number:41
+methodType_conpool_number:55
+0001 0029 0037 0001 00 03 00 00 00 1f 00 00 00 02 00 00 00 15 bb 00 52 b7 00 55 b4 00 91 2b c1 00 52 3e bb 00 92 b6 00 97 b1 00 00 
+[.method, public, testInvoke()V]
+methodName_conpool_number:42
+methodType_conpool_number:55
+0001 002a 0037 0001 00 03 00 00 00 10 00 00 00 02 00 00 00 06 2a b6 00 99 3c b1 00 00 
+[.method, public, testIput()V]
+methodName_conpool_number:43
+methodType_conpool_number:55
+0001 002b 0037 0001 00 03 00 00 00 35 00 07 00 01 00 00 00 2b 10 02 2a b5 00 5a 14 00 9a 2a b5 00 5c 12 9b 2a b5 00 5e 10 62 2a b5 00 66 12 9c 2a b5 00 68 bb 00 52 b7 00 55 2a 2b b5 00 6a b1 00 00 
+[.method, public, testMethod1()I]
+methodName_conpool_number:44
+methodType_conpool_number:59
+0001 002c 003b 0001 00 03 00 00 00 0d 00 00 00 01 00 00 00 03 10 04 ac 00 00 
+[.method, public, testMove()V]
+methodName_conpool_number:45
+methodType_conpool_number:55
+0001 002d 0037 0001 00 03 00 00 00 6d ff ff ff fa 00 18 00 00 00 63 10 0b 3c 10 0c 3d 1c 3c 12 9d 46 12 9e 38 04 17 04 46 10 0b 36 05 10 0c 36 06 15 06 36 05 11 00 0b 36 07 11 00 0c 36 08 15 08 36 07 10 0b 36 09 10 0c 36 0a 15 0a 36 09 14 00 46 39 0b 14 00 9f 39 0c 18 0b 39 0c bb 00 52 b7 00 55 19 0d 3a 0e 2a b6 00 a1 36 0f 2a b6 00 a3 39 10 2a b6 00 a5 3a 11 b1 00 00 
+[.method, public, testMove_result()I]
+methodName_conpool_number:46
+methodType_conpool_number:59
+0001 002e 003b 0001 00 03 00 00 00 0d 00 00 00 01 00 00 00 03 10 01 ac 00 00 
+[.method, public, testMove_result_obj()Lcom/example/test/testClass;]
+methodName_conpool_number:47
+methodType_conpool_number:60
+0001 002f 003c 0001 00 03 00 00 00 12 00 00 00 01 00 00 00 08 bb 00 52 b7 00 55 2b b0 00 00 
+[.method, public, testMove_result_wide()D]
+methodName_conpool_number:48
+methodType_conpool_number:61
+0001 0030 003d 0001 00 03 00 00 00 0e 00 01 00 01 00 00 00 04 14 00 a6 ac 00 00 
+[.method, public, testNeg()V]
+methodName_conpool_number:49
+methodType_conpool_number:55
+0001 0031 0037 0001 00 03 00 00 00 86 00 00 00 10 00 00 00 7c 10 15 3c 1b 10 ff 82 3d 14 00 a7 42 14 00 a8 21 83 37 05 36 06 14 00 40 37 07 12 43 38 08 14 00 46 39 09 10 2a 36 0a 11 02 0b 36 0b 10 61 36 0c 15 07 85 36 07 15 08 86 36 08 15 09 87 36 09 15 0a 91 36 0a 15 0b 93 36 0b 15 0c 92 36 0c 16 06 88 37 06 16 08 89 37 08 16 09 8a 37 09 17 06 8b 38 06 17 07 8c 38 07 17 09 8d 38 09 18 06 8e 39 06 18 08 90 39 08 18 07 8f 39 07 b1 00 00 
+[.method, public, testOp()V]
+methodName_conpool_number:50
+methodType_conpool_number:55
+0001 0032 0037 0001 00 03 00 00 00 40 00 06 00 04 00 00 00 36 10 01 3c 10 02 3d 10 00 3e 1b 1c 60 3e 1b 1c 64 3e 1b 1c 68 3e 1b 1c 6c 3e 1b 1c 80 3e 1b 1c 7e 3e 1b 1c 82 3e 1b 1c 70 3e 1b 1c 7a 3e 1b 1c 78 3e 1b 1c 7c 3e b1 00 00 
+[.method, public, testSget()V]
+methodName_conpool_number:51
+methodType_conpool_number:55
+0001 0033 0037 0001 00 03 00 00 00 35 ff ff ff fe 00 0c 00 00 00 2b b4 00 3f 3c b4 00 42 41 b4 00 45 46 b4 00 48 39 04 b4 00 4a 36 05 b4 00 4c 36 06 b4 00 4e 36 07 b4 00 51 3a 08 b4 00 57 3a 09 b1 00 00 
+[.method, public, testSput()V]
+methodName_conpool_number:52
+methodType_conpool_number:55
+0001 0034 0037 0001 00 03 00 00 00 2f 00 01 00 01 00 00 00 25 10 02 b5 00 3f 14 00 9a b5 00 42 12 9b b5 00 45 10 62 b5 00 4e 12 9c b5 00 51 bb 00 52 b7 00 55 2b b5 00 57 b1 00 00 
+[.method, public, testSwitch()V]
+methodName_conpool_number:53
+methodType_conpool_number:55
+0001 0035 0037 0001 00 03 00 00 00 8e ff ff ff e4 00 03 00 00 00 84 10 01 3c 1b aa 00 00 00 1d 00 00 00 01 00 00 00 03 10 02 3d 1c aa 00 00 00 3a 00 00 00 01 00 00 00 03 b1 b4 00 91 12 a9 b6 00 ac a7 00 1d c8 00 00 00 1d b4 00 91 12 ad b6 00 ac a7 00 1d c8 00 00 00 1d b4 00 91 12 ae b6 00 ac a7 00 1d c8 00 00 00 1d b4 00 91 12 a9 b6 00 ac a7 00 3a c8 00 00 00 3a b4 00 91 12 ad b6 00 ac a7 00 3a c8 00 00 00 3a b4 00 91 12 ae b6 00 ac a7 00 3a c8 00 00 00 3a 00 00 00 
+[.method, public, test_byte_short_int()V]
+methodName_conpool_number:54
+methodType_conpool_number:55
+0001 0036 0037 0001 00 03 00 00 00 5d 00 00 00 19 00 00 00 53 10 0c 3c 10 7d 3d 10 f3 3e 10 82 36 04 10 80 36 05 11 00 d2 36 06 11 0c cc 36 07 11 ff 2d 36 08 11 f3 33 36 09 11 80 00 36 0a 36 0b 36 0c 12 af 36 0d 12 b0 36 0e 12 b1 38 0f 12 b2 38 10 14 00 b3 39 11 14 00 8c 39 12 14 00 b4 37 13 14 00 b5 37 14 b1 00 00 
 attributes_count: 0000
 attributes:

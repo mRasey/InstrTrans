@@ -63,9 +63,8 @@ public class _op extends Instruction {
     	Register firstRegister = globalArguments.registerQueue.getByDexName(dexCode.get(1));
         Register secondRegister = globalArguments.registerQueue.getByDexName(dexCode.get(2));
         if(dexCode.get(0).contains("/")){
-            firstRegister.updateType(lineNum, dataType);
-            secondRegister.updateType(lineNum, dataType);
-            for(int i=1;i<=2;i++){
+        	
+        	for(int i=1;i<=2;i++){
             	lastIns = globalArguments.rf.getInstruction(lineNum-i);
                 if(lastIns.get(0).contains("const")){
                 	register = globalArguments.registerQueue.getByDexName(lastIns.get(1));
@@ -80,12 +79,13 @@ public class _op extends Instruction {
                 	break;
                 }
             }
+        	
+            firstRegister.updateType(lineNum, dataType);
+            secondRegister.updateType(lineNum, dataType);
+            
         }
         else{
             Register thirdRegister = globalArguments.registerQueue.getByDexName(dexCode.get(3));
-            firstRegister.updateType(lineNum, dataType);
-            secondRegister.updateType(lineNum, dataType);
-            thirdRegister.updateType(lineNum, dataType);
             
             for(int i=1;i<=2;i++){
             	lastIns = globalArguments.rf.getInstruction(lineNum-i);
@@ -102,6 +102,13 @@ public class _op extends Instruction {
                 	break;
                 }
             }
+            
+            
+            firstRegister.updateType(lineNum, dataType);
+            secondRegister.updateType(lineNum, dataType);
+            thirdRegister.updateType(lineNum, dataType);
+            
+            
         }
         return true;
     }
