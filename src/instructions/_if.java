@@ -79,30 +79,18 @@ public class _if extends Instruction{
     	Register register;
         if(dexCode.get(0).contains("z")){
             Register firstRegister = globalArguments.registerQueue.getByDexName(dexCode.get(1));
-            firstRegister.updateType(lineNum, "I");
             lastIns = globalArguments.rf.getInstruction(lineNum-1);
             if(lastIns.get(0).contains("const") && lastIns.get(1).equals(firstRegister.dexName)){
             	firstRegister.updateType(lineNum-1, "I");
             }
+            
+            firstRegister.updateType(lineNum, "I");
+            
         }
         else{
             Register firstRegister = globalArguments.registerQueue.getByDexName(dexCode.get(1));
             Register secondRegister = globalArguments.registerQueue.getByDexName(dexCode.get(2));
-            if(firstRegister.currentType == null){
-            	firstRegister.updateType(lineNum, secondRegister.currentType);
-            }
-            else{
-            	firstRegister.updateType(lineNum, firstRegister.currentType);
-            }
-            if(secondRegister.currentType == null){
-            	secondRegister.updateType(lineNum, firstRegister.currentType);
-            }
-            else{
-            	secondRegister.updateType(lineNum, secondRegister.currentType);
-            }
-            
-            
-            
+            //为上两条const寄存器赋类型
             for(int i=1;i<=2;i++){
             	lastIns = globalArguments.rf.getInstruction(lineNum-i);
                 if(lastIns.get(0).contains("const")){
@@ -141,10 +129,19 @@ public class _if extends Instruction{
                 	break;
                 }
             }
-            
-            
-            
-        
+            //为当前寄存器赋类型
+            if(firstRegister.currentType == null){
+            	firstRegister.updateType(lineNum, secondRegister.currentType);
+            }
+            else{
+            	firstRegister.updateType(lineNum, firstRegister.currentType);
+            }
+            if(secondRegister.currentType == null){
+            	secondRegister.updateType(lineNum, firstRegister.currentType);
+            }
+            else{
+            	secondRegister.updateType(lineNum, secondRegister.currentType);
+            }
         }
 
         return true;
