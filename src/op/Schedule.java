@@ -53,6 +53,8 @@ public class Schedule {
 			}
 			//.local声明的变量为非临时变量
 			else if(instruction.get(0).equals(".local")){
+                globalArguments.finalByteCode.add(instruction.get(0)+" "+instruction.get(1)+" "+instruction.get(2));
+                globalArguments.finalByteCodePC ++;
 				dealLocal();
 			}
 			//为寄存器分配栈空间
@@ -293,6 +295,7 @@ public class Schedule {
         //指令优化，要放在处理跳转之前
         globalArguments.op.clear().readInf().initStackSize().initInstrSize().dispatchCodes().deal().output();
         //globalArguments.op.clear().readInf().initInstrSize().dispatchCodes().deal().output();
+
 		//处理跳转
         globalArguments.tt.clear();
         globalArguments.tt.readInf();

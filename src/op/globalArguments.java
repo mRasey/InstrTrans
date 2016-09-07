@@ -80,6 +80,7 @@ public class globalArguments {
     public static ArrayList<String> method_codes = new ArrayList<>();
     public static ArrayList<Integer> method_max_stack = new ArrayList<>();
     public static ArrayList<Integer> method_max_locals = new ArrayList<>();
+    public static ArrayList<HashMap<Integer, Integer>> lineNumberTables = new ArrayList<>();
 
     public static HashMap<String, String> instrToHex = new HashMap<>();
     public static HashMap<String, Integer> instrSizes = new HashMap<>();
