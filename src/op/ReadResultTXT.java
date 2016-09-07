@@ -19,7 +19,7 @@ public class ReadResultTXT {
         while(readIn != null) {
             if(readIn.startsWith(".method")) {
                 readIn = bfr.readLine();
-                while(readIn != null) {
+                while(readIn != null && !readIn.contains(".end method")) {
                     int lineNumber;
                     if(readIn.contains(".line")) {
                         HashMap<Integer, Integer> lineNumberTable = new HashMap<>();
