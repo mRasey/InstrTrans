@@ -130,9 +130,18 @@ public class Schedule {
 				order--;
 				continue;
 			}
-			else if(lastIns.get(0).contains("const") && lastIns.get(1).equals(register.dexName)){
-				register.updateType(order, datatype);
-				break;
+			else if(globalArguments.rf.ifAnInstruction(lastIns.get(0))){
+				boolean mark = false;
+				for(int i = 1;i<lastIns.size();i++){
+					if(lastIns.get(i).equals(register.dexName)){
+						register.updateType(order, datatype);
+						mark = true;
+						break;
+					}
+				}
+				if(mark){
+					break;
+				}
 			}
 			else{
 				break;
