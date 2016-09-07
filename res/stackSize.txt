@@ -133,6 +133,7 @@ lxor -2
 iinc 0
 i2l 1
 i2f 0
+i2d 1
 l2i -1
 l2f -1
 l2d 0
@@ -179,6 +180,7 @@ getstatic 1
 putstatic -1
 getfield 1
 putfield -1
+invokestatic 0
 invokevirtual 0
 invokespecial 0
 invokeinterface 0
