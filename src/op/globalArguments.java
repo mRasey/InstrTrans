@@ -22,7 +22,7 @@ public class globalArguments {
     public static ConstantPool cp = new ConstantPool();
     public static ReplaceLdc rl = new ReplaceLdc();
     public static CompleteData cd = new CompleteData();
-
+    public static ReadResultTXT rrT = new ReadResultTXT();
 
     public static String className = "";
     public static String superClassName = "";
@@ -80,6 +80,7 @@ public class globalArguments {
     public static ArrayList<String> method_codes = new ArrayList<>();
     public static ArrayList<Integer> method_max_stack = new ArrayList<>();
     public static ArrayList<Integer> method_max_locals = new ArrayList<>();
+    // 行号 - > byteCodeNumber
     public static ArrayList<HashMap<Integer, Integer>> lineNumberTables = new ArrayList<>();
 
     public static HashMap<String, String> instrToHex = new HashMap<>();

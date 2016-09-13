@@ -51,12 +51,6 @@ public class Schedule {
 			else if(instruction.get(0).equals(".param")){
 				dealParam();
 			}
-			//.local声明的变量为非临时变量
-			else if(instruction.get(0).equals(".local")){
-                globalArguments.finalByteCode.add(instruction.get(0)+" "+instruction.get(1)+" "+instruction.get(2));
-                globalArguments.finalByteCodePC ++;
-				dealLocal();
-			}
 			//为寄存器分配栈空间
 			else if(globalArguments.rf.ifAnInstruction(instruction.get(0))){
 				addNewReg();
@@ -112,7 +106,7 @@ public class Schedule {
 			local_reg_number++;
 		}
 		
-		int order = globalArguments.LineNumber; //当前.local的标号
+		int order = method_begin_number; //当前.local的标号
 		ArrayList<String> lastIns;
 		//分配栈
 		Register register = globalArguments.registerQueue.getByDexName(instruction.get(1)); //.local指定的寄存器
@@ -233,6 +227,12 @@ public class Schedule {
                     System.out.println("error instruction");
                 }
             }
+            //.local声明的变量为非临时变量
+			else if(instruction.get(0).equals(".local")){
+                globalArguments.finalByteCode.add(instruction.get(0)+" "+instruction.get(1)+" "+instruction.get(2));
+                globalArguments.finalByteCodePC ++;
+				dealLocal();
+			}
 			//处理标签: 和获取数组数据
 			else if(instruction.get(0).startsWith(":")){
 				dealLabel();
@@ -291,11 +291,8 @@ public class Schedule {
         globalArguments.finalByteCode.add(".end method");
 		globalArguments.finalByteCodePC++;
         
-        
         //指令优化，要放在处理跳转之前
         globalArguments.op.clear().readInf().initStackSize().initInstrSize().dispatchCodes().deal().output();
-        //globalArguments.op.clear().readInf().initInstrSize().dispatchCodes().deal().output();
-
 		//处理跳转
         globalArguments.tt.clear();
         globalArguments.tt.readInf();
