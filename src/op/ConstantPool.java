@@ -27,6 +27,13 @@ public class ConstantPool {
 		globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
 		globalArguments.const_id_value.put(globalArguments.const_id, "Code");
 		globalArguments.const_id++;
+		//存LineNumbeTable和LocalVarTable
+		globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
+		globalArguments.const_id_value.put(globalArguments.const_id, "LineNumberTable");
+		globalArguments.const_id++;
+		globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
+		globalArguments.const_id_value.put(globalArguments.const_id, "LocalVariableTable");
+		globalArguments.const_id++;
 		//存接口
 		_interface();
 		//存字段名

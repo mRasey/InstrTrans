@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class ReadResultTXT {
 
-    public ReadResultTXT() throws IOException {
+    public ReadResultTXT() {
 
     }
 
@@ -48,14 +48,5 @@ public class ReadResultTXT {
             result = result + Matchup.getHexN(lineNumber, 4) + Matchup.getHexN(lineNumberTable.get(lineNumber), 4);
         }
         return result;
-    }
-
-    public static String test() {
-        String s = "123:";
-        return s.substring(0, s.lastIndexOf(":"));
-    }
-
-    public static void main(String[] args) {
-        System.out.println(ReadResultTXT.test());
     }
 }

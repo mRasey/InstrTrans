@@ -91,7 +91,7 @@ public class _if extends Instruction{
             Register firstRegister = globalArguments.registerQueue.getByDexName(dexCode.get(1));
             Register secondRegister = globalArguments.registerQueue.getByDexName(dexCode.get(2));
             //为上两条const寄存器赋类型
-            for(int i=1;i<=2;i++){
+            for(int i=1;i<=lineNum;i++){
             	lastIns = globalArguments.rf.getInstruction(lineNum-i);
                 if(lastIns.get(0).contains("const")){
                 	register = globalArguments.registerQueue.getByDexName(lastIns.get(1));
@@ -105,6 +105,7 @@ public class _if extends Instruction{
                     		}
                     	}
                     	else{
+                    		//System.out.println((lineNum-i) +" "+ register.dexName +" "+ register.currentType);
                     		register.updateType(lineNum-i, register.currentType);
                     	}
                     }
@@ -124,6 +125,12 @@ public class _if extends Instruction{
                 	else{
                 		break;
                 	}
+                }
+                else if(lastIns.get(0).startsWith(":")){
+                	continue;
+                }
+                else if(lastIns.get(0).startsWith(".")){
+                	continue;
                 }
                 else{
                 	break;

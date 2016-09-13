@@ -282,7 +282,7 @@ public class _array extends Instruction{
             case "aput-char" :
             case "aput-short" :
             	
-            	for(int i=1;i<=2;i++){
+            	for(int i=1;;i++){
                 	lastIns = globalArguments.rf.getInstruction(lineNum-i);
                     if(lastIns.get(0).contains("const")){
                     	if(lastIns.get(1).equals(thirdRegister.dexName)){
@@ -295,6 +295,12 @@ public class _array extends Instruction{
                     	else{
                     		break;
                     	}
+                    }
+                    else if(lastIns.get(0).startsWith(":")){
+                    	continue;
+                    }
+                    else if(lastIns.get(0).startsWith(".")){
+                    	continue;
                     }
                     else{
                     	break;

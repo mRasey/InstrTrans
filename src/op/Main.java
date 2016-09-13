@@ -29,6 +29,8 @@ public class Main {
 		globalArguments.cp.strConstPool();
 		//输出byte code
 		globalArguments.obcf.print();
+		//记录LineNumTable
+		globalArguments.rrT.readAndBuildLineTable();
 		//转化成classwenj
 		ClassFile cf = new ClassFile();
 		cf.print();
