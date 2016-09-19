@@ -126,6 +126,10 @@ public class Schedule {
 				order--;
 				continue;
 			}
+			else if(lastIns.get(0).equals("goto")){
+				order--;
+				continue;
+			}
 			else if(globalArguments.rf.ifAnInstruction(lastIns.get(0))){
 				for(int i = 1;i<lastIns.size();i++){
 					if(lastIns.get(i).equals(register.dexName)){

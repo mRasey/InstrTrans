@@ -18,7 +18,11 @@ public class Main {
 		new File(OutputByteCodeFile.byteCodeSavePath).delete();//如果原先输出文件存在则删除
 		new File(OutputClassFile.ClassFileSavePath).delete();
 		new File("res/check.txt").delete();
+		new File("res/NewMainActivity.smali").delete();
+		AdjustLineOrder alo = new AdjustLineOrder();
+		alo.run();
 		
+		globalArguments.rf.RFile("res/NewMainActivity.smali");
 		Schedule sch = new Schedule();
 		sch.run();
 		//优化ldc指令

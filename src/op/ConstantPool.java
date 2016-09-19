@@ -182,6 +182,7 @@ public class ConstantPool {
 	}
 	
 	public String _ldc(String[] byteCodes){
+		//System.out.println(byteCodes[0] + " "+ byteCodes[1] + " "+byteCodes[2]);
 		String newCode = "";
 		String value = byteCodes[2].replace("\"", "");
 		if(globalArguments.const_id_value.containsValue(value)){
@@ -194,6 +195,7 @@ public class ConstantPool {
 			
 			newCode =  byteCodes[0]+" "+byteCodes[1]+" "+"#"+ (globalArguments.const_id-1);
 		}
+		//System.out.println(newCode);
 		return newCode;
 	}
 	public String _invoke(String[] byteCodes){

@@ -3,6 +3,7 @@ package transToClass;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import op.globalArguments;
 
@@ -40,16 +41,15 @@ public class LNT_attribute_info {
 	    public void setTable(){
 	    	int i = 0;
 	    	int LineNumber = 0 , byteCodeNumber = 0;
-	    	Iterator iter = LineNumTable.entrySet().iterator();
-	    	while (iter.hasNext()) {
-	    		LineNumber = (int) iter.next();
-	    		byteCodeNumber = LineNumTable.get(LineNumber);
-	    		
+	    	for(Entry<Integer, Integer> entry : LineNumTable.entrySet()) {
 	    		table[i] = new u2();
 	    		table[i+1] = new u2();
-	    		table[i].set((short) LineNumber);
-	    		table[i+1].set((short) byteCodeNumber);
+	    		LineNumber = entry.getKey();
+	    		byteCodeNumber = entry.getValue();
+	    		table[i].set((short) byteCodeNumber);
+	    		table[i+1].set((short) LineNumber);
 	    		i+=2;
 	    	}
+	    
 	    }
 }
