@@ -33,7 +33,7 @@ public class AdjustLineOrder {
 	
 	/*读取原smail文件,保存所有指令*/
 	public void init(){
-		File file = new File("res/MainActivity.smali");
+		File file = new File(globalArguments.smailFilePath);
 		//File file = new File("res/test_endLocal.smali");
 		String str = "";
 		FileInputStream fis = null;

@@ -41,6 +41,13 @@ public class ConstantPool {
 		globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
 		globalArguments.const_id_value.put(globalArguments.const_id, globalArguments.className);
 		globalArguments.const_id++;
+		//存sourceFile
+		globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
+		globalArguments.const_id_value.put(globalArguments.const_id, "SourceFile");
+		globalArguments.const_id++;
+		globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
+		globalArguments.const_id_value.put(globalArguments.const_id, globalArguments.sourceFile);
+		globalArguments.const_id++;
 		//存接口
 		_interface();
 		//存字段名
