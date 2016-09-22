@@ -5,10 +5,14 @@ import instructions.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Schedule {
 
 	ArrayList<String> instruction;
+	//在setMethodInf()清空，在endMethod()传给localToLine
+	ArrayList<String> local;
+	ArrayList<String> line;
 	
 	String regex1 = "[p,v]\\d+";
 	String regex2 = ";->";
@@ -72,6 +76,10 @@ public class Schedule {
 		globalArguments.finalByteCodePC++;
 		globalArguments.method_info.add(instruction);
 		globalArguments.method_count++;
+		local = new ArrayList<>();
+		line = new ArrayList<>();
+		local.add(".local this, nnn");
+		line.add(".line 0");
 	}
 
 	public void setClassInf(){
@@ -142,9 +150,39 @@ public class Schedule {
 			else{
 				break;
 			}
-		}while(order >=0);
+		}while(order >= 0);
 		
-		
+		//保存local于对应的行号
+		String localStr = "";
+		String lineStr = "";
+		localStr = instruction.get(0) +" "+ instruction.get(1)+" " + instruction.get(2);
+		order = method_begin_number-1;
+		do{
+			lastIns = globalArguments.rf.getInstruction(order);
+			if(lastIns.get(0).equals(".line")){
+				do{
+					order--;
+					lastIns = globalArguments.rf.getInstruction(order);
+				}while(!lastIns.get(0).equals(".line"));
+				lineStr = lastIns.get(0) +" "+ lastIns.get(1);
+				local.add(localStr);
+				line.add(lineStr);
+				break;
+			}
+			else if(globalArguments.rf.ifAnInstruction(lastIns.get(0))){
+				while(!lastIns.get(0).equals(".line")){
+					order--;
+					lastIns = globalArguments.rf.getInstruction(order);
+				}
+				lineStr = lastIns.get(0) +" "+ lastIns.get(1);
+				local.add(localStr);
+				line.add(lineStr);
+				break;
+			}
+			else{
+				order--;
+			}
+		}while(order >= 0);
 	}
 	
 	public void addNewReg(){
@@ -164,6 +202,9 @@ public class Schedule {
 	}
 	
 	public void endMethod() throws IOException{
+		//保存方法的local-line
+		globalArguments.method_local.add(local);
+		globalArguments.method_line.add(line);
 		//保存方法的局部变量个数
 		set_max_locals();
 		

@@ -10,6 +10,8 @@ public class ReadResultTXT {
 
 
 	public ReadResultTXT readAndBuildLineTable() throws IOException {
+		int endIns = 0;
+		
 		File file = new File("res/result.txt");
 		BufferedReader bfr = new BufferedReader(new FileReader(file));
 		String readIn = bfr.readLine();
@@ -39,6 +41,29 @@ public class ReadResultTXT {
 				readIn = bfr.readLine();
 			}
 		}
+		
+		bfr = new BufferedReader(new FileReader(file));
+		readIn = bfr.readLine();
+		String regex = "\\d+:";
+		while(!readIn.equals("{")){
+			readIn = bfr.readLine();
+		}
+		while (readIn != null) {
+			if(readIn.contains(".end method")){
+				globalArguments.method_end_num.add(endIns);
+				readIn = bfr.readLine();
+			}
+			else if(readIn.split(" ")[0].matches(regex)){
+				endIns = Integer
+						.parseInt(readIn.split(" ")[0].substring(0, readIn.split(" ")[0].lastIndexOf(":")));
+				readIn = bfr.readLine();
+			}
+			else{
+				readIn = bfr.readLine();
+			}
+		}
+		
+		
 		return this;
 	}
 }
