@@ -34,6 +34,13 @@ public class ConstantPool {
 		globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
 		globalArguments.const_id_value.put(globalArguments.const_id, "LocalVariableTable");
 		globalArguments.const_id++;
+		//存this
+		globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
+		globalArguments.const_id_value.put(globalArguments.const_id, "this");
+		globalArguments.const_id++;
+		globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
+		globalArguments.const_id_value.put(globalArguments.const_id, globalArguments.className);
+		globalArguments.const_id++;
 		//存接口
 		_interface();
 		//存字段名
@@ -44,7 +51,8 @@ public class ConstantPool {
 		_methodName();
 		//存方法参数与返回值类型
 		_methodType();
-		
+		//存local信息
+		_localNameAndType();
 		
 		String code;
 		String[] byteCodes;
@@ -78,8 +86,55 @@ public class ConstantPool {
 		}
 	}
 
+	public void _localNameAndType(){
+		ArrayList<String> local;
+		ArrayList<Integer> local_name;
+		ArrayList<Integer> local_type;
+		String name;
+		String type;
+		String str;
+		
+		int i = 0,j = 0;
+		for(i=0;i<globalArguments.method_local.size();i++){
+			local = globalArguments.method_local.get(i);
+			local_name = new ArrayList<>();
+			local_type = new ArrayList<>();
+			
+			local_name.add(6);
+			local_type.add(7);
+			//第一个是this,不考虑
+			for(j=1;j<local.size();j++){
+				str = local.get(j).split(" ")[2];
+				name = str.substring(1, str.lastIndexOf(":")-1);
+				type = str.substring(str.indexOf(":")+1);
+				
+				if(globalArguments.const_id_value.containsValue(name) && globalArguments.const_id_type.get(getKey(globalArguments.const_id_value, name)).equals("Utf8")){
+					local_name.add(getKey(globalArguments.const_id_value, name));
+				}
+				else{
+					globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
+					globalArguments.const_id_value.put(globalArguments.const_id, name);
+					local_name.add(globalArguments.const_id);
+					globalArguments.const_id++;
+				}
+				if(globalArguments.const_id_value.containsValue(type) && globalArguments.const_id_type.get(getKey(globalArguments.const_id_value, type)).equals("Utf8")){
+					local_type.add(getKey(globalArguments.const_id_value, type));
+				}
+				else{
+					globalArguments.const_id_type.put(globalArguments.const_id, "Utf8");
+					globalArguments.const_id_value.put(globalArguments.const_id, type);
+					local_type.add(globalArguments.const_id);
+					globalArguments.const_id++;
+				}
+				
+			}
+			globalArguments.local_name_index.add(local_name);
+			globalArguments.local_type_index.add(local_type);
+		}
+		
+	}
 	
-	public void _methodName(){
+ 	public void _methodName(){
 		int i = 0;
 		ArrayList<String> inf;
 		for(i=0;i<globalArguments.method_count;i++){
