@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import static op.globalArguments.instrSizes;
 
@@ -258,51 +259,69 @@ public class Optimize {
      */
     public int getMaxStack(SingleMethod singleMethod) {
         int maxStack = 0;
-        ArrayList<String> regTypes = new ArrayList<>();
         ArrayList<SingleLine> singleLines = singleMethod.lines;
         for(SingleLine singleLine : singleLines) {
             ArrayList<String> byteCodes = singleLine.byteCodes;
             for(String byteCode : byteCodes) {
                 if(globalArguments.rf.ifAnInstruction(byteCode)) {
+                    System.err.println(byteCode);
                     if(byteCode.contains("invoke")) {
                         //解析调用函数的调用参数
+//                        ArrayList<String> regTypes = new ArrayList<>();
                         String parameters = byteCode.split(" ")[1];
                         String types = parameters.substring(parameters.lastIndexOf(":") + 1);
                         while (!types.startsWith(")")) {
                             if (types.startsWith("L")) {
-                                regTypes.add(types.substring(0, types.indexOf(";") + 1));
+//                                regTypes.add(types.substring(0, types.indexOf(";") + 1));
+                                maxStack -= 1;
                                 types = types.substring(types.indexOf(";"));
-                            } else if (types.startsWith("[")) {
+                            }
+                            else if (types.startsWith("[")) {
                                 String tempType = "";
                                 do {
                                     tempType += "[";
                                     types = types.substring(1);
                                 }while (types.startsWith("["));
                                 if((types.charAt(0) + "").equals("L")) {
-                                    regTypes.add(tempType + types.substring(0, types.indexOf(";") + 1));
+//                                    regTypes.add(tempType + types.substring(0, types.indexOf(";") + 1));
+                                    maxStack -= 1;
                                     types = types.substring(types.indexOf(";"));
                                 }
                                 else {
-                                    regTypes.add(tempType + types.charAt(0));
+//                                    regTypes.add(tempType + types.charAt(0));
+                                    maxStack -= 1;
                                 }
-                            } else {
-                                regTypes.add(types.charAt(0) + "");
+                            }
+                            else {
+//                                regTypes.add(types.charAt(0) + "");
+                                if(types.charAt(0) == 'D' || types.charAt(0) == 'J')
+                                    maxStack -= 2;
+                                maxStack -= 1;
                             }
                             types = types.substring(1);
                         }
+                        System.out.println(types);
                         if(types.charAt(types.length() - 1) == 'V')
-                            maxStack -= regTypes.size();
+//                            maxStack -= regTypes.size();
+                            maxStack -= 0;
                         else if(types.charAt(types.length() - 1) == 'D'
                                 || types.charAt(types.length() - 1) == 'J')
-                            maxStack = maxStack - regTypes.size() + 2;
+//                            maxStack = maxStack - regTypes.size() + 2;
+                            maxStack += 2;
                         else
-                            maxStack = maxStack - regTypes.size() + 1;
+//                            maxStack = maxStack - regTypes.size() + 1;
+                            maxStack += 1;
                     }
-                    else
+                    else {
                         maxStack += instrStackSize.get(byteCode.split(" ")[0]);
+                    }
+                    System.err.println(maxStack);
                 }
             }
         }
+//        for(Map.Entry<String, Integer> entry : instrStackSize.entrySet())
+//            System.out.println(entry.getKey() + " " + entry.getValue());
+        System.out.println(maxStack);
         return maxStack;
     }
 
