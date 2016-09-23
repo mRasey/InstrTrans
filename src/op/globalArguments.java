@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class globalArguments {
     public static RegisterQueue registerQueue = new RegisterQueue();
-    //static String smailFilePath = "res/MainActivity.smali";
+//    static String smailFilePath = "res/MainActivity.smali";
     //static String smailFilePath = "res/NewMainActivity.smali";
     static String smailFilePath = "res/testJ.smali";
     public static ReadFile rf = new ReadFile();
@@ -88,6 +88,7 @@ public class globalArguments {
     //记录整行.local和整行.line
     //public static ArrayList<HashMap<String, String>> localToLine = new ArrayList<>();
     //因为可能有相同的.local,所以不能用hashmap
+    //为了防止为空，第一个手动加了this
     public static ArrayList<ArrayList<String>> method_local = new ArrayList<>();
     public static ArrayList<ArrayList<String>> method_line = new ArrayList<>();
     public static ArrayList<ArrayList<Integer>> local_name_index = new ArrayList<>();

@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 import op.globalArguments;
 
 public class LNT_attribute_info {
-	    u2 attribute_name_index = new u2((short) 4);
+	    u2 attribute_name_index = new u2((short) 6);
 	    u4 attribute_length = new u4();  //后面这些东西的总长
 	    u2 table_count = new u2();
 	    u2 [] table;

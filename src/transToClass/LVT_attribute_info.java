@@ -6,7 +6,7 @@ import java.util.HashMap;
 import op.globalArguments;
 
 public class LVT_attribute_info {
-	    u2 attribute_name_index = new u2((short) 5);
+	    u2 attribute_name_index = new u2((short) 7);
 	    u4 attribute_length = new u4();  //后面这些东西的总长
 	    u2 attribute_count = new u2();
 	    u2 [] table;
@@ -38,8 +38,8 @@ public class LVT_attribute_info {
 	    	table = new u2[5*local_name_index.size()];
 	    	table[0] = new u2((short) 0);
 	    	table[1] = new u2((short) (end_num+1));
-	    	table[2] = new u2((short) 6);
-	    	table[3] = new u2((short) 7);
+	    	table[2] = new u2((short) 8);
+	    	table[3] = new u2((short) 9);
 	    	table[4] = new u2((short) order);
 	    	tbc = 5;
 	    	order ++;

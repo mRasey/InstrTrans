@@ -34,6 +34,8 @@ public class code_attribute_info {
 	        LocalVarTab_attribute = new LVT_attribute_info(method_id);
 	        int sum = 2+2+4+code.length()/2 +2 + eti_str.length()/2 + 2 + LineNumTab_attribute.toString().length()/2 + LocalVarTab_attribute.toString().length()/2;
 	        this.attribute_length.set(sum);
+	        
+	       // print();
 	    }
 
 	    @Override
@@ -49,5 +51,16 @@ public class code_attribute_info {
 	        		+ attribute_count.toString()
 	        		+ LineNumTab_attribute.toString()
 	        		+ LocalVarTab_attribute.toString();
+	    }
+	    
+	    public void print(){
+	    	String str;
+	    	int i = 0;
+	    	str = code;
+	    	System.out.println(code);
+	    	for(i=0;i<str.length();i+=2){
+	    		System.out.print(str.substring(i, i+2) + " ");
+	    	}
+	    	System.out.println("");
 	    }
 }

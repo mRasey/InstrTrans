@@ -24,6 +24,7 @@ public class method_info {
                 + attributes_count.toString()
                 + attributes_string;
     }
+
     
     public void set_info(int method_id){
     	this.id = method_id;
@@ -40,7 +41,7 @@ public class method_info {
         String codes = method_codes.get(method_id);
         code_attributes = new code_attribute_info(
         		method_id,
-    	        3,
+    	        5,
                 globalArguments.method_max_stack.get(method_id),
                 globalArguments.method_max_locals.get(method_id),
                 codes.length()/2,

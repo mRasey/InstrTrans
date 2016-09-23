@@ -6,9 +6,9 @@ public class attribute_info {
     u2 info = new u2();
 
     public attribute_info() {
-    	attribute_name_index.set((short) 8);
+    	attribute_name_index.set((short) 10);
     	attribute_length.set(2);
-    	info.set((short) 9);
+    	info.set((short) 11);
     }
 
     @Override

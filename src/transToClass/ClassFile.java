@@ -43,7 +43,7 @@ public class ClassFile {
     	fill_constant_pool();
     	access_flags = set_access_flags();
     	this_class.set((short) 1);
-    	super_class.set((short) 2);
+    	super_class.set((short) 3);
     	interfaces_count.set((short) globalArguments.inter_count);
     	interfaces = new u2[interfaces_count.get()];
     	fill_interfaces();
