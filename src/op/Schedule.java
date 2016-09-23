@@ -43,6 +43,9 @@ public class Schedule {
 			else if(instruction.get(0).equals(".super")){
 				setSupClassInf();
 			}
+			else if(instruction.get(0).equals(".source")){
+				globalArguments.sourceFile = instruction.get(1).substring(1, instruction.get(1).length()-1);
+			}
 			//记录接口信息
 			else if(instruction.get(0).equals(".implements")){
 				setInterfaceInf();
@@ -113,7 +116,6 @@ public class Schedule {
 		else{
 			local_reg_number++;
 		}
-		
 		int order = method_begin_number; //当前.local的标号
 		ArrayList<String> lastIns;
 		//分配栈
@@ -202,11 +204,7 @@ public class Schedule {
 	}
 	
 	public void endMethod() throws IOException{
-		//保存方法的local-line
-		globalArguments.method_local.add(local);
-		globalArguments.method_line.add(line);
-		//保存方法的局部变量个数
-		set_max_locals();
+		
 		
 		int temp = method_begin_number;
         //获取寄存器类型
@@ -284,6 +282,11 @@ public class Schedule {
 			}
 			method_begin_number++;
 		}
+        //保存方法的local-line
+      	globalArguments.method_local.add(local);
+      	globalArguments.method_line.add(line);
+        //保存方法的局部变量个数
+        set_max_locals();
         
         globalArguments.switchDefaultIndex = 0;
         method_begin_number = temp;
@@ -410,7 +413,7 @@ public class Schedule {
 
 	public void set_max_locals(){
 		String types =  globalArguments.methodName.substring(globalArguments.methodName.indexOf("(")+1,globalArguments.methodName.indexOf(")")+1);
-		int i = 0,argNumber = 1;
+		int i = 0,argNumber = 0;
 		while (!types.equals(")")) {
 			if (types.startsWith("L")) {
 				argNumber++;
@@ -427,13 +430,14 @@ public class Schedule {
 				} else {
 					argNumber++;
 				}
-			} else {
+			}
+			else {
 				argNumber++;
 			}
 			types = types.substring(1);
 		}
 		
-		
-		globalArguments.method_max_locals.add(local_reg_number+argNumber);
+		//多一个this
+		globalArguments.method_max_locals.add(local_reg_number+1+argNumber);
 	}
 }

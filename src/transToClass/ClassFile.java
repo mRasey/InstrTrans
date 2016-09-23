@@ -28,7 +28,7 @@ public class ClassFile {
     field_info[] fields;// 字段表
     u2 method_count = new u2();// 方法计数器
     method_info[] methods;// 方法表
-    u2 attributes_count = new u2((short) 0);// 属性计数器
+    u2 attributes_count = new u2((short) 1);// 属性计数器
     attribute_info[] attributes;// 属性表
     
     ArrayList<String> byteCodeData = new ArrayList<>();
@@ -53,6 +53,9 @@ public class ClassFile {
     	method_count.set((short) globalArguments.method_count);
     	methods = new method_info[method_count.get()];
     	fill_methods();
+    	attributes = new attribute_info[1];
+    	attributes[0] = new attribute_info();
+    	
     }
 
     @Override
