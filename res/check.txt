@@ -1,39 +1,43 @@
 magic cafebabe
 version: 00000032
-constant_pool_count: 0011
+constant_pool_count: 0013
 constant_pool:
-#1 = Class com/example/test/testJ
-070016636f6d2f6578616d706c652f746573742f746573744a
-#2 = Class java/lang/Object
-0700106a6176612f6c616e672f4f626a656374
-#3 = Utf8 Code
+#1 = Class #2
+070002
+#2 = Utf8 com/example/test/testJ
+010016636f6d2f6578616d706c652f746573742f746573744a
+#3 = Class #4
+070004
+#4 = Utf8 java/lang/Object
+0100106a6176612f6c616e672f4f626a656374
+#5 = Utf8 Code
 010004436f6465
-#4 = Utf8 LineNumberTable
+#6 = Utf8 LineNumberTable
 01000f4c696e654e756d6265725461626c65
-#5 = Utf8 LocalVariableTable
+#7 = Utf8 LocalVariableTable
 0100124c6f63616c5661726961626c655461626c65
-#6 = Utf8 this
+#8 = Utf8 this
 01000474686973
-#7 = Utf8 Lcom/example/test/testJ;
+#9 = Utf8 Lcom/example/test/testJ;
 0100184c636f6d2f6578616d706c652f746573742f746573744a3b
-#8 = Utf8 SourceFile
+#10 = Utf8 SourceFile
 01000a536f7572636546696c65
-#9 = Utf8 testJ.java
+#11 = Utf8 testJ.java
 01000a746573744a2e6a617661
-#10 = Utf8 <init>
+#12 = Utf8 <init>
 0100063c696e69743e
-#11 = Utf8 test
+#13 = Utf8 test
 01000474657374
-#12 = Utf8 ()V
+#14 = Utf8 ()V
 010003282956
-#13 = Utf8 i
+#15 = Utf8 i
 01000169
-#14 = Utf8 I
+#16 = Utf8 I
 01000149
-#15 = NameAndType #10:#12
-0c000a000c
-#16 = Methodref #2.#15
-0a0002000f
+#17 = NameAndType #12:#14
+0c000c000e
+#18 = Methodref #3.#17
+0a00030011
 access_flags: 0021
 this_class: 0001
 super_class: 0003
@@ -44,13 +48,13 @@ fields:
 method_count: 0002
 method:
 [.method, public, constructor, <init>()V]
-methodName_conpool_number:10
-methodType_conpool_number:12
-0001 000a 000c 0001 00 05 00 00 00 2f 00 01 00 01 00 00 00 05 2a b7 00 10 b1 00 00 00 02 00 06 00 00 00 06 00 01 00 00 00 03 00 07 00 00 00 0c 00 01 00 00 00 05 00 08 00 09 00 00 
+methodName_conpool_number:12
+methodType_conpool_number:14
+0001 000c 000e 0001 00 05 00 00 00 2f 00 01 00 01 00 00 00 05 2a b7 00 12 b1 00 00 00 02 00 06 00 00 00 06 00 01 00 00 00 03 00 07 00 00 00 0c 00 01 00 00 00 05 00 08 00 09 00 00 
 [.method, public, test()V]
-methodName_conpool_number:11
-methodType_conpool_number:12
-0001 000b 000c 0001 00 05 00 00 00 3c 00 01 00 02 00 00 00 04 10 00 3c b1 00 00 00 02 00 06 00 00 00 0a 00 02 00 00 00 05 00 03 00 06 00 07 00 00 00 16 00 02 00 00 00 04 00 08 00 09 00 00 00 00 00 04 00 0d 00 0e 00 01 
+methodName_conpool_number:13
+methodType_conpool_number:14
+0001 000d 000e 0001 00 05 00 00 00 3c 00 01 00 02 00 00 00 04 10 00 3c b1 00 00 00 02 00 06 00 00 00 0a 00 02 00 00 00 05 00 03 00 06 00 07 00 00 00 16 00 02 00 00 00 04 00 08 00 09 00 00 00 00 00 04 00 0f 00 10 00 01 
 attributes_count: 0001
 attributes:
 000a00000002000b
